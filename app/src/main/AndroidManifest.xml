@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.simpleloginapp">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -9,7 +10,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Simple Login and Registration App"
+        android:label="FMI MyMento"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleLoginApp">
@@ -17,19 +18,40 @@
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Welcome"
+            android:label="Welcome">
+
+        </activity>
+
+        <activity android:name=".Register"
+            android:label="Register">
+        </activity>
+
+        <activity android:name=".SelectProfile"
+            android:label="SelectProfile">
+        </activity>
+
+
+
+        <activity android:name=".CreateTutorProfile"
+            android:label="CreateTutorProfile">
+        </activity>
+
+        <activity android:name=".CreateStudentProfile"
+            android:label="CreateStudentProfile"
+            tools:ignore="Instantiatable">
+        </activity>
+
+
     </application>
 
 </manifest>
