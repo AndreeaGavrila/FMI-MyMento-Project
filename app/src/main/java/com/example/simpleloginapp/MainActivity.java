@@ -8,10 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseHelper databaseHelper;
 
+    DatabaseHelper databaseHelper;
     EditText et_username, et_password, et_cpassword;
     Button btn_register, btn_login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         btn_register = (Button)findViewById(R.id.register_button);
         btn_login = (Button)findViewById(R.id.login_button);
+
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
