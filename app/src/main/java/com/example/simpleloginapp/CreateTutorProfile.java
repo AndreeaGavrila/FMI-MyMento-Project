@@ -18,7 +18,7 @@ public class CreateTutorProfile extends AppCompatActivity {
     RadioGroup radioGroupStudyYear, radioGroupDomain;
     Button btn_submit_tutor;
     DatabaseHelper databaseHelper;
-    Boolean insert;
+    Boolean insert ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
