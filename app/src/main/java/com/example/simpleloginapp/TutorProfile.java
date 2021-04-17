@@ -1,6 +1,11 @@
 package com.example.simpleloginapp;
 
-public class TutorProfile {
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class TutorProfile{
 
 
 }

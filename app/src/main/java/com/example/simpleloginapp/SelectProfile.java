@@ -20,7 +20,12 @@ public class SelectProfile extends AppCompatActivity {
         option_tutor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent auxIntent = getIntent();
+                String username = auxIntent.getStringExtra("registeredUsername");
+                String password = auxIntent.getStringExtra("registeredPassword");
                 Intent intent = new Intent(SelectProfile.this, CreateTutorProfile.class);
+                intent.putExtra("registeredUsername", username);
+                intent.putExtra("registeredPassword", password);
                 startActivity(intent);
             }
         });
@@ -28,7 +33,12 @@ public class SelectProfile extends AppCompatActivity {
         option_student.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent auxIntent = getIntent();
+                String username = auxIntent.getStringExtra("registeredUsername");
+                String password = auxIntent.getStringExtra("registeredPassword");
                 Intent intent = new Intent(SelectProfile.this, CreateStudentProfile.class);
+                intent.putExtra("registeredUsername", username);
+                intent.putExtra("registeredPassword", password);
                 startActivity(intent);
             }
         });
