@@ -5,24 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="207dp"
-        android:layout_height="46dp"
-        android:text="@string/create_tutor_profile"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
-
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,146 +23,132 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <EditText
                 android:id="@+id/first_name_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="First name"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:layout_constraintVertical_bias="0.076" />
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/last_name_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Last name"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_name_text"
-                app:layout_constraintVertical_bias="0.031" />
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/email_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Email"
-                android:inputType="textEmailAddress"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_name_text"
-                app:layout_constraintVertical_bias="0.04" />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/phone_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:ems="10"
-                android:hint="Phone"
-                android:inputType="phone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.512"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_text"
-                app:layout_constraintVertical_bias="0.051" />
+                android:hint="Phone number"
+                android:inputType="phone" />
 
             <EditText
-                android:id="@+id/iban_text"
+                android:id="@+id/iban_id"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="IBAN"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.514"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phone_text"
-                app:layout_constraintVertical_bias="0.068" />
+                android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/year"
+                android:id="@+id/study_year_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Study Year"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Study year"
                 android:textSize="18sp" />
 
             <RadioGroup
+                android:id="@+id/radio_year"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RadioButton
-                    android:id="@+id/first_year"
+                    android:id="@+id/radioButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="I" />
 
                 <RadioButton
-                    android:id="@+id/second_year"
+                    android:id="@+id/radioButton3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="II" />
 
                 <RadioButton
-                    android:id="@+id/third_year"
+                    android:id="@+id/radioButton4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="III" />
 
                 <RadioButton
-                    android:id="@+id/fourth_year"
+                    android:id="@+id/radioButton5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="IV" />
+
             </RadioGroup>
 
-            <RadioGroup
+            <TextView
+                android:id="@+id/textView8"
                 android:layout_width="match_parent"
-                android:layout_height="120dp">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Domain"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="43dp"
-                    android:text="Domain"
-                    android:textSize="18sp" />
+            <RadioGroup
+                android:id="@+id/radio_domain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <RadioButton
-                    android:id="@+id/math_button"
+                    android:id="@+id/radio_math"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mathematics" />
 
                 <RadioButton
-                    android:id="@+id/info_button"
+                    android:id="@+id/radio_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Informatics" />
 
                 <RadioButton
-                    android:id="@+id/cti_button"
+                    android:id="@+id/radio_cti"
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:text="CIT" />
+                    android:layout_height="wrap_content"
+                    android:text="CTI" />
+
             </RadioGroup>
 
+            <Button
+                android:id="@+id/button_submit_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
 
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
