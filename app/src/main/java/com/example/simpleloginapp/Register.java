@@ -40,15 +40,24 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
                 }else{
                     if(password.equals(confirm_password)){
-                        Boolean checkusername = databaseHelper.CheckUsername(username);
+                        Boolean checkusername = databaseHelper.CheckStudentUsername(username);
+                        System.out.println(checkusername);
                         if(checkusername == true){
-                            insert = databaseHelper.Insert(username, password);
+                            Student s = new Student(username, "", "", password, "", "", "", "");
+
+//                            Intent intent2 = new Intent(Register.this, CreateTutorProfile.class);
+//                            intent2.putExtra("registeredUsername", s.getUserName());
+                           // startActivity(intent2);
+
+                            insert = databaseHelper.InsertStudent(s);
                             if(insert == true){
                                 Toast.makeText(getApplicationContext(), "Registered", Toast.LENGTH_SHORT).show();
                                 et_username.setText("");
                                 et_password.setText("");
                                 et_cpassword.setText("");
                                 Intent intent = new Intent(Register.this, SelectProfile.class);
+                                intent.putExtra("registeredUsername", s.getUserName());
+                                intent.putExtra("registeredPassword", s.getUserPassword());
                                 startActivity(intent);
 
                             }
