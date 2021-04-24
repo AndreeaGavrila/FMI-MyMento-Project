@@ -39,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS course");
         db.execSQL("DROP TABLE IF EXISTS coursestudent");
 
+
     }
 
     public boolean InsertCourse(Course c){
