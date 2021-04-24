@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Welcome extends AppCompatActivity {
      Button btn_ldelete;
-
+     Button btn_lnewcourse;
      DatabaseHelper databaseHelper;
 
      @Override
@@ -21,7 +21,7 @@ public class Welcome extends AppCompatActivity {
           setContentView(R.layout.welcome_page);
           databaseHelper = new DatabaseHelper(this);
           btn_ldelete = (Button)findViewById(R.id.deleteAccount);
-
+          btn_lnewcourse = findViewById(R.id.new_course);
           btn_ldelete.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
@@ -45,6 +45,24 @@ public class Welcome extends AppCompatActivity {
                          }
                }
 
+          });
+          btn_lnewcourse.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                    Intent auxIntent = getIntent();
+                    String username = auxIntent.getStringExtra("registeredUsername");
+                    System.out.println("i want to create course");
+                    if(databaseHelper.getTutor(username)!=-1)
+                    {
+                         Integer idTutore = databaseHelper.getTutor(username);
+                         Course c =  new Course(1, "analiza", idTutore, "I");
+                         databaseHelper.InsertCourse(c);
+                         System.out.println("am inserat curs");
+                    }
+                    else{
+                         System.out.println("Nu ai voie");
+                    }
+               }
           });
      }
 

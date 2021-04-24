@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         System.out.println("tutore creat");
 
         db.execSQL("CREATE TABLE course (ID INTEGER PRIMARY KEY AUTOINCREMENT, coursename TEXT, idTutore REFERENCES userTutore(ID))");
-        db.execSQL("CREATE TABLE coursestudent (COURSEID INTEGER PRIMARY KEY REFERENCES course(ID), STUDENTID INTEGER PRIMARY KEY REFERENCES userStudent(ID))");
+        db.execSQL("CREATE TABLE coursestudent (COURSEID INTEGER REFERENCES course(ID), STUDENTID INTEGER REFERENCES userStudent(ID),PRIMARY KEY(COURSEID, STUDENTID))");
     }
 
 
@@ -55,7 +55,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             System.out.println("successful course inseration");
             return true;
         }
-
     }
     public boolean InsertStudent(Student s){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
