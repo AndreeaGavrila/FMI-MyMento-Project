@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
     EditText et_username, et_password, et_cpassword;
     Button btn_register, btn_login;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
         btn_register = (Button)findViewById(R.id.register_button);
         btn_login = (Button)findViewById(R.id.login_button);
 
-
+        Tutor t = new Tutor("mihai22", "mihai", "ionescu", "00", "Info","I", "m@gmail.com", "0976161621", "" );
+        Course c =  new Course(1, "analiza", 1, "I");
+        databaseHelper.InsertTutor(t);
+        System.out.println("tutore inserat");
+        databaseHelper.InsertCourse(c);
+        System.out.println("curs inserat");
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
