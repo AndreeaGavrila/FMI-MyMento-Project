@@ -26,14 +26,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE userTutor(ID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT," +
                 " password TEXT, firstname TEXT, lastname TEXT, email TEXT, phonenumber TEXT, studyyear TEXT, domain TEXT, iban TEXT)");
         System.out.println("tutore creat");
+
+        db.execSQL("CREATE TABLE course (ID INTEGER PRIMARY KEY AUTOINCREMENT, coursename TEXT, idTutore REFERENCES userTutore(ID))");
+        db.execSQL("CREATE TABLE coursestudent (COURSEID INTEGER PRIMARY KEY REFERENCES course(ID), STUDENTID INTEGER PRIMARY KEY REFERENCES userStudent(ID))");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS userStudent");
         db.execSQL("DROP TABLE IF EXISTS userTutor");
+        db.execSQL("DROP TABLE IF EXISTS course");
+        db.execSQL("DROP TABLE IF EXISTS coursestudent");
+
     }
 
+    public boolean InsertCourse(Course c){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("coursename", c.getCourseName());
+        contentValues.put("idTutore", c.getIdTutore());
+
+        long result = sqLiteDatabase.insert("course", null, contentValues);
+        if(result == -1){
+            return false;
+        }else{
+            System.out.println("successful course inseration");
+            return true;
+        }
+
+    }
     public boolean InsertStudent(Student s){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
