@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.widget.GridLayout;
 
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.SpecificCourseViewModel;
@@ -43,23 +42,46 @@ public class MainActivity extends AppCompatActivity {
         specificCourseViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.
                 this.getApplication()).create(SpecificCourseViewModel.class);
 
+//        TutorViewModel.deleteAll();
+//        StudentViewModel.deleteAll();
+//        SpecificCourseViewModel.deleteAll();
 
-//        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
-//        TutorViewModel.insert(tutor);
+        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
+        TutorViewModel.repository.insertTutor(tutor);
 
-        Student student = new Student("Iulian", "Andronache", "II", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243");
-        //StudentViewModel.insert(student); asta doar daca nu ii atribui si cursuri
+        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
+        StudentViewModel.repository.insertStudent(student);
 
-        SpecificCourse specificCourse = new SpecificCourse("OOP", "UN CURS FOARTE REUSIT");
-//        SpecificCourse specificCourse2 =  new SpecificCourse("BD", "Curs sustinut la baze de date");
+        SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
+        SpecificCourse specificCourse2 =  new SpecificCourse("BD", "Curs sustinut la baze de date");
 
         List<SpecificCourse> specificCourseList =  new ArrayList<SpecificCourse>();
         specificCourseList.add(specificCourse);
-//        specificCourseList.add(specificCourse2);
+
+        List<SpecificCourse> specificCourseList2 =  new ArrayList<SpecificCourse>();
+        specificCourseList2.add(specificCourse);
+        specificCourseList2.add(specificCourse2);
 
         StudentWithCourse studentWithCourse =  new StudentWithCourse(student, specificCourseList);
-        StudentViewModel.repository.insertStudentWithCourses(studentWithCourse); // asta cand ii adaug direct cu cursuri
+        StudentViewModel.insertStudentWithCourses(studentWithCourse); // asta cand ii adaug direct cu cursuri
+        // TODO: 06.05.2021 daca fac asta asat mai jos se pune automat si in tabel chiar daca am adaugat mai sus
 
+        // specificCourseList.add(specificCourse2);
+
+        StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
+        StudentViewModel.insertStudentWithCourses(studentWithCourse1);
 
     }
 }
+// TODO: 29.04.2021 cand creez un profil de student in functie de an ii adaugi cursurile, la fel si la prof
+// TODO: 29.04.2021  pentru profi faci alte cursuri pe care le pot preda -> toti anii de mai jos de el la toate domeniile
+// ai cursurile, cand apesi pe unul ai optiune -> daca esti student ai optiune de cauta profesor curs
+// daca estu prof ai optiune cauta prof sau preda curs...
+
+// TODO: 06.05.2021 AI RAMAS LA UN TUTORE ARE MAI MULTE CURSURI PE CARE LE POATE PREDA I.E. CURSURI DISPONIBILE = TOATE CURSURILE
+// PE CARE EL DEJA LE-A PARCURS ?
+// DACA DIN ASTEA ISI ALEGE SA PREDEA LETS SAY 2, ATUNCI ASTEA DOUA CURSURI SE ADAUGA INTR-UN NOU TABEL CARE SA AIBA SI ID-UL PROFULUI
+// DIN ACEST TABEL IAU ATUNCI CAND STUDENTU CAUTA UN ANUME CURS CU UN PROF
+// CAND STUDENTUL ALEGE SA FACA UN CURS CU UN PROF, ACEL CURS SE ADAUGA IN ALT TABEL LETS SAY CURSURI_TINUTE CARE ARE
+// ATAT ID-UL PROFULUI CAT SI AL STUDENTULUI 1-M DE LA STUDENT SI 1-M DE LA PROF CATRE ACEST TABEL
+

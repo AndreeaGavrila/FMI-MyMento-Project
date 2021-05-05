@@ -26,6 +26,10 @@ public class TutorViewModel extends AndroidViewModel {
         return allTutors;
     }
     public static void insert(Tutor tutor){
-        repository.insert(tutor);
+        repository.insertTutor(tutor);
+    }
+
+    public static void deleteAll(){
+        repository.deleteAll();
     }
 }

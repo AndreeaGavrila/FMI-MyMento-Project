@@ -13,6 +13,7 @@ import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.Tutor;
 
 import java.util.ArrayList;
@@ -59,10 +60,10 @@ public abstract class MyRoomDatabase extends RoomDatabase {
 //                        SpecificCourse specificCourse2 =  new SpecificCourse("BD", "Curs sustinut la baze de date");
 
 
-                        Student student = new Student("Maria", "Florea", "II",
-                                "Informatics", "0748848099", "florea@gmail.com",
-                                "maria22", "ooaoa");
-                        studentDao.insertStudent(student);
+//                        Student student = new Student("Maria", "Florea", "II",
+//                                "Informatics", "0748848099", "florea@gmail.com",
+//                                "maria22", "ooaoa");
+//                        studentDao.insertStudent(student);
 
                         TutorDao tutorDao = INSTANCE.tutorDao();
                         tutorDao.deleteAll();

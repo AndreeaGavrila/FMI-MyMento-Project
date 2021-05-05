@@ -20,10 +20,9 @@ public class StudentViewModel extends AndroidViewModel {
         allStudents = repository.getAllData();
 
     }
-    private StudentRepository studentRepository;
 
-    public void insertStudentWithCourses(StudentWithCourse studentWithCourse){
-        studentRepository.insertStudentWithCourses(studentWithCourse);
+    public static void insertStudentWithCourses(StudentWithCourse studentWithCourse){
+        repository.insertStudentWithCourses(studentWithCourse);
     }
 
     public LiveData<List<Student>> getAllStudents(){
@@ -31,5 +30,9 @@ public class StudentViewModel extends AndroidViewModel {
     }
     public static void insert(Student student){
         repository.insertStudent(student);
+    }
+
+    public static void deleteAll(){
+        repository.deleteAll();
     }
 }

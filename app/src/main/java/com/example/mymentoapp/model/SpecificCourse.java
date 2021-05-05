@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "specific_course")
+@Entity(tableName = "specific_course", indices = {@Index(value = {"courseName", "id_FkStudent"},
+        unique = true)})
 public class SpecificCourse {
 
     @PrimaryKey(autoGenerate = true)
@@ -17,10 +19,22 @@ public class SpecificCourse {
     @ForeignKey
             (entity = Student.class,
                     parentColumns = "idStudent",
-                    childColumns = "idFkStudent",
-                    onDelete = CASCADE
+                    childColumns = "id_FkStudent",
+                    onDelete = CASCADE,
+                    onUpdate = CASCADE
+
             )
     private long id_FkStudent;
+
+//    @ForeignKey
+//            (entity = Tutor.class,
+//                    parentColumns = "idStudent",
+//                    childColumns = "idFkTutor",
+//                    onDelete = CASCADE,
+//                    onUpdate = CASCADE
+//            )
+//    private long id_FkTutor;
+
 
     @ColumnInfo(name = "courseName")
     private String courseName;
@@ -66,4 +80,12 @@ public class SpecificCourse {
     public void setId_FkStudent(long id_FkStudent) {
         this.id_FkStudent = id_FkStudent;
     }
+
+//    public long getId_FkTutor() {
+//        return id_FkTutor;
+//    }
+//
+//    public void setId_FkTutor(long id_FkTutor) {
+//        this.id_FkTutor = id_FkTutor;
+//    }
 }

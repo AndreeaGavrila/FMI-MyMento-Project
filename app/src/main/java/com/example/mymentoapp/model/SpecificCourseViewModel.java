@@ -30,4 +30,7 @@ public class SpecificCourseViewModel  extends AndroidViewModel {
     public static void insert(SpecificCourse specificCourse){
         repository.insert(specificCourse);
     }
+    public static void deleteAll(){
+        repository.deleteAll();
+    }
 }

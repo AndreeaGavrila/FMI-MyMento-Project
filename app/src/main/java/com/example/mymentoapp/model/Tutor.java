@@ -3,11 +3,12 @@ package com.example.mymentoapp.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
 
-@Entity(tableName = "tutor_table")
+@Entity(tableName = "tutor_table", indices = {@Index(value ="email", unique = true)})
 public class Tutor extends Student{
 
     @ColumnInfo(name = "rating")
