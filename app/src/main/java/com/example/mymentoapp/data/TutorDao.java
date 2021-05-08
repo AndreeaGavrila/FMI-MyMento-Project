@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.Tutor;
@@ -19,6 +20,8 @@ public interface TutorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertTutor(Tutor tutor);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertToTeachCourses(List<CourseToTeach> courseToTeaches);
 
     @Query("DELETE FROM tutor_table")
     void deleteAll();

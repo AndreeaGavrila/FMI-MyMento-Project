@@ -34,11 +34,7 @@ public class StudentRepository {
             studentDao.insertStudent(student);
         });
     }
-//    public void updateStudents(){
-//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//            studentDao.updateStudents();
-//        });
-//    }
+
 
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
         new insertAsync(studentDao).execute(studentWithCourse);
@@ -58,15 +54,17 @@ public class StudentRepository {
 
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {
         private StudentDao studentDaoAsync;
+       // private TutorDao tutorDaoAsync;
 
         insertAsync(StudentDao studentDao) {
             studentDaoAsync = studentDao;
         }
-
+        //insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
         @Override
         protected Void doInBackground(StudentWithCourse... studentWithCourses) {
 
             long identifier = studentDaoAsync.insertStudent(studentWithCourses[0].student);
+
             // TODO: 06.05.2021  e ok pt ca un student o sa fie adaugat direct cu cursurile lui
             for (SpecificCourse specificCourse : studentWithCourses[0].specificCourses) {
                 specificCourse.setId_FkStudent(identifier);

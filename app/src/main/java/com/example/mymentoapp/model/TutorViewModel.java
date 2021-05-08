@@ -21,6 +21,10 @@ public class TutorViewModel extends AndroidViewModel {
         allTutors = repository.getAllData();
 
     }
+//
+//    public static void insertTutorWithCourses(TutorWithCourse tutorWithCourse){
+//        repository.insertTutorWithCourses(tutorWithCourse);
+//    }
 
     public LiveData<List<Tutor>> getAllTutors(){
         return allTutors;

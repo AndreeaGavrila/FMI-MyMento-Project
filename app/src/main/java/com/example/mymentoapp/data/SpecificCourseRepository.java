@@ -41,7 +41,7 @@ public class SpecificCourseRepository {
     }
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            specificCourseDao.getAllSpecificCourses();
+            specificCourseDao.deleteAll();
         });
     }
 //    public void updateDelete(){
