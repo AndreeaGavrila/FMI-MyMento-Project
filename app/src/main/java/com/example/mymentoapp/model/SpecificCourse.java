@@ -26,15 +26,6 @@ public class SpecificCourse {
             )
     private long id_FkStudent;
 
-//    @ForeignKey
-//            (entity = Tutor.class,
-//                    parentColumns = "idStudent",
-//                    childColumns = "idFkTutor",
-//                    onDelete = CASCADE,
-//                    onUpdate = CASCADE
-//            )
-//    private long id_FkTutor;
-
 
     @ColumnInfo(name = "courseName")
     private String courseName;
@@ -80,12 +71,4 @@ public class SpecificCourse {
     public void setId_FkStudent(long id_FkStudent) {
         this.id_FkStudent = id_FkStudent;
     }
-
-//    public long getId_FkTutor() {
-//        return id_FkTutor;
-//    }
-//
-//    public void setId_FkTutor(long id_FkTutor) {
-//        this.id_FkTutor = id_FkTutor;
-//    }
 }

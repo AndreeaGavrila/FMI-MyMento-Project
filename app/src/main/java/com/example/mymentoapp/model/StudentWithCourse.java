@@ -11,7 +11,7 @@ public class StudentWithCourse {
     public Student student;
     @Relation(
             parentColumn = "idStudent",
-            entityColumn = "idFkStudent"
+            entityColumn = "id_FkStudent"
     )
     public List<SpecificCourse> specificCourses;
 

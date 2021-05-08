@@ -1,10 +1,13 @@
 package com.example.mymentoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
+import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
@@ -12,6 +15,7 @@ import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
+import com.example.mymentoapp.model.TutorWithCourse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +53,22 @@ public class MainActivity extends AppCompatActivity {
         Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
         TutorViewModel.repository.insertTutor(tutor);
 
+//        CourseToTeach courseToTeach =  new CourseToTeach("OOP", "oricand");
+//        System.out.println("course"+ courseToTeach.getCourseName());
+//        CourseToTeachViewModel.repository.insert(courseToTeach);
+//
+//        List<CourseToTeach> courseToTeachList =  new ArrayList<CourseToTeach>();
+//        courseToTeachList.add(courseToTeach);
+//
+//        TutorWithCourse tutorWithCourse =  new TutorWithCourse(tutor, courseToTeachList);
+//        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
+
+
         Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
         StudentViewModel.repository.insertStudent(student);
 
         SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
-        SpecificCourse specificCourse2 =  new SpecificCourse("BD", "Curs sustinut la baze de date");
+        SpecificCourse specificCourse2 = new SpecificCourse("BD", "Curs sustinut la baze de date");
 
         List<SpecificCourse> specificCourseList =  new ArrayList<SpecificCourse>();
         specificCourseList.add(specificCourse);
