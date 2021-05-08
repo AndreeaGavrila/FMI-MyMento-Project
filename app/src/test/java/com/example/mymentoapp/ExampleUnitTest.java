@@ -1,4 +1,4 @@
-package com.example.simpleloginapp;
+package com.example.mymentoapp;
 
 import org.junit.Test;
 
