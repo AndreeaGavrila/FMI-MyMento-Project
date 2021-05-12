@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
@@ -17,6 +20,9 @@ import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.model.TutorWithCourse;
 
+import com.example.mymentoapp.model.Login;
+import com.example.mymentoapp.model.LoginViewModel;
+import com.example.mymentoapp.LoginActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
     private TutorViewModel tutorViewModel;
     private SpecificCourseViewModel specificCourseViewModel;
-
+    Button btn_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 //        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
 
 
-        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
+        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1234");
         StudentViewModel.repository.insertStudent(student);
 
         SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
@@ -85,7 +91,15 @@ public class MainActivity extends AppCompatActivity {
 
         StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
         StudentViewModel.insertStudentWithCourses(studentWithCourse1);
+        btn_login = (Button)findViewById(R.id.login_button);
 
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
 // TODO: 29.04.2021 cand creez un profil de student in functie de an ii adaugi cursurile, la fel si la prof

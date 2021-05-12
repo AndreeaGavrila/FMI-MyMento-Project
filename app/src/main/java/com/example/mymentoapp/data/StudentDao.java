@@ -26,6 +26,8 @@ public interface StudentDao {
     @Query("SELECT * FROM student_table")
     LiveData<List<Student>> getAllStudents();
 
+    @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
+    int getStudentbyUsername(String usernameInput, String passwordInput);
     @Update
     void updateStudents(Student... students);
 

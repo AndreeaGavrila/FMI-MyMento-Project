@@ -35,6 +35,11 @@ public class StudentRepository {
         });
     }
 
+//    public int getStudent(String username, String password) {
+//        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+//            return studentDao.getStudentbyUsername(username,password);
+//        });
+//    }
 
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
         new insertAsync(studentDao).execute(studentWithCourse);
