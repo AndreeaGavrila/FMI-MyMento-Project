@@ -23,6 +23,11 @@ import com.example.mymentoapp.model.TutorWithCourse;
 import com.example.mymentoapp.model.Login;
 import com.example.mymentoapp.model.LoginViewModel;
 import com.example.mymentoapp.LoginActivity;
+
+import com.example.mymentoapp.model.Register;
+import com.example.mymentoapp.model.RegisterViewModel;
+import com.example.mymentoapp.RegisterActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private TutorViewModel tutorViewModel;
     private SpecificCourseViewModel specificCourseViewModel;
     Button btn_login;
+    Button btn_register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
         StudentViewModel.insertStudentWithCourses(studentWithCourse1);
+
         btn_login = (Button)findViewById(R.id.login_button);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +108,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_register = (Button)findViewById(R.id.register_button);
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
 // TODO: 29.04.2021 cand creez un profil de student in functie de an ii adaugi cursurile, la fel si la prof

@@ -28,6 +28,7 @@ public interface StudentDao {
 
     @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
     int getStudentbyUsername(String usernameInput, String passwordInput);
+
     @Update
     void updateStudents(Student... students);
 

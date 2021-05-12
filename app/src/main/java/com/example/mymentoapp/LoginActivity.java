@@ -13,11 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.StudentRepository;
+
 import com.example.mymentoapp.model.Login;
 import com.example.mymentoapp.model.LoginViewModel;
+
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.TutorViewModel;
+
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
@@ -35,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         et_lusername = (EditText) findViewById(R.id.username_input);
         et_lpassword = (EditText) findViewById(R.id.password_input);
 
@@ -45,19 +49,26 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String username = et_lusername.getText().toString();
                 String password = et_lpassword.getText().toString();
+
                 if(username.isEmpty() || password.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Enter both username and password for login",Toast.LENGTH_SHORT).show();
-                } else {
-//                    if(studentDao.getStudentbyUsername(username,password)>0){
+                }
+                else
+                    {
+//                    if(studentDao.getStudentbyUsername(username,password) > 0) {
+//
 //                        Intent intent = new Intent(LoginActivity.this, Welcome.class);
 //                        startActivity(intent);
 //                        System.out.println("login");
-//                    }else{
+//                    }
+//                    else
+//                    {
 //                        System.out.println("notlogin");
 //                    }
-                }
+                    }
             }
         });
 
