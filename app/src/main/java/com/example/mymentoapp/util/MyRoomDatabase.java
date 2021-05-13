@@ -37,7 +37,10 @@ public abstract class MyRoomDatabase extends RoomDatabase {
 
     public static final int NUMBER_OF_THREADS = 4;
 
+//    private static final String dbName = "my_database";
+
     private static volatile MyRoomDatabase INSTANCE;
+
     public static final ExecutorService databaseWriteExecutor
             = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 

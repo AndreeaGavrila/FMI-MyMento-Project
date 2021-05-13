@@ -42,6 +42,7 @@ public class Student {
     public Student(){}
     public Student(@NonNull String firstName,@NonNull String lastName, @NonNull String studyYear, @NonNull String studyDomain,
                    @NonNull String phoneNumber, @NonNull String email, @NonNull String username, @NonNull String password) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.studyYear = studyYear;
@@ -61,6 +62,7 @@ public class Student {
         this.idStudent = idStudent;
     }
 
+
     public String getFirstName() {
         return firstName;
     }
@@ -68,6 +70,7 @@ public class Student {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
 
     public String getLastName() {
         return lastName;
@@ -77,6 +80,7 @@ public class Student {
         this.lastName = lastName;
     }
 
+
     public String getStudyYear() {
         return studyYear;
     }
@@ -85,21 +89,6 @@ public class Student {
         this.studyYear = studyYear;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getStudyDomain() {
         return studyDomain;
@@ -109,6 +98,7 @@ public class Student {
         this.studyDomain = studyDomain;
     }
 
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -117,6 +107,7 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -124,5 +115,25 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 @Dao
 public interface StudentDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertStudent(Student student);
 
@@ -27,9 +28,12 @@ public interface StudentDao {
     LiveData<List<Student>> getAllStudents();
 
     @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
-    int getStudentbyUsername(String usernameInput, String passwordInput);
+    Student getStudentbyUsername(String usernameInput, String passwordInput);
 
     @Update
     void updateStudents(Student... students);
+
+    @Insert
+    void registerStudent(Student student);
 
 }

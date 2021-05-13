@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
 //        StudentViewModel.deleteAll();
 //        SpecificCourseViewModel.deleteAll();
 
-        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
+        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988",
+                "mihaila@gmail.com", "mionel", "1234", 5, "142424242242422");
         TutorViewModel.repository.insertTutor(tutor);
 
 //        CourseToTeach courseToTeach =  new CourseToTeach("OOP", "oricand");
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
 //        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
 
 
-        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1234");
+        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988",
+                "romica@gmail.com", "mionel", "1234");
         StudentViewModel.repository.insertStudent(student);
 
         SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");

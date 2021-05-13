@@ -36,9 +36,9 @@ import com.example.mymentoapp.util.MyRoomDatabase;
 import java.util.List;
 import java.util.Objects;
 
-public class RegisterActivity extends AppCompatActivity{
+public class RegisterActivity extends AppCompatActivity {
 
-    Button register;
+    Button register, login;
     EditText et_username, et_password, et_cpassword;
 
     Boolean insert;
@@ -56,27 +56,59 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        et_username = (EditText)findViewById(R.id.et_username);
-        et_password = (EditText)findViewById(R.id.et_password);
-        et_cpassword = (EditText)findViewById(R.id.et_cpassword);
+        et_username = (EditText) findViewById(R.id.et_username);
+        et_password = (EditText) findViewById(R.id.et_password);
+        et_cpassword = (EditText) findViewById(R.id.et_cpassword);
 
-        register = (Button)findViewById(R.id.btn_register);
+        login = (Button) findViewById(R.id.btn_login);
+        register = (Button) findViewById(R.id.btn_register);
 
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-                {
+            public void onClick(View v) {
+
+                // Creating Student entity
+                Student student = new Student();
+                student.setUsername(et_username.getText().toString());
+                student.setPassword(et_password.getText().toString());
 
                 String username = et_username.getText().toString();
                 String password = et_password.getText().toString();
                 String confirm_password = et_cpassword.getText().toString();
 
-                if(username.equals("") || password.equals("") || confirm_password.equals("")) {
+
+                if( !validateInput(student) )
+                {
                     Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    {
+                {
+                    MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                    StudentDao studentDao = roomDatabase.studentDao();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            // Register Student
+                            studentDao.registerStudent(student);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Student Registred!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).start();
+                }
+
+
+//-------------------------------------------------------------------------------------------------
+//------------------------------------ OLD VERSION  -----------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 //                    if(password.equals(confirm_password))
 //                        {
 //
@@ -118,10 +150,25 @@ public class RegisterActivity extends AppCompatActivity{
 //                        {
 //                        Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_SHORT).show();
 //                        }
-                    }
-                }
-        });
+//                    }
+//-------------------------------------------------------------------------------------------------
 
+            }
+        });
     }
+
+
+    private Boolean validateInput(Student student) {
+        if (student.getUsername().isEmpty() ||
+                student.getPassword().isEmpty() ||
+                et_cpassword.equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 }

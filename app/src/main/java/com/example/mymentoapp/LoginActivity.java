@@ -19,6 +19,8 @@ import com.example.mymentoapp.model.LoginViewModel;
 
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
+
+import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 
 import com.example.mymentoapp.util.MyRoomDatabase;
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText et_lusername, et_lpassword;
 
     private LoginViewModel loginViewModel;
+
     private StudentViewModel studentViewModel;
     private StudentDao studentDao;
 
@@ -57,21 +60,35 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter both username and password for login",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    {
-//                    if(studentDao.getStudentbyUsername(username,password) > 0) {
-//
-//                        Intent intent = new Intent(LoginActivity.this, Welcome.class);
-//                        startActivity(intent);
-//                        System.out.println("login");
-//                    }
-//                    else
-//                    {
-//                        System.out.println("notlogin");
-//                    }
-                    }
+                {
+                    MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                    StudentDao studentDao = roomDatabase.studentDao();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            Student student = studentDao.getStudentbyUsername(username,password);
+
+                            if( student == null)
+                            {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                startActivity(new Intent(LoginActivity.this, Welcome.class));
+                            }
+                        }
+
+                    }).start();
+                }
             }
         });
-
 
     }
 }
