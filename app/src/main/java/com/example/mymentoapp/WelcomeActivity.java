@@ -22,9 +22,10 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        viewProfile = (Button)findViewById(R.id.btn_viewProfile);
+        viewProfile = findViewById(R.id.btn_viewProfile);
         Bundle bundle = getIntent().getExtras();
         int idStudent = bundle.getInt("idStudent");
+        System.out.println("id student welcome: " + idStudent);;
 
 
         viewProfile.setOnClickListener(new View.OnClickListener() {

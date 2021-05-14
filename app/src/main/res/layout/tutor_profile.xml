@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/first_name_text"
+                android:id="@+id/first_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -33,7 +33,7 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/last_name_text"
+                android:id="@+id/last_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -42,7 +42,7 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/email_text"
+                android:id="@+id/email_edit"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -51,7 +51,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/phone_text"
+                android:id="@+id/phone_edit"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -78,30 +78,30 @@
                 android:textSize="18sp" />
 
             <RadioGroup
-                android:id="@+id/radio_year"
+                android:id="@+id/radio_year_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radio_year1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="I" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/radio_year2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="II" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/radio_year3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="III" />
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/radio_year4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="IV" />
@@ -118,7 +118,7 @@
                 android:textSize="18sp" />
 
             <RadioGroup
-                android:id="@+id/radio_domain"
+                android:id="@+id/radio_domain_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -143,7 +143,7 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/button_submit_student"
+                android:id="@+id/btn_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit" />

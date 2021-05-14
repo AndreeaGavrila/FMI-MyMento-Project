@@ -1,10 +1,7 @@
 package com.example.mymentoapp;
 
-import android.app.AppComponentFactory;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,31 +9,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
-import com.example.mymentoapp.data.StudentRepository;
 
 import com.example.mymentoapp.data.TutorDao;
-import com.example.mymentoapp.data.TutorRepository;
 
-import com.example.mymentoapp.model.Login;
-import com.example.mymentoapp.model.LoginViewModel;
-
-import com.example.mymentoapp.model.Register;
 import com.example.mymentoapp.model.RegisterViewModel;
 
-import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 
-import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
-
-import com.example.mymentoapp.util.MyRoomDatabase;
-
-import java.util.List;
-import java.util.Objects;
 
 
 public class ProfileTutorActivity extends AppCompatActivity {
@@ -65,17 +48,17 @@ public class ProfileTutorActivity extends AppCompatActivity {
 
 //        databaseHelper = new DatabaseHelper(this);
 
-        lastName = (EditText) findViewById(R.id.last_name_text);
-        firstName = (EditText) findViewById(R.id.first_name_text);
-        phoneNumber = (EditText) findViewById(R.id.phone_text);
-        email = (EditText) findViewById(R.id.email_text);
+        lastName = (EditText) findViewById(R.id.last_name_edit);
+        firstName = (EditText) findViewById(R.id.first_name_edit);
+        phoneNumber = (EditText) findViewById(R.id.phone_edit);
+        email = (EditText) findViewById(R.id.email_edit);
         iban = (EditText) findViewById(R.id.iban_id);
 
 
-        radioGroupStudyYear = (RadioGroup) findViewById(R.id.radio_year);
-        radioGroupDomain = (RadioGroup) findViewById(R.id.radio_domain);
+        radioGroupStudyYear = (RadioGroup) findViewById(R.id.radio_year_edit);
+        radioGroupDomain = (RadioGroup) findViewById(R.id.radio_domain_edit);
 
-        btn_submit_tutor = (Button) findViewById(R.id.button_submit_student);
+        btn_submit_tutor = (Button) findViewById(R.id.btn_edit);
 
 
         btn_submit_tutor.setOnClickListener(new View.OnClickListener() {

@@ -32,53 +32,40 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        et_lusername = (EditText) findViewById(R.id.username_input);
-        et_lpassword = (EditText) findViewById(R.id.password_input);
+        et_lusername = findViewById(R.id.username_input);
+        et_lpassword = findViewById(R.id.password_input);
 
-        login = (Button) findViewById(R.id.btnl_login);
-        register = (Button) findViewById(R.id.btnl_register);
+        login = findViewById(R.id.btnl_login);
+        register = findViewById(R.id.btnl_register);
 
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        login.setOnClickListener(v -> {
 
-                String username = et_lusername.getText().toString();
-                String password = et_lpassword.getText().toString();
+            String username = et_lusername.getText().toString();
+            String password = et_lpassword.getText().toString();
 
-                if(username.isEmpty() || password.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Enter both username and password for login",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                    StudentDao studentDao = roomDatabase.studentDao();
+            if(username.isEmpty() || password.isEmpty()){
+                Toast.makeText(getApplicationContext(),"Enter both username and password for login",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                StudentDao studentDao = roomDatabase.studentDao();
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run()
-                        {
-                            Student student = studentDao.getStudentbyUsername(username,password);
+                new Thread(() -> {
+                    Student student = studentDao.getStudentByUsername(username,password);
 
-                            if( student == null)
-                            {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-                                intent.putExtra("idStudent", student.getIdStudent());
-                                startActivity(intent);
-                            }
-                        }
-
-                    }).start();
-                }
+                    if( student == null)
+                    {
+                        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show());
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                        intent.putExtra("idStudent", student.getIdStudent());
+                        startActivity(intent);
+                    }
+                }).start();
             }
         });
 

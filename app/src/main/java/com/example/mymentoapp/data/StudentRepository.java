@@ -12,6 +12,7 @@ import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class StudentRepository {
 
@@ -37,7 +38,7 @@ public class StudentRepository {
 
 //    public int getStudent(String username, String password) {
 //        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
-//            return studentDao.getStudentbyUsername(username,password);
+//            return studentDao.getStudentByUsername(username,password);
 //        });
 //    }
 
@@ -51,19 +52,29 @@ public class StudentRepository {
 //        }
     }
 
+    public void updateStudent(Student student){
+        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            studentDao.updateStudent(student);
+        });
+    }
+
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             studentDao.deleteAll();
         });
     }
 
-//    public Student getStudent(int studentIdInput)
-//    {
-//       MyRoomDatabase.databaseWriteExecutor.execute(() -> {
-//           studentDao.getStudent(studentIdInput);
-//       });
-//
-//    }
+    public Student getStudent(int studentIdInput)
+    {
+        final Student[] student = new Student[1];
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                student[0] = studentDao.getStudent(studentIdInput);
+            }
+        });
+        return student[0];
+    }
 
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {
         private StudentDao studentDaoAsync;
