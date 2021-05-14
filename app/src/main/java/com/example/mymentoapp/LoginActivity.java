@@ -2,31 +2,21 @@ package com.example.mymentoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
-import com.example.mymentoapp.data.StudentRepository;
 
-import com.example.mymentoapp.model.Login;
 import com.example.mymentoapp.model.LoginViewModel;
 
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 
-import com.example.mymentoapp.model.Tutor;
-import com.example.mymentoapp.model.TutorViewModel;
-
 import com.example.mymentoapp.util.MyRoomDatabase;
-
-import java.util.List;
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     Button register, login;
@@ -81,7 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                startActivity(new Intent(LoginActivity.this, Welcome.class));
+                                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                                intent.putExtra("idStudent", student.getIdStudent());
+                                startActivity(intent);
                             }
                         }
 

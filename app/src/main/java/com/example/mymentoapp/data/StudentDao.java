@@ -30,10 +30,14 @@ public interface StudentDao {
     @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
     Student getStudentbyUsername(String usernameInput, String passwordInput);
 
+    @Query("SELECT * FROM student_table WHERE idStudent=:studentIdInput")
+    Student getStudent(int studentIdInput);
+
     @Update
     void updateStudents(Student... students);
 
     @Insert
     void registerStudent(Student student);
+
 
 }

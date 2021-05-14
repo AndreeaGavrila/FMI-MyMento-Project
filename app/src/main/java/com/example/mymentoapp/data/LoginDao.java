@@ -24,4 +24,6 @@ public interface LoginDao {
     @Query("delete from login_details")
     void deleteAll();
 
+    @Query("select username FROM login_details where Id = :id")
+    String selectUsername(int id);
 }

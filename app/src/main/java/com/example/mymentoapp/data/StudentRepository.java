@@ -57,6 +57,14 @@ public class StudentRepository {
         });
     }
 
+//    public Student getStudent(int studentIdInput)
+//    {
+//       MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+//           studentDao.getStudent(studentIdInput);
+//       });
+//
+//    }
+
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {
         private StudentDao studentDaoAsync;
        // private TutorDao tutorDaoAsync;

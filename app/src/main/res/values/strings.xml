@@ -27,5 +27,6 @@
     <string name="student_profile">student profile</string>
 
     <string name="create_tutor_profile">Create Tutor Profile</string>
+    <string name="view_profile">View Profile</string>
 
 </resources>
