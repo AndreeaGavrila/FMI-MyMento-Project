@@ -28,7 +28,7 @@ public interface StudentDao {
     LiveData<List<Student>> getAllStudents();
 
     @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
-    Student getStudentbyUsername(String usernameInput, String passwordInput);
+    Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput);
 
     @Query("SELECT * FROM student_table WHERE idStudent=:studentIdInput")
     Student getStudent(int studentIdInput);
@@ -36,8 +36,13 @@ public interface StudentDao {
     @Update
     void updateStudents(Student... students);
 
+    @Update
+    void updateStudent(Student student);
+
     @Insert
     void registerStudent(Student student);
 
+    @Query("SELECT * FROM student_table where username=:usernameInput")
+    Student getStudentByUsername(String usernameInput);
 
 }
