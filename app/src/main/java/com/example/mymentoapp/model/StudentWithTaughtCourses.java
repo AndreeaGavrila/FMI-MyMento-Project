@@ -1,30 +1,32 @@
 package com.example.mymentoapp.model;
 
 import androidx.room.Embedded;
+import androidx.room.Junction;
 import androidx.room.Relation;
 
 import java.util.List;
 
-public class TutorWithCourse {
+public class StudentWithTaughtCourses {
 
-    @Embedded
-    private Tutor tutor;
+    @Embedded private Student student;
     @Relation(
             parentColumn = "idStudent",
-            entityColumn = "id_FkTutor"
+            entityColumn = "idCourseToTeach",
+            associateBy = @Junction(TaughtCourseStudentCross.class)
     )
     private List<CourseToTeach> courseToTeach;
-    public TutorWithCourse(Tutor tutor, List<CourseToTeach> courseToTeach) {
-        this.tutor = tutor;
+
+    public StudentWithTaughtCourses(Student student, List<CourseToTeach> courseToTeach) {
+        this.student = student;
         this.courseToTeach = courseToTeach;
     }
 
-    public Tutor getTutor() {
-        return tutor;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setTutor(Tutor tutor) {
-        this.tutor = tutor;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public List<CourseToTeach> getCourseToTeach() {

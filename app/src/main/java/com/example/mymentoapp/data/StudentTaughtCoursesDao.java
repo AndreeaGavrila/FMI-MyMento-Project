@@ -5,34 +5,27 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
-import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentWithTaughtCourses;
+import com.example.mymentoapp.model.TaughtCourseStudentCross;
 
 import java.util.List;
 
 @Dao
-public interface StudentDao {
+public interface StudentTaughtCoursesDao {
+
+    @Query("SELECT * FROM student_taught_courses")
+    LiveData<List<StudentWithTaughtCourses>> getAll();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertStudent(Student student);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertSpecificCourses(List<SpecificCourse> specificCourses);
+    long insertStudentTaughtCourses(TaughtCourseStudentCross studentCross);
 
-    @Query("DELETE FROM student_table")
+    @Query("DELETE FROM student_taught_courses")
     void deleteAll();
-
-    @Query("SELECT * FROM student_table")
-    LiveData<List<Student>> getAllStudents();
-
-    @Query("SELECT * FROM student_table")
-    LiveData<List<StudentWithTaughtCourses>> getAllStudentsWithTaughtCourses();
-
-    @Update
-    void updateStudents(Student... students);
-
 
 
 }

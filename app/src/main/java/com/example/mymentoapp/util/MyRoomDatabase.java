@@ -11,22 +11,29 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.mymentoapp.data.CourseToTeachDao;
 import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
+
+import com.example.mymentoapp.data.StudentTaughtCoursesDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.TaughtCourseStudentCross;
 import com.example.mymentoapp.model.Tutor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class}, version = 1, exportSchema = false)
+@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, TaughtCourseStudentCross.class
+
+}, version = 1, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
 
     public abstract StudentDao studentDao();
     public abstract TutorDao tutorDao();
     public abstract SpecificCourseDao specificCourseDao();
     public abstract CourseToTeachDao courseToTeachDao();
+    public abstract StudentTaughtCoursesDao studentTaughtCoursesDao();
+
 
     public static final int NUMBER_OF_THREADS = 4;
 
@@ -76,6 +83,9 @@ public abstract class MyRoomDatabase extends RoomDatabase {
 
                         CourseToTeachDao courseToTeachDao = INSTANCE.courseToTeachDao();
                         courseToTeachDao.deleteAll();
+
+                        StudentTaughtCoursesDao studentTaughtCoursesDao = INSTANCE.studentTaughtCoursesDao();
+                        studentTaughtCoursesDao.deleteAll();
 
 
                     });
