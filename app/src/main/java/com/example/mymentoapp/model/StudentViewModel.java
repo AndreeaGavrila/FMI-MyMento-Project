@@ -20,7 +20,6 @@ public class StudentViewModel extends AndroidViewModel {
         super(application);
         repository =  new StudentRepository(application);
         allStudents = repository.getAllData();
-        taughtCoursesRepository = new StudentTaughtCoursesRepository(application);
 
     }
 
@@ -30,7 +29,7 @@ public class StudentViewModel extends AndroidViewModel {
     public static void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
         System.out.println("aici a ajuns");
         System.out.println(studentWithTaughtCourses.getStudent());
-        taughtCoursesRepository.insertTaughtCourses(studentWithTaughtCourses);
+        repository.insertStudentWithTaughtCourses(studentWithTaughtCourses);
         System.out.println("dupa insert");
     }
 

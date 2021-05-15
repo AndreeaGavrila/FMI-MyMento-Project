@@ -17,15 +17,16 @@ import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.TaughtCourse;
 import com.example.mymentoapp.model.TaughtCourseStudentCross;
 import com.example.mymentoapp.model.Tutor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, TaughtCourseStudentCross.class
+@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, TaughtCourseStudentCross.class, TaughtCourse.class
 
-}, version = 1, exportSchema = false)
+}, version = 2, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
 
     public abstract StudentDao studentDao();
@@ -33,6 +34,7 @@ public abstract class MyRoomDatabase extends RoomDatabase {
     public abstract SpecificCourseDao specificCourseDao();
     public abstract CourseToTeachDao courseToTeachDao();
     public abstract StudentTaughtCoursesDao studentTaughtCoursesDao();
+
 
 
     public static final int NUMBER_OF_THREADS = 4;

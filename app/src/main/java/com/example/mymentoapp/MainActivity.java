@@ -13,6 +13,7 @@ import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.StudentWithTaughtCourses;
+import com.example.mymentoapp.model.TaughtCourse;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.model.TutorWithCourse;
@@ -93,11 +94,15 @@ public class MainActivity extends AppCompatActivity {
         StudentViewModel.insertStudentWithCourses(studentWithCourse1);
 
         System.out.println("pana aici");
+        List<TaughtCourse> taughtCourses = new ArrayList<>();
+        //taughtCourses =
+        //taughtCourses.add(taughtCourse);
+//        StudentWithTaughtCourses studentWithTaughtCourses = new StudentWithTaughtCourses(student1, taughtCourses);
+//        StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
 
-        StudentWithTaughtCourses studentWithTaughtCourses = new StudentWithTaughtCourses(student1,  tutorWithCourse.getCourseToTeach());
-        System.out.println("studentwithtaughtcourses "+ studentWithTaughtCourses.getStudent().getPhoneNumber());
-        StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
-        System.out.println("final");
+//        System.out.println("studentwithtaughtcourses "+ studentWithTaughtCourses.getStudent().getPhoneNumber());
+//        StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
+//        System.out.println("final");
 
     }
 }

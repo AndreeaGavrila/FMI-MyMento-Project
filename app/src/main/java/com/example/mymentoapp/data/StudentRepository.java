@@ -12,6 +12,7 @@ import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.StudentWithTaughtCourses;
+import com.example.mymentoapp.model.TaughtCourse;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
@@ -49,6 +50,10 @@ public class StudentRepository {
         new insertAsync(studentDao).execute(studentWithCourse);
     }
 
+    public void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
+        new insertAsync2(studentDao).execute(studentWithTaughtCourses);
+    }
+
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             studentDao.deleteAll();
@@ -72,6 +77,26 @@ public class StudentRepository {
                 specificCourse.setId_FkStudent(identifier);
             }
             studentDaoAsync.insertSpecificCourses(studentWithCourses[0].getSpecificCourses());
+            return null;
+        }
+    }
+    private static class insertAsync2 extends AsyncTask<StudentWithTaughtCourses, Void, Void> {
+        private StudentDao studentDaoAsync;
+
+        insertAsync2(StudentDao studentDao) {
+            studentDaoAsync = studentDao;
+        }
+        @Override
+        protected Void doInBackground(StudentWithTaughtCourses... studentWithTaughtCourses) {
+
+            long identifier = studentDaoAsync.insertStudent(studentWithTaughtCourses[0].getStudent());
+            System.out.println("identifier" +identifier);
+
+            // TODO: 06.05.2021  e ok pt ca un student o sa fie adaugat direct cu cursurile lui
+            for (TaughtCourse taughtCourse : studentWithTaughtCourses[0].getTaughtCourses()){
+                 taughtCourse.setId_FkStudent(identifier);
+            }
+            studentDaoAsync.insertTaughtCourses(studentWithTaughtCourses[0].getTaughtCourses());
             return null;
         }
     }

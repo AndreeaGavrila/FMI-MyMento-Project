@@ -11,14 +11,13 @@ public class StudentWithTaughtCourses {
     @Embedded private Student student;
     @Relation(
             parentColumn = "idStudent",
-            entityColumn = "idCourseToTeach",
-            associateBy = @Junction(TaughtCourseStudentCross.class)
+            entityColumn = "id_FkStudent"
     )
-    private List<CourseToTeach> courseToTeach;
+    private List<TaughtCourse> taughtCourses;
 
-    public StudentWithTaughtCourses(Student student, List<CourseToTeach> courseToTeach) {
+    public StudentWithTaughtCourses(Student student, List<TaughtCourse> taughtCourses) {
         this.student = student;
-        this.courseToTeach = courseToTeach;
+        this.taughtCourses = taughtCourses;
     }
 
     public Student getStudent() {
@@ -29,11 +28,11 @@ public class StudentWithTaughtCourses {
         this.student = student;
     }
 
-    public List<CourseToTeach> getCourseToTeach() {
-        return courseToTeach;
+    public List<TaughtCourse> getTaughtCourses() {
+        return taughtCourses;
     }
 
-    public void setCourseToTeach(List<CourseToTeach> courseToTeach) {
-        this.courseToTeach = courseToTeach;
+    public void setTaughtCourses(List<TaughtCourse> taughtCourses) {
+        this.taughtCourses = taughtCourses;
     }
 }
