@@ -46,9 +46,9 @@ public class ViewProfileActivity extends AppCompatActivity {
         lastName.setText(student.getLastName());
 
         editProfile.setOnClickListener(v -> {
-            Intent newIntent = new Intent (ViewProfileActivity.this, EditProfileActivity.class);
-            newIntent.putExtra("studentId", student.getIdStudent());
-            startActivity(newIntent);
+//            Intent newIntent = new Intent (ViewProfileActivity.this, EditProfileActivity.class);
+//            newIntent.putExtra("studentId", student.getIdStudent());
+//            startActivity(newIntent);
         });
     }
 }
