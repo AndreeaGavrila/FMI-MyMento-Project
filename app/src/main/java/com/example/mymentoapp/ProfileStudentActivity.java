@@ -17,9 +17,11 @@ import com.example.mymentoapp.data.TutorDao;
 
 import com.example.mymentoapp.model.RegisterViewModel;
 
+import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 
 import com.example.mymentoapp.model.TutorViewModel;
+import com.example.mymentoapp.util.MyRoomDatabase;
 
 
 public class ProfileStudentActivity extends AppCompatActivity {
@@ -36,18 +38,17 @@ public class ProfileStudentActivity extends AppCompatActivity {
     private RegisterViewModel registerViewModel;
 
     private StudentViewModel studentViewModel;
-    private StudentDao studentDao;
+    //private StudentDao studentDao;
 
     private TutorViewModel tutorViewModel;
     private TutorDao tutorDao;
 
+    MyRoomDatabase roomDatabase;
+    StudentDao studentDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_profile);
-
-//        databaseHelper = new DatabaseHelper(this);
-
         lastName = (EditText) findViewById(R.id.last_name_edit);
         firstName = (EditText) findViewById(R.id.first_name_edit);
         phoneNumber = (EditText) findViewById(R.id.phone_edit);
@@ -98,26 +99,27 @@ public class ProfileStudentActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Intent auxIntent = getIntent();
+                        Bundle bundle = getIntent().getExtras();
+                        String username  = bundle.getString("username");
 
-                        String username = auxIntent.getStringExtra("registeredUsername");
-                        String password = auxIntent.getStringExtra("registeredPassword");
+                        System.out.println("username student: " + username);
 
-//                        if (databaseHelper.getStudent(username) != -1)
-//                        {
-//                            //update
-//                            System.out.println("entered");
-//                            if(databaseHelper.updateStudent(databaseHelper.getStudent(username),firstname,lastname,email1,phonenumber,studyYear,domain))
-//                            {
-//                                System.out.println("updated");
-//
-//                                Intent intent = new Intent(ProfileStudentActivity.this, Login.class);
-//                                intent.putExtra("registeredUsername", username);
-//
-//                                startActivity(intent);
-//
-//                            }
-//                        }
+                        //String password = auxIntent.getStringExtra("registeredPassword");
+                        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                        StudentDao studentDao = roomDatabase.studentDao();
+                        new Thread(() -> {
+                            System.out.println("in thread");
+                            Student student = studentDao.getStudentByUsername(username);
+                            student.setStudyDomain(domain);
+                            student.setStudyYear(studyYear);
+                            student.setPhoneNumber(phonenumber);
+                            student.setEmail(email1);
+                            student.setLastName(lastname);
+                            student.setFirstName(firstname);
+                            studentDao.updateStudent(student);
+                            Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }).start();
 
                     }
 
