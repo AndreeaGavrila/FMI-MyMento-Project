@@ -25,15 +25,15 @@
 //    private LiveData<List<CourseToTeach>> courses;
 //
 //    public StudentTaughtCoursesRepository(Application application){
-//        MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
-//        studentTaughtCoursesDao = db.studentTaughtCoursesDao();
-//        courseToTeachDao = db.courseToTeachDao();
-//        studentDao = db.studentDao();
-//        allStudentsWithTaughtCourses = studentTaughtCoursesDao.getAll();
-//        allCoursesToTeach = courseToTeachDao.getAllToTeachCourses().getValue();
-//        courses = courseToTeachDao.getAllToTeachCourses();
-//        System.out.println("courses" + courses.getValue());
-//        System.out.println(allCoursesToTeach);
+////        MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
+////        studentTaughtCoursesDao = db.studentTaughtCoursesDao();
+////        courseToTeachDao = db.courseToTeachDao();
+////        studentDao = db.studentDao();
+////        allStudentsWithTaughtCourses = studentTaughtCoursesDao.getAll();
+////        allCoursesToTeach = courseToTeachDao.getAllToTeachCourses().getValue();
+////        courses = courseToTeachDao.getAllToTeachCourses();
+////        System.out.println("courses" + courses.getValue());
+////        System.out.println(allCoursesToTeach);
 //    }
 //
 //    public void insertTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
@@ -59,20 +59,11 @@
 //            TaughtCourseStudentCross studentCross = new TaughtCourseStudentCross();
 //            studentCross.setIdStudent((int)identifier);
 //            System.out.println("do in background" + studentCross.getIdStudent());
-//            for(CourseToTeach c : studentWithTaughtCourses[0].getCourseToTeach()){
-//                System.out.println("nume curs"+ c.getCourseName());
-//            }
+//
 //            for (CourseToTeach c: allCourseToTeach) {
 //                System.out.println("course_to_teach" + c.getIdCourseToTeach() + c.getCourseName());
 //            }
-//            for (CourseToTeach courseToTeach: studentWithTaughtCourses[0].getCourseToTeach()){
 //
-//                System.out.println(courseToTeach.getCourseName() + courseToTeach.getIdCourseToTeach());
-//                studentCross.setIdCourseToTeach(courseToTeach.getIdCourseToTeach());
-//                System.out.println("inainte de insert course" + studentCross.getIdCourseToTeach());
-//                studentTaughtCoursesDaoAsync.insertStudentTaughtCourses(studentCross);
-//                System.out.println("dupa insert course");
-//            }
 //            return null;
 //        }
 //    }

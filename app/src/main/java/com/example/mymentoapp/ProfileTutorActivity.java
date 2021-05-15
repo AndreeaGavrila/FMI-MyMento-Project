@@ -9,7 +9,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
@@ -27,10 +26,10 @@ import com.example.mymentoapp.util.MyRoomDatabase;
 
 
 public class ProfileTutorActivity extends AppCompatActivity {
-
     EditText lastName, firstName, phoneNumber, email, iban;
     RadioGroup radioGroupStudyYear, radioGroupDomain;
     Button btn_submit_tutor;
+
     private RegisterViewModel registerViewModel;
     private StudentViewModel studentViewModel;
     private StudentDao studentDao;
@@ -53,80 +52,53 @@ public class ProfileTutorActivity extends AppCompatActivity {
         btn_submit_tutor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String firstname = firstName.getText().toString();
                 String lastname = lastName.getText().toString();
                 String phonenumber = phoneNumber.getText().toString();
                 String email1 = email.getText().toString();
                 String iban1 = iban.getText().toString();
-
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 String phonePattern = "^\\+[0-9]{10,13}$";
-
                 int selectedId = radioGroupDomain.getCheckedRadioButtonId();
                 RadioButton selecteddomainbutton = (RadioButton) findViewById(selectedId);
-                String domain = (String)selecteddomainbutton.getText();
-
+                String domain = (String) selecteddomainbutton.getText();
                 int selectedId2 = radioGroupStudyYear.getCheckedRadioButtonId();
                 RadioButton selectedyearbutton = findViewById(selectedId2);
-                String studyYear = (String)selectedyearbutton.getText();
-
-                if (firstname.equals("") || lastname.equals("") || phonenumber.equals("") || email1.equals("")  ||
-                        radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
-
+                String studyYear = (String) selectedyearbutton.getText();
+                if (firstname.equals("") || lastname.equals("") || phonenumber.equals("") || email1.equals("") || radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     if (!(email1.matches(emailPattern))) {
-
                         Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
                     }
-
                     if (!(phonenumber.matches(phonePattern))) {
-
                         Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
                     }
-//                    if (!(iban1.substring(0, 2).equals("RO")) || !(iban1.substring(2, iban1.length()).matches("[0-9]+")) || iban1.length() != 24) {
-//                        Toast.makeText(getApplicationContext(), "INVALID IBAN", Toast.LENGTH_SHORT).show();
-//                    }
-                    else
-                    {
-                        Bundle bundle = getIntent().getExtras();
-                        String username  = bundle.getString("username");
-
-                        System.out.println("username student: " + username);
-                        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                        StudentDao studentDao = roomDatabase.studentDao();
-                        TutorDao tutorDao = roomDatabase.tutorDao();
-
-                        new Thread(() -> {
-                            System.out.println("in thread");
-                            Student student = studentDao.getStudentByUsername(username);
-                            student.setStudyDomain(domain);
-                            student.setStudyYear(studyYear);
-                            student.setPhoneNumber(phonenumber);
-                            student.setEmail(email1);
-                            student.setLastName(lastname);
-                            student.setFirstName(firstname);
-                            studentDao.updateStudent(student);
-                            Tutor tutor = new Tutor(firstname, lastname, studyYear, domain, phonenumber, email1, student.getUsername(), student.getPassword(), 0, iban1);
-                            TutorViewModel.repository.insertTutor(tutor);
-                            Intent intent = new Intent (ProfileTutorActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        }).start();
-
-                    }
-
-
+//                    if (!(iban1.substring(0, 2).equals("RO")) || !(iban1.substring(2, iban1.length()).matches("[0-9]+")) || iban1.length() != 24) {//                        Toast.makeText(getApplicationContext(), "INVALID IBAN", Toast.LENGTH_SHORT).show();//                    }                    else                    {
+                    Bundle bundle = getIntent().getExtras();
+                    String username = bundle.getString("username");
+                    System.out.println("username student: " + username);
+                    roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                    StudentDao studentDao = roomDatabase.studentDao();
+                    TutorDao tutorDao = roomDatabase.tutorDao();
+                    new Thread(() -> {
+                        System.out.println("in thread");
+                        Student student = studentDao.getStudentByUsername(username);
+                        student.setStudyDomain(domain);
+                        student.setStudyYear(studyYear);
+                        student.setPhoneNumber(phonenumber);
+                        student.setEmail(email1);
+                        student.setLastName(lastname);
+                        student.setFirstName(firstname);
+                        studentDao.updateStudent(student);
+                        Tutor tutor = new Tutor(firstname, lastname, studyYear, domain, phonenumber, email1, student.getUsername(), student.getPassword(), 0, iban1);
+                        TutorViewModel.repository.insertTutor(tutor);
+                        Intent intent = new Intent(ProfileTutorActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }).start();
                 }
-
             }
+
         });
-
-
-
-
     }
-
 }

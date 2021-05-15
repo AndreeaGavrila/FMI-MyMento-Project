@@ -8,11 +8,13 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mymentoapp.data.StudentRepository;
 
+
 import java.util.List;
 
 public class StudentViewModel extends AndroidViewModel {
     public static StudentRepository repository;
     public final LiveData<List<Student>> allStudents;
+
 
     public StudentViewModel(@NonNull Application application) {
         super(application);
@@ -23,6 +25,12 @@ public class StudentViewModel extends AndroidViewModel {
 
     public static void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
+    }
+    public static void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
+//        System.out.println("aici a ajuns");
+//        System.out.println(studentWithTaughtCourses.getStudent());
+//        repository.insertStudentWithTaughtCourses(studentWithTaughtCourses);
+//        System.out.println("dupa insert");
     }
 
     public LiveData<List<Student>> getAllStudents(){
@@ -36,7 +44,7 @@ public class StudentViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public Student getStudent(int studentIdInput){
-        return repository.getStudent(studentIdInput);
-    }
+//    public Student getStudent(int studentIdInput){
+//        return repository.getStudent(studentIdInput);
+//    }
 }
