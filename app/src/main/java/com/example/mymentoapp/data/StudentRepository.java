@@ -63,13 +63,13 @@ public class StudentRepository {
         @Override
         protected Void doInBackground(StudentWithCourse... studentWithCourses) {
 
-            long identifier = studentDaoAsync.insertStudent(studentWithCourses[0].student);
+            long identifier = studentDaoAsync.insertStudent(studentWithCourses[0].getStudent());
 
             // TODO: 06.05.2021  e ok pt ca un student o sa fie adaugat direct cu cursurile lui
-            for (SpecificCourse specificCourse : studentWithCourses[0].specificCourses) {
+            for (SpecificCourse specificCourse : studentWithCourses[0].getSpecificCourses()) {
                 specificCourse.setId_FkStudent(identifier);
             }
-            studentDaoAsync.insertSpecificCourses(studentWithCourses[0].specificCourses);
+            studentDaoAsync.insertSpecificCourses(studentWithCourses[0].getSpecificCourses());
             return null;
         }
     }

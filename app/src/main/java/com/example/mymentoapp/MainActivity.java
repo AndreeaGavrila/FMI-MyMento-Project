@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
     private TutorViewModel tutorViewModel;
     private SpecificCourseViewModel specificCourseViewModel;
+    private Button btn_login, btn_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,25 @@ public class MainActivity extends AppCompatActivity {
 
         StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
         StudentViewModel.insertStudentWithCourses(studentWithCourse1);
+
+        btn_login = (Button)findViewById(R.id.login_button);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        btn_register = (Button)findViewById(R.id.register_button);
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 }

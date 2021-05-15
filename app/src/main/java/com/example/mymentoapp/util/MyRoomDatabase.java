@@ -9,10 +9,14 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mymentoapp.data.CourseToTeachDao;
+import com.example.mymentoapp.data.LoginDao;
+import com.example.mymentoapp.data.RegisterDao;
 import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.Login;
+import com.example.mymentoapp.model.Register;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.Tutor;
@@ -20,13 +24,17 @@ import com.example.mymentoapp.model.Tutor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class}, version = 1, exportSchema = false)
+@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, Register.class, Login.class
+
+}, version = 1, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
 
     public abstract StudentDao studentDao();
     public abstract TutorDao tutorDao();
     public abstract SpecificCourseDao specificCourseDao();
     public abstract CourseToTeachDao courseToTeachDao();
+    public abstract RegisterDao registerDao();
+    public abstract LoginDao loginDao();
 
     public static final int NUMBER_OF_THREADS = 4;
 
@@ -76,6 +84,12 @@ public abstract class MyRoomDatabase extends RoomDatabase {
 
                         CourseToTeachDao courseToTeachDao = INSTANCE.courseToTeachDao();
                         courseToTeachDao.deleteAll();
+
+                        RegisterDao registerDao = INSTANCE.registerDao();
+                        registerDao.deleteAll();
+
+                        LoginDao loginDao = INSTANCE.loginDao();
+                        loginDao.deleteAll();
 
 
                     });
