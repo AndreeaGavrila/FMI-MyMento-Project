@@ -21,7 +21,7 @@ public interface TutorDao {
     long insertTutor(Tutor tutor);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertToTeachCourses(List<CourseToTeach> courseToTeach);
+    void insertToTeachCourses(List<CourseToTeach> courseToTeaches);
 
     @Query("DELETE FROM tutor_table")
     void deleteAll();
