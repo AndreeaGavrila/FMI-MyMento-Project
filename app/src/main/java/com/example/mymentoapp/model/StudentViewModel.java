@@ -43,4 +43,8 @@ public class StudentViewModel extends AndroidViewModel {
     public static void deleteAll(){
         repository.deleteAll();
     }
+
+//    public Student getStudent(int studentIdInput){
+//        return repository.getStudent(studentIdInput);
+//    }
 }

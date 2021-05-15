@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/first_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="First name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/last_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Last name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/email_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/phone_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Phone number"
+                android:inputType="phone" />
+
+            <TextView
+                android:id="@+id/study_year_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Study year"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radio_year_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radio_year1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="I" />
+
+                <RadioButton
+                    android:id="@+id/radio_year2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="II" />
+
+                <RadioButton
+                    android:id="@+id/radio_year3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="III" />
+
+                <RadioButton
+                    android:id="@+id/radio_year4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="IV" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Domain"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radio_domain_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radio_math"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mathematics" />
+
+                <RadioButton
+                    android:id="@+id/radio_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informatics" />
+
+                <RadioButton
+                    android:id="@+id/radio_cti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CTI" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
