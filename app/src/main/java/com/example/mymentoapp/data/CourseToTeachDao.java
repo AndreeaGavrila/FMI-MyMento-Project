@@ -25,6 +25,7 @@ public interface CourseToTeachDao {
     @Query("SELECT * FROM course_to_teach")
     LiveData<List<CourseToTeach>> getAllToTeachCourses();
 
+
 //    @Query("DELETE FROM course_to_teach WHERE id_FkTutor = :id")
 //    void deleteCourseToTeach(int id);
 
