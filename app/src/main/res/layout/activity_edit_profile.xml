@@ -49,6 +49,15 @@
             android:hint="Phone number"
             android:inputType="phone" />
 
+        <EditText
+            android:id="@+id/iban_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/study_year_text"
             android:layout_width="match_parent"
@@ -109,6 +118,31 @@
                 android:layout_height="wrap_content"
                 android:text="Mathematics" />
 
+            <RadioGroup
+                android:id="@+id/radio_group_spec_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/btn_spec1_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pure Mathematics" />
+
+                <RadioButton
+                    android:id="@+id/btn_spec2_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Applied Mathematics" />
+
+                <RadioButton
+                    android:id="@+id/btn_spec3_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mathematics-Informatics" />
+            </RadioGroup>
+
             <RadioButton
                 android:id="@+id/radio_info"
                 android:layout_width="match_parent"
@@ -123,12 +157,27 @@
 
         </RadioGroup>
 
+        <TextView
+            android:id="@+id/courses_to_teach1"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:gravity="center"
+            android:text="Choose courses you want to teach"
+            android:textColor="#0A0000"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/to_teach_course1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
         <Button
             android:id="@+id/became_tutor_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BECAME A TUTOR!"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_edit"

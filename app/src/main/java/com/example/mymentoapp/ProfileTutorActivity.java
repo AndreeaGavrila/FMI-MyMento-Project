@@ -44,7 +44,6 @@ public class ProfileTutorActivity extends AppCompatActivity {
     AssignCourse assignCourse;
     LinearLayout linearLayout;
     AssignCourse assignCourse2;
-    CheckBox checkBox;
     TextView course_to_teach;
 
     private ArrayList<String> courseNameList;
@@ -87,6 +86,9 @@ public class ProfileTutorActivity extends AppCompatActivity {
             domain1 = rb.getText().toString();
             System.out.println("study+year" +rb.getText());
 
+            if(studyYear1.equals("I") || studyYear1.equals("IV")){
+                radioGroupSpec.setVisibility(View.GONE);
+            }
             radioGroupStudyYear.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) (group1, checkedId2) -> {
 
                 linearLayout.removeAllViews();
@@ -102,6 +104,9 @@ public class ProfileTutorActivity extends AppCompatActivity {
                             assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                         }
                     });
+                    if(studyYear1.equals("I") || studyYear1.equals("IV")){
+                        radioGroupSpec.setVisibility(View.GONE);
+                    }
                     assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                 }
                 System.out.println(studyYear1 + domain1);
@@ -186,7 +191,11 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         checkBox.setVisibility(View.VISIBLE);
                         linearLayout.addView(checkBox);
                     }
+                    if(studyYear1.equals("I") || studyYear1.equals("IV")){
+                        radioGroupSpec.setVisibility(View.GONE);
+                    }
                 }
+
             });
         }
 //        linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +246,9 @@ public class ProfileTutorActivity extends AppCompatActivity {
                     }
                     if (courseToTeachArrayList.size() == 0) {
                         Toast.makeText(getApplicationContext(), "You have to choose at least one course", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+
+                    else {
                         new Thread(() -> {
                             System.out.println("in thread");
                             Student student = studentDao.getStudentByUsername(username);
