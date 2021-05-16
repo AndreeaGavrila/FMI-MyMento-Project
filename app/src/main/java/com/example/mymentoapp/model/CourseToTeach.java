@@ -15,15 +15,15 @@ public class CourseToTeach {
     @PrimaryKey(autoGenerate = true)
     private int idCourseToTeach;
 
-//    @ForeignKey
-//            (entity = Tutor.class,
-//                    parentColumns = "idStudent",
-//                    childColumns = "id_FkTutor",
-//                    onDelete = CASCADE,
-//                    onUpdate = CASCADE
-//
-//            )
-//    private long id_FkTutor;
+    @ForeignKey
+            (entity = Tutor.class,
+                    parentColumns = "idStudent",
+                    childColumns = "id_FkTutor",
+                    onDelete = CASCADE,
+                    onUpdate = CASCADE
+
+            )
+    private long id_FkTutor;
     @ColumnInfo(name = "courseName")
     private String courseName;
 
@@ -50,14 +50,14 @@ public class CourseToTeach {
     public void setIdCourseToTeach(int idCourseToTeach) {
         this.idCourseToTeach = idCourseToTeach;
     }
-//
-//    public long getId_FkTutor() {
-//        return id_FkTutor;
-//    }
-//
-//    public void setId_FkTutor(long id_FkTutor) {
-//        this.id_FkTutor = id_FkTutor;
-//    }
+
+    public long getId_FkTutor() {
+        return id_FkTutor;
+    }
+
+    public void setId_FkTutor(long id_FkTutor) {
+        this.id_FkTutor = id_FkTutor;
+    }
 
     public String getCourseName() {
         return courseName;
