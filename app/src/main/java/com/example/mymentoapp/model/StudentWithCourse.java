@@ -19,4 +19,20 @@ public class StudentWithCourse {
         this.student = student;
         this.specificCourses = specificCourses;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public List<SpecificCourse> getSpecificCourses() {
+        return specificCourses;
+    }
+
+    public void setSpecificCourses(List<SpecificCourse> specificCourses) {
+        this.specificCourses = specificCourses;
+    }
 }

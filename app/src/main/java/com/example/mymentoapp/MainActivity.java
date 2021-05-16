@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
@@ -50,6 +51,25 @@ public class MainActivity extends AppCompatActivity {
         specificCourseViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.
                 this.getApplication()).create(SpecificCourseViewModel.class);
 
+        btn_login = (Button)findViewById(R.id.login_button);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.putExtra("from", "MainActivity");
+                startActivity(intent);
+            }
+        });
+        btn_register = (Button)findViewById(R.id.register_button);
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 //        TutorViewModel.deleteAll();
 //        StudentViewModel.deleteAll();
 //        SpecificCourseViewModel.deleteAll();
@@ -90,26 +110,13 @@ public class MainActivity extends AppCompatActivity {
         StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
         StudentViewModel.insertStudentWithCourses(studentWithCourse1);
 
-        btn_login = (Button)findViewById(R.id.login_button);
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        btn_register = (Button)findViewById(R.id.register_button);
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
 
 
     }
+
+
 }
 // TODO: 29.04.2021 cand creez un profil de student in functie de an ii adaugi cursurile, la fel si la prof
 // TODO: 29.04.2021  pentru profi faci alte cursuri pe care le pot preda -> toti anii de mai jos de el la toate domeniile
@@ -122,4 +129,3 @@ public class MainActivity extends AppCompatActivity {
 // DIN ACEST TABEL IAU ATUNCI CAND STUDENTU CAUTA UN ANUME CURS CU UN PROF
 // CAND STUDENTUL ALEGE SA FACA UN CURS CU UN PROF, ACEL CURS SE ADAUGA IN ALT TABEL LETS SAY CURSURI_TINUTE CARE ARE
 // ATAT ID-UL PROFULUI CAT SI AL STUDENTULUI 1-M DE LA STUDENT SI 1-M DE LA PROF CATRE ACEST TABEL
-

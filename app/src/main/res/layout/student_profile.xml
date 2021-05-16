@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -61,13 +62,75 @@
                 android:inputType="phone" />
 
             <TextView
-                android:id="@+id/study_year_text"
+                android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:height="45dp"
-                android:text="Study year"
+                android:text="Domain"
                 android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radio_domain_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radio_math"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mathematics" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_spec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="50dp"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/btn_spec1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pure Mathematics" />
+
+                    <RadioButton
+                        android:id="@+id/btn_spec2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Applied Mathematics" />
+
+                    <RadioButton
+                        android:id="@+id/btn_spec3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mathematics-Informatics" />
+                </RadioGroup>
+
+                <RadioButton
+                    android:id="@+id/radio_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informatics" />
+
+                <RadioButton
+                    android:id="@+id/radio_cti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CTI" />
+
+                <TextView
+                    android:id="@+id/study_year_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:height="45dp"
+                    android:text="Study year"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="237dp"
+                    tools:layout_editor_absoluteY="508dp" />
+
+            </RadioGroup>
 
             <RadioGroup
                 android:id="@+id/radio_year_edit"
@@ -97,40 +160,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="IV" />
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:height="45dp"
-                android:text="Domain"
-                android:textSize="18sp" />
-
-            <RadioGroup
-                android:id="@+id/radio_domain_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RadioButton
-                    android:id="@+id/radio_math"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mathematics" />
-
-                <RadioButton
-                    android:id="@+id/radio_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Informatics" />
-
-                <RadioButton
-                    android:id="@+id/radio_cti"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CTI" />
 
             </RadioGroup>
 

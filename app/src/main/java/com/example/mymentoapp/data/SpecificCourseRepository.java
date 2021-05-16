@@ -16,6 +16,8 @@ public class SpecificCourseRepository {
     private StudentDao studentDao;
     private LiveData<List<Student>> allStudents;
     private LiveData<List<SpecificCourse>> allSpecificCourses;
+    private LiveData<List<SpecificCourse>> allSpecificCoursesForStudent;
+
 
     public SpecificCourseRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -24,9 +26,13 @@ public class SpecificCourseRepository {
 
         studentDao = db.studentDao();
         allStudents = studentDao.getAllStudents();
+
     }
     public LiveData<List<SpecificCourse>> getAllData(){
         return allSpecificCourses;
+    }
+    public LiveData<List<SpecificCourse>> getAllSpecificCoursesForStudent(int idInput){
+        return specificCourseDao.getAllSpecificCoursesForStudent(idInput);
     }
 
     public void insert(SpecificCourse specificCourse){
@@ -49,4 +55,5 @@ public class SpecificCourseRepository {
 //            specificCourseDao.updateDelete();
 //        });
 //    }
+
 }

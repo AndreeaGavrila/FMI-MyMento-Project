@@ -22,7 +22,6 @@ public class SpecificCourseViewModel  extends AndroidViewModel {
 
     }
     private SpecificCourseRepository specificCourseRepository;
-
     public LiveData<List<SpecificCourse>> getAllSpecificCourses(){
         return allSpecificCourses;
     }
