@@ -127,6 +127,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mathematics" />
+                <RadioGroup
+                    android:id="@+id/radio_group_spec_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="50dp"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/btn_spec1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pure Mathematics" />
+
+                    <RadioButton
+                        android:id="@+id/btn_spec2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Applied Mathematics" />
+
+                    <RadioButton
+                        android:id="@+id/btn_spec3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mathematics-Informatics" />
+                </RadioGroup>
 
                 <RadioButton
                     android:id="@+id/radio_info"

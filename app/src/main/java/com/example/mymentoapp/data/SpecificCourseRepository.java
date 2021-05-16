@@ -28,7 +28,9 @@ public class SpecificCourseRepository {
     public LiveData<List<SpecificCourse>> getAllData(){
         return allSpecificCourses;
     }
-
+    public List<SpecificCourse> getAllSpecificCoursesForStudent(int idInput){
+        return specificCourseDao.getAllSpecificCoursesForStudent(idInput);
+    }
     public void insert(SpecificCourse specificCourse){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             specificCourseDao.insertSpecificCourse(specificCourse);

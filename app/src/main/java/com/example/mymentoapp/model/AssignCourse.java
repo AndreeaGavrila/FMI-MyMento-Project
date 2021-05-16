@@ -10,10 +10,10 @@ public class AssignCourse {
     private String specialization;
     private List<SpecificCourse> specificCourseList;
 
-    public AssignCourse(String studyYear, String domain, String[] specialization) {
+    public AssignCourse(String studyYear, String domain, String specialization) {
         this.studyYear = studyYear;
         this.domain = domain;
-        this.specialization = specialization[0];
+        this.specialization = specialization;
         this.specificCourseList= new ArrayList<>();
 
         if(studyYear.equals("I")) {
