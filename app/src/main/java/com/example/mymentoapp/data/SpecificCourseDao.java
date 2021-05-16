@@ -16,12 +16,16 @@ public interface SpecificCourseDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSpecificCourse(SpecificCourse specificCourse);
+
     @Query("DELETE FROM specific_course")
     void deleteAll();
+
     @Query("SELECT * FROM specific_course")
     LiveData<List<SpecificCourse>> getAllSpecificCourses();
+
     @Query("SELECT * FROM specific_course WHERE id_FkStudent=:idInput")
     List<SpecificCourse> getAllSpecificCoursesForStudent(int idInput);
+
     @Query("DELETE FROM specific_course WHERE id_FkStudent = :id")
     void deleteSpecificCourse(int id);
     @Update

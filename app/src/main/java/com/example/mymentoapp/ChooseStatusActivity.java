@@ -24,15 +24,7 @@ import com.example.mymentoapp.model.TutorViewModel;
 
 public class ChooseStatusActivity extends AppCompatActivity {
 
-    EditText lastName, firstName, phoneNumber, email;
-    RadioGroup radioGroupStudyYear, radioGroupDomain;
-
-    //Button btn_submit_student;
-
-//    DatabaseHelper databaseHelper;
-
     Button chooseStudent, chooseTutor;
-    Boolean insert;
 
     private RegisterViewModel registerViewModel;
 

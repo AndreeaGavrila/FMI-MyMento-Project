@@ -61,11 +61,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
         radioGroupDomain = (RadioGroup) findViewById(R.id.radio_domain_edit);
         btn_submit_student = (Button) findViewById(R.id.btn_edit);
         courseNameList = new ArrayList<String>();
-//        int studyYearId = radioGroupStudyYear.getCheckedRadioButtonId();
-//        RadioButton yearButton = (RadioButton) findViewById(studyYearId);
-//
-//        int domainId = radioGroupDomain.getCheckedRadioButtonId();
-//        RadioButton domainButton = (RadioButton) findViewById(domainId);
 
         specialization1 = "" ;
         studyYear1 = "";
@@ -79,60 +74,50 @@ public class ProfileStudentActivity extends AppCompatActivity {
             }
         });
 
+        radioGroupDomain.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) (group, checkedId) -> {
 
-        radioGroupDomain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+            // checkedId is the RadioButton selected
+            RadioButton rb = (RadioButton)findViewById(checkedId);
+            domain1 = rb.getText().toString();
+            System.out.println("study+year" +rb.getText());
 
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            radioGroupStudyYear.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) (group1, checkedId2) -> {
 
-                // checkedId is the RadioButton selected
-                RadioButton rb = (RadioButton)findViewById(checkedId);
-                domain1 = rb.getText().toString();
-                System.out.println("study+year" +rb.getText());
+                RadioButton rb2 = (RadioButton)findViewById(checkedId2);
+                studyYear1 = rb2.getText().toString();
+                if(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III"))){
+                    radioGroupSpec.setVisibility(View.VISIBLE);
+                    radioGroupSpec.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) (group11, checkedId3) -> {
+                        RadioButton rb3 = (RadioButton)findViewById(checkedId3);
+                        specialization1 = rb3.getText().toString();
 
-                radioGroupStudyYear.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-                    public void onCheckedChanged(RadioGroup group, int checkedId2) {
+                    });
+                }
 
-                        RadioButton rb2 = (RadioButton)findViewById(checkedId2);
-                        studyYear1 = rb2.getText().toString();
-                        if(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III"))){
-                            radioGroupSpec.setVisibility(View.VISIBLE);
-                            radioGroupSpec.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                                public void onCheckedChanged(RadioGroup group, int checkedId3) {
-                                    RadioButton rb3 = (RadioButton)findViewById(checkedId3);
-                                    specialization1 = rb3.getText().toString();
-
-                                }
-                            });
-                        }
+            });
+            if(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III"))){
+                radioGroupSpec.setVisibility(View.VISIBLE);
+                radioGroupSpec.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    public void onCheckedChanged(RadioGroup group, int checkedId3) {
+                        RadioButton rb3 = (RadioButton)findViewById(checkedId3);
+                        specialization1 = rb3.getText().toString();
 
                     }
                 });
-                if(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III"))){
-                    radioGroupSpec.setVisibility(View.VISIBLE);
-                    radioGroupSpec.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        public void onCheckedChanged(RadioGroup group, int checkedId3) {
-                            RadioButton rb3 = (RadioButton)findViewById(checkedId3);
-                            specialization1 = rb3.getText().toString();
-
-                        }
-                    });
-                }
+            }
 
 
-                if(radioGroupSpec.getVisibility() == View.VISIBLE){
-                    radioGroupSpec.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        public void onCheckedChanged(RadioGroup group, int checkedId3) {
-                            RadioButton rb3 = (RadioButton)findViewById(checkedId3);
-                            specialization1 = rb3.getText().toString();
+            if(radioGroupSpec.getVisibility() == View.VISIBLE){
+                radioGroupSpec.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    public void onCheckedChanged(RadioGroup group, int checkedId3) {
+                        RadioButton rb3 = (RadioButton)findViewById(checkedId3);
+                        specialization1 = rb3.getText().toString();
 
-                        }
-                    });
-                }
-                if(!(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III")))){
-                    radioGroupSpec.setVisibility(View.GONE);
-                }
-
+                    }
+                });
+            }
+            if(!(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III")))){
+                radioGroupSpec.setVisibility(View.GONE);
             }
 
         });
@@ -160,23 +145,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                 String phonePattern = "^\\+[0-9]{10,13}$";
 
 
-//                int selectedId = radioGroupDomain.getCheckedRadioButtonId();
-//                RadioButton selecteddomainbutton = (RadioButton) findViewById(selectedId);
-//                String domain = (String)selecteddomainbutton.getText();
-//
-//                String specialization = null;
-//
-//                int selectedId3 = radioGroupSpec.getCheckedRadioButtonId();
-//                if(selectedId3 > -1){
-//                    RadioButton specializationButton = (RadioButton) findViewById(selectedId3);
-//                    specialization  = (String)selecteddomainbutton.getText();
-//                }
-//                int selectedId2 = radioGroupStudyYear.getCheckedRadioButtonId();
-//                RadioButton selectedyearbutton = findViewById(selectedId2);
-//                String studyYear = (String)selectedyearbutton.getText();
-
-
-
                 if (firstname.equals("") || lastname.equals("") || phonenumber.equals("") || email1.equals("")  ||
                         radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
 
@@ -198,15 +166,10 @@ public class ProfileStudentActivity extends AppCompatActivity {
 
                         Bundle bundle = getIntent().getExtras();
                         String username  = bundle.getString("username");
-
                         System.out.println("username student: " + username);
-
-                        //String password = auxIntent.getStringExtra("registeredPassword");
                         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
                         StudentDao studentDao = roomDatabase.studentDao();
 
-
-//                        String finalSpecialization = specialization;
                         new Thread(() -> {
 
                             System.out.println("in thread");
@@ -238,8 +201,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                             StudentViewModel.insertStudentWithCourses(studentWithCourse);
                             studentDao.updateStudent(student);
                             Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
-//                            intent.putExtra("lista_cursuri", courseNameList);
-//                            intent.putExtra("from", "ProfileStudentActivity");
                             startActivity(intent);
                         }).start();
 

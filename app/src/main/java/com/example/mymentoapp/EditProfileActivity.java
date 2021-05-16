@@ -65,7 +65,7 @@ public class EditProfileActivity extends AppCompatActivity {
             studentDao = roomDatabase.studentDao();
             tutorDao = roomDatabase.tutorDao();
             student = studentDao.getStudent(studentId);
-            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
+            Tutor t = tutorDao.getTutorByUserName(student.getUsername());
             System.out.println("id student este " + student.getIdStudent());
 
             if(t != null){
