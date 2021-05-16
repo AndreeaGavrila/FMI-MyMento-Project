@@ -10,10 +10,10 @@ public class AssignCourse {
     private String specialization;
     private List<SpecificCourse> specificCourseList;
 
-    public AssignCourse(String studyYear, String domain, String[] specialization) {
+    public AssignCourse(String studyYear, String domain, String specialization) {
         this.studyYear = studyYear;
         this.domain = domain;
-        this.specialization = specialization[0];
+        this.specialization = specialization;
         this.specificCourseList= new ArrayList<>();
 
         if(studyYear.equals("I")) {
@@ -102,6 +102,7 @@ public class AssignCourse {
 
             }
             else if (domain.equals("Mathematics")) {
+
                 specificCourseList.add(new SpecificCourse("Linear Algebra", "Basics and Advanced principles"));
                 specificCourseList.add(new SpecificCourse("Algebra I", "The beginning"));
                 specificCourseList.add(new SpecificCourse("Mathematical Analysis I", "Only the beginning"));
@@ -368,76 +369,76 @@ public class AssignCourse {
         }
         else{
 
-            specificCourseList.add(new SpecificCourse("Distributed Systems", "How to distribute systems"));
-            specificCourseList.add(new SpecificCourse("Programming Engineering", "Good for every future engineer"));
-            specificCourseList.add(new SpecificCourse("Web Application Development", "ASP.NET or PHP"));
-            specificCourseList.add(new SpecificCourse("Electronic Commerce", "How to sale online"));
-            specificCourseList.add(new SpecificCourse("Cloud Computing", "Very used nowadays in industry"));
-            specificCourseList.add(new SpecificCourse("Web Techniques", "HTML, CSS, JavaScript"));
-            specificCourseList.add(new SpecificCourse("RPA Introduction", "Basics of RPA"));
-            specificCourseList.add(new SpecificCourse("Computer Networks Scaling", "Other network course"));
-            specificCourseList.add(new SpecificCourse("Cryptography and Security", "Every programmer must know"));
-            specificCourseList.add(new SpecificCourse("Programming on Mobile Devices", "Android, iOs"));
-            specificCourseList.add(new SpecificCourse("Learning deep neuronal networks", "Advanced Artificial Intelligence"));
-            specificCourseList.add(new SpecificCourse("Modern Calculation and Simulation Methods", "Great"));
-            specificCourseList.add(new SpecificCourse("Signals Processing", "Great course about signals"));
-            specificCourseList.add(new SpecificCourse("Connecting Computer Networks at WAN Level", "Another networking course"));
-            specificCourseList.add(new SpecificCourse("Operations Management", "For future work place"));
-            specificCourseList.add(new SpecificCourse("Marketing", "Some economy in informatics"));
-            specificCourseList.add(new SpecificCourse("Linux Operating System", "By Mister Irofti"));
-            specificCourseList.add(new SpecificCourse("Parallel Algorithms", "Something about algorithms"));
-            specificCourseList.add(new SpecificCourse("Compilers and Translators", "About compilers"));
-            specificCourseList.add(new SpecificCourse("Software Systems Testing", "About industry"));
-            specificCourseList.add(new SpecificCourse("Preparation of the Diploma Project", "About the final"));
+                specificCourseList.add(new SpecificCourse("Distributed Systems", "How to distribute systems"));
+                specificCourseList.add(new SpecificCourse("Programming Engineering", "Good for every future engineer"));
+                specificCourseList.add(new SpecificCourse("Web Application Development", "ASP.NET or PHP"));
+                specificCourseList.add(new SpecificCourse("Electronic Commerce", "How to sale online"));
+                specificCourseList.add(new SpecificCourse("Cloud Computing", "Very used nowadays in industry"));
+                specificCourseList.add(new SpecificCourse("Web Techniques", "HTML, CSS, JavaScript"));
+                specificCourseList.add(new SpecificCourse("RPA Introduction", "Basics of RPA"));
+                specificCourseList.add(new SpecificCourse("Computer Networks Scaling", "Other network course"));
+                specificCourseList.add(new SpecificCourse("Cryptography and Security", "Every programmer must know"));
+                specificCourseList.add(new SpecificCourse("Programming on Mobile Devices", "Android, iOs"));
+                specificCourseList.add(new SpecificCourse("Learning deep neuronal networks", "Advanced Artificial Intelligence"));
+                specificCourseList.add(new SpecificCourse("Modern Calculation and Simulation Methods", "Great"));
+                specificCourseList.add(new SpecificCourse("Signals Processing", "Great course about signals"));
+                specificCourseList.add(new SpecificCourse("Connecting Computer Networks at WAN Level", "Another networking course"));
+                specificCourseList.add(new SpecificCourse("Operations Management", "For future work place"));
+                specificCourseList.add(new SpecificCourse("Marketing", "Some economy in informatics"));
+                specificCourseList.add(new SpecificCourse("Linux Operating System", "By Mister Irofti"));
+                specificCourseList.add(new SpecificCourse("Parallel Algorithms", "Something about algorithms"));
+                specificCourseList.add(new SpecificCourse("Compilers and Translators", "About compilers"));
+                specificCourseList.add(new SpecificCourse("Software Systems Testing", "About industry"));
+                specificCourseList.add(new SpecificCourse("Preparation of the Diploma Project", "About the final"));
 
-            //anul 2            specificCourseList.add(new SpecificCourse("Mathematical Analysis", "Numerical series, continuity"));
-            specificCourseList.add(new SpecificCourse("Algebra and Geometry", "Introductory course in geometry and algebra"));
-            specificCourseList.add(new SpecificCourse("Computer Programming", "Programming course"));
-            specificCourseList.add(new SpecificCourse("Physics", "The wonderful physics at Magurele"));
-            specificCourseList.add(new SpecificCourse("Logical Design", "You will learns the basics"));
-            specificCourseList.add(new SpecificCourse("Critical Thinking and Academic Ethics", "Learning to speak in front of people and support your ideas"));
-            specificCourseList.add(new SpecificCourse("Physical Education", "Let's learn to play a sport"));
-            specificCourseList.add(new SpecificCourse("Special Mathematics", "Love maths"));
-            specificCourseList.add(new SpecificCourse("Numerical calculation", "Love maths"));
-            specificCourseList.add(new SpecificCourse("Programming Techniques", "Fundamental in informatics"));
-            specificCourseList.add(new SpecificCourse("Computer Aided Design", "Something"));
-            specificCourseList.add(new SpecificCourse("Use of Operating Systems", "Loved course because of Irofti"));
-            specificCourseList.add(new SpecificCourse("The Basics of Electrical Engineering", "Other physics"));
-            specificCourseList.add(new SpecificCourse("Specific Skills in a Foreign Language", "English or French"));
-            specificCourseList.add(new SpecificCourse("Basic Skills in a Foreign Language", "English or French"));
+                //anul 2            specificCourseList.add(new SpecificCourse("Mathematical Analysis", "Numerical series, continuity"));
+                specificCourseList.add(new SpecificCourse("Algebra and Geometry", "Introductory course in geometry and algebra"));
+                specificCourseList.add(new SpecificCourse("Computer Programming", "Programming course"));
+                specificCourseList.add(new SpecificCourse("Physics", "The wonderful physics at Magurele"));
+                specificCourseList.add(new SpecificCourse("Logical Design", "You will learns the basics"));
+                specificCourseList.add(new SpecificCourse("Critical Thinking and Academic Ethics", "Learning to speak in front of people and support your ideas"));
+                specificCourseList.add(new SpecificCourse("Physical Education", "Let's learn to play a sport"));
+                specificCourseList.add(new SpecificCourse("Special Mathematics", "Love maths"));
+                specificCourseList.add(new SpecificCourse("Numerical calculation", "Love maths"));
+                specificCourseList.add(new SpecificCourse("Programming Techniques", "Fundamental in informatics"));
+                specificCourseList.add(new SpecificCourse("Computer Aided Design", "Something"));
+                specificCourseList.add(new SpecificCourse("Use of Operating Systems", "Loved course because of Irofti"));
+                specificCourseList.add(new SpecificCourse("The Basics of Electrical Engineering", "Other physics"));
+                specificCourseList.add(new SpecificCourse("Specific Skills in a Foreign Language", "English or French"));
+                specificCourseList.add(new SpecificCourse("Basic Skills in a Foreign Language", "English or French"));
 
-            //anul 2            specificCourseList.add(new SpecificCourse("Data Structures and Algorithms", "The best course for everyone") );
-            specificCourseList.add(new SpecificCourse("Object Oriented Programming", "The base of every programmer"));
-            specificCourseList.add(new SpecificCourse("Database", "Fundamental and Advanced principles which everyone must know"));
-            specificCourseList.add(new SpecificCourse("Fundamentals of Computer Networks", "Networking base: IP, routers, switches"));
-            specificCourseList.add(new SpecificCourse("Elements of Analog Electronics", "Something"));
-            specificCourseList.add(new SpecificCourse("Systems Theory", "Great course"));
-            specificCourseList.add(new SpecificCourse("Advanced Skills in a Foreign Language I", "English or French"));
-            specificCourseList.add(new SpecificCourse("Probability and Statistics", "Fundamental course, useful in Artificial Intelligence"));
-            specificCourseList.add(new SpecificCourse("Advanced Programming Elements", "Another great course for every future programmer"));
-            specificCourseList.add(new SpecificCourse("Fundamentals of Network Routing", "Great for everyone who wants to know more about networking"));
-            specificCourseList.add(new SpecificCourse("Digital Electronics", "Physics power"));
-            specificCourseList.add(new SpecificCourse("Digital Computers", "Perfect for future great engineers"));
-            specificCourseList.add(new SpecificCourse("The Management and Career Guidance", "Useful for every student"));
-            specificCourseList.add(new SpecificCourse("Advanced Skills in a Foreign Language II", "English or French"));
-            //anul 3
+                //anul 2            specificCourseList.add(new SpecificCourse("Data Structures and Algorithms", "The best course for everyone") );
+                specificCourseList.add(new SpecificCourse("Object Oriented Programming", "The base of every programmer"));
+                specificCourseList.add(new SpecificCourse("Database", "Fundamental and Advanced principles which everyone must know"));
+                specificCourseList.add(new SpecificCourse("Fundamentals of Computer Networks", "Networking base: IP, routers, switches"));
+                specificCourseList.add(new SpecificCourse("Elements of Analog Electronics", "Something"));
+                specificCourseList.add(new SpecificCourse("Systems Theory", "Great course"));
+                specificCourseList.add(new SpecificCourse("Advanced Skills in a Foreign Language I", "English or French"));
+                specificCourseList.add(new SpecificCourse("Probability and Statistics", "Fundamental course, useful in Artificial Intelligence"));
+                specificCourseList.add(new SpecificCourse("Advanced Programming Elements", "Another great course for every future programmer"));
+                specificCourseList.add(new SpecificCourse("Fundamentals of Network Routing", "Great for everyone who wants to know more about networking"));
+                specificCourseList.add(new SpecificCourse("Digital Electronics", "Physics power"));
+                specificCourseList.add(new SpecificCourse("Digital Computers", "Perfect for future great engineers"));
+                specificCourseList.add(new SpecificCourse("The Management and Career Guidance", "Useful for every student"));
+                specificCourseList.add(new SpecificCourse("Advanced Skills in a Foreign Language II", "English or French"));
+                //anul 3
 
-            specificCourseList.add(new SpecificCourse("Database Design", "Wonderful"));
-            specificCourseList.add(new SpecificCourse("Operating Systems", "Very useful and great if you will have sir Irofti as teacher"));
-            specificCourseList.add(new SpecificCourse("Artificial Intelligence", "Maybe the most wanted and useful nowadays"));
-            specificCourseList.add(new SpecificCourse("Computer Systems Architecture", "Mister Dragulici the best"));
-            specificCourseList.add(new SpecificCourse("Communications and Public relations", "Useful for work"));
-            specificCourseList.add(new SpecificCourse("Management", "Useful for work place"));
-            specificCourseList.add(new SpecificCourse("Computer Networks Scaling", "Other network course"));
-            specificCourseList.add(new SpecificCourse("Cryptography and Security", "Every programmer must know"));
-            specificCourseList.add(new SpecificCourse("Computer Graphics", "Engineering course, useful for everyone"));
-            specificCourseList.add(new SpecificCourse("Software Development Methods", "The best for the industry"));
-            specificCourseList.add(new SpecificCourse("Microprocessor Systems", "Future engineer course"));
-            specificCourseList.add(new SpecificCourse("Industrial Practice", "Compulsory Practice"));
+                specificCourseList.add(new SpecificCourse("Database Design", "Wonderful"));
+                specificCourseList.add(new SpecificCourse("Operating Systems", "Very useful and great if you will have sir Irofti as teacher"));
+                specificCourseList.add(new SpecificCourse("Artificial Intelligence", "Maybe the most wanted and useful nowadays"));
+                specificCourseList.add(new SpecificCourse("Computer Systems Architecture", "Mister Dragulici the best"));
+                specificCourseList.add(new SpecificCourse("Communications and Public relations", "Useful for work"));
+                specificCourseList.add(new SpecificCourse("Management", "Useful for work place"));
+                specificCourseList.add(new SpecificCourse("Computer Networks Scaling", "Other network course"));
+                specificCourseList.add(new SpecificCourse("Cryptography and Security", "Every programmer must know"));
+                specificCourseList.add(new SpecificCourse("Computer Graphics", "Engineering course, useful for everyone"));
+                specificCourseList.add(new SpecificCourse("Software Development Methods", "The best for the industry"));
+                specificCourseList.add(new SpecificCourse("Microprocessor Systems", "Future engineer course"));
+                specificCourseList.add(new SpecificCourse("Industrial Practice", "Compulsory Practice"));
 
-        }
+             }
 
-    }
+}
 
 
     public String getStudyYear() {

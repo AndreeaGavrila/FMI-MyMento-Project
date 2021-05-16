@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra("from", "MainActivity");
                 startActivity(intent);
@@ -129,3 +130,4 @@ public class MainActivity extends AppCompatActivity {
 // DIN ACEST TABEL IAU ATUNCI CAND STUDENTU CAUTA UN ANUME CURS CU UN PROF
 // CAND STUDENTUL ALEGE SA FACA UN CURS CU UN PROF, ACEL CURS SE ADAUGA IN ALT TABEL LETS SAY CURSURI_TINUTE CARE ARE
 // ATAT ID-UL PROFULUI CAT SI AL STUDENTULUI 1-M DE LA STUDENT SI 1-M DE LA PROF CATRE ACEST TABEL
+
