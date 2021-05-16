@@ -71,46 +71,6 @@
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/study_year_text"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:height="45dp"
-                android:text="Study year"
-                android:textSize="18sp" />
-
-            <RadioGroup
-                android:id="@+id/radio_year_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RadioButton
-                    android:id="@+id/radio_year1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="I" />
-
-                <RadioButton
-                    android:id="@+id/radio_year2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="II" />
-
-                <RadioButton
-                    android:id="@+id/radio_year3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="III" />
-
-                <RadioButton
-                    android:id="@+id/radio_year4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="IV" />
-
-            </RadioGroup>
-
-            <TextView
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -129,6 +89,64 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mathematics" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/btn_tutor_spec1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RadioButton" />
+                </RadioGroup>
+
+                <RadioButton
+                    android:id="@+id/radio_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informatics" />
+
+                <RadioButton
+                    android:id="@+id/radio_cti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CTI" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/study_year_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Study year"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radio_year_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radio_year1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="I" />
 
                 <RadioGroup
                     android:id="@+id/radio_group_spec_info"
@@ -157,16 +175,22 @@
                 </RadioGroup>
 
                 <RadioButton
-                    android:id="@+id/radio_info"
+                    android:id="@+id/radio_year2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Informatics" />
+                    android:text="II" />
 
                 <RadioButton
-                    android:id="@+id/radio_cti"
+                    android:id="@+id/radio_year3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CTI" />
+                    android:text="III" />
+
+                <RadioButton
+                    android:id="@+id/radio_year4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="IV" />
 
             </RadioGroup>
 
