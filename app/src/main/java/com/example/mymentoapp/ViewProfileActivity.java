@@ -58,6 +58,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         new Thread(() -> {
 
+
             Student student = studentDao.getStudent(idStudent);
             studentId.set(student.getIdStudent());
             this.runOnUiThread(() -> {
