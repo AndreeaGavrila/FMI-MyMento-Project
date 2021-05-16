@@ -12,7 +12,9 @@ import android.widget.RadioGroup;
 
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.StudentRepository;
+import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -23,8 +25,12 @@ public class EditProfileActivity extends AppCompatActivity {
     RadioGroup radioGroupStudyYear, radioGroupDomain;
     RadioButton radioYear1, radioYear2, radioYear3, radioYear4, radioInfo, radioMath, radioCTI;
     Button edit;
-
+    Student student;
+    Button becameTutorBtn;
     MyRoomDatabase roomDatabase;
+    StudentDao studentDao;
+    TutorDao tutorDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,23 +52,35 @@ public class EditProfileActivity extends AppCompatActivity {
         radioCTI = findViewById(R.id.radio_cti);
         radioInfo = findViewById(R.id.radio_info);
         radioMath = findViewById(R.id.radio_math);
-
+        becameTutorBtn = findViewById(R.id.became_tutor_btn);
         edit = findViewById(R.id.btn_edit);
+
 
         repository = new StudentRepository(this.getApplication());
 
-        final Student[] student = new Student[1];
-
-        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-        StudentDao studentDao = roomDatabase.studentDao();
 
         new Thread(() -> {
-            student[0] = studentDao.getStudent(studentId);
-            firstName.setText(student[0].getFirstName());
-            lastName.setText(student[0].getLastName());
-            phoneNumber.setText(student[0].getPhoneNumber());
-            email.setText(student[0].getEmail());
-            String year = student[0].getStudyYear();
+
+            roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+            studentDao = roomDatabase.studentDao();
+            tutorDao = roomDatabase.tutorDao();
+            student = studentDao.getStudent(studentId);
+            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
+            System.out.println("id student este " + student.getIdStudent());
+
+            if(t != null){
+                System.out.println(student.getIdStudent() + student.getFirstName());
+                System.out.println("este tutore");
+                becameTutorBtn.setVisibility(View.GONE);
+            }
+
+
+            student = studentDao.getStudent(studentId);
+            firstName.setText(student.getFirstName());
+            lastName.setText(student.getLastName());
+            phoneNumber.setText(student.getPhoneNumber());
+            email.setText(student.getEmail());
+            String year = student.getStudyYear();
             switch (year) {
                 case "I":
                     radioYear1.setChecked(true);
@@ -77,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     radioYear4.setChecked(true);
                     break;
             }
-            String domain = student[0].getStudyDomain();
+            String domain = student.getStudyDomain();
             switch (domain){
                 case "Mathematics":
                     radioMath.setChecked(true);
@@ -92,21 +110,21 @@ public class EditProfileActivity extends AppCompatActivity {
         }).start();
 
         edit.setOnClickListener(v -> {
-            student[0].setFirstName(firstName.getText().toString());
-            student[0].setLastName(lastName.getText().toString());
-            student[0].setEmail(email.getText().toString());
-            student[0].setPhoneNumber(phoneNumber.getText().toString());
+            student.setFirstName(firstName.getText().toString());
+            student.setLastName(lastName.getText().toString());
+            student.setEmail(email.getText().toString());
+            student.setPhoneNumber(phoneNumber.getText().toString());
 
             int checkedStudyYearId = radioGroupStudyYear.getCheckedRadioButtonId();
             RadioButton checkedStudyYear = findViewById(checkedStudyYearId);
-            student[0].setStudyYear(checkedStudyYear.getText().toString());
+            student.setStudyYear(checkedStudyYear.getText().toString());
 
             int checkedDomainId = radioGroupDomain.getCheckedRadioButtonId();
             RadioButton checkedDomain = findViewById(checkedDomainId);
-            student[0].setStudyDomain(checkedDomain.getText().toString());
+            student.setStudyDomain(checkedDomain.getText().toString());
 
             new Thread(() -> {
-                studentDao.updateStudent(student[0]);
+                studentDao.updateStudent(student);
                 Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
                 intent.putExtra("idStudent", studentId);
                 startActivity(intent);

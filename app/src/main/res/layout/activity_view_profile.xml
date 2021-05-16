@@ -113,13 +113,6 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/became_tutor_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Became a tutor!"
-                android:visibility="gone" />
-
-            <Button
                 android:id="@+id/edit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
