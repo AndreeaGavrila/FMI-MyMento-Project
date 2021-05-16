@@ -17,6 +17,8 @@ import com.example.mymentoapp.model.StudentViewModel;
 
 import com.example.mymentoapp.util.MyRoomDatabase;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
     Button register, login;
     EditText et_lusername, et_lpassword;
@@ -37,7 +39,12 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnl_login);
         register = findViewById(R.id.btnl_register);
 
+        Bundle extras = getIntent().getExtras();
+        ArrayList<String> extras_courses = new ArrayList<>();
+        extras_courses = (ArrayList)extras.get("lista_cursuri");
+        System.out.println("in login extra" + extras.get("lista_cursuri").toString());
 
+        ArrayList<String> finalExtras_courses = extras_courses;
         login.setOnClickListener(v -> {
 
             String username = et_lusername.getText().toString();
@@ -62,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                         intent.putExtra("idStudent", student.getIdStudent());
+                        intent.putExtra("lista_cursuri", finalExtras_courses);
                         startActivity(intent);
                     }
                 }).start();
