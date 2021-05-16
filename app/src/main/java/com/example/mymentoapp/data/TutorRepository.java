@@ -33,37 +33,33 @@ public class TutorRepository {
     }
 
     public void insertTutor(Tutor tutor){
-//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//            studentDao.insertStudent(tutor);
-//        });
-
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             tutorDao.insertTutor(tutor);
         });
 
     }
 
-//    public void insertTutorWithCourses(TutorWithCourse tutorWithCourse) {
-//        new TutorRepository.insertAsync(tutorDao).execute(tutorWithCourse);
-//    }
+    public void insertTutorWithCourses(TutorWithCourse tutorWithCourse) {
+        new TutorRepository.insertAsync(tutorDao).execute(tutorWithCourse);
+    }
 
 
-//    private static class insertAsync extends AsyncTask<TutorWithCourse, Void, Void> {
-//        private TutorDao tutorDaoAsync;
-//
-//        insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
-//        @Override
-//        protected Void doInBackground(TutorWithCourse... tutorWithCourses) {
-//
-//            long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].tutor);
-//
-//            for (CourseToTeach courseToTeach : tutorWithCourses[0].courseToTeach) {
-//                courseToTeach.setId_FkTutor(identifier);
-//            }
-//            tutorDaoAsync.insertToTeachCourses(tutorWithCourses[0].courseToTeach);
-//            return null;
-//        }
-//    }
+    private static class insertAsync extends AsyncTask<TutorWithCourse, Void, Void> {
+        private TutorDao tutorDaoAsync;
+
+        insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
+        @Override
+        protected Void doInBackground(TutorWithCourse... tutorWithCourses) {
+
+            long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].getTutor());
+
+            for (CourseToTeach courseToTeach : tutorWithCourses[0].getCourseToTeach()) {
+                courseToTeach.setId_FkTutor(identifier);
+            }
+            tutorDaoAsync.insertToTeachCourses(tutorWithCourses[0].getCourseToTeach());
+            return null;
+        }
+    }
 
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
@@ -71,7 +67,15 @@ public class TutorRepository {
         });
     }
 
+    public Tutor getTutorByUsername(String inputUsername){
+        return tutorDao.getTutorByUserName(inputUsername);
+    }
 
+    public void updateTutor(Tutor tutor){
+        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            tutorDao.updateTutor(tutor);
+        });
+    }
 
 
 

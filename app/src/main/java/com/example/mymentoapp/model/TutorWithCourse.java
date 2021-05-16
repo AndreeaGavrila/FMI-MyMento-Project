@@ -8,14 +8,30 @@ import java.util.List;
 public class TutorWithCourse {
 
     @Embedded
-    public Tutor tutor;
+    private Tutor tutor;
     @Relation(
             parentColumn = "idStudent",
             entityColumn = "id_FkTutor"
     )
-    public List<CourseToTeach> courseToTeach;
+    private List<CourseToTeach> courseToTeach;
     public TutorWithCourse(Tutor tutor, List<CourseToTeach> courseToTeach) {
         this.tutor = tutor;
+        this.courseToTeach = courseToTeach;
+    }
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+
+    public List<CourseToTeach> getCourseToTeach() {
+        return courseToTeach;
+    }
+
+    public void setCourseToTeach(List<CourseToTeach> courseToTeach) {
         this.courseToTeach = courseToTeach;
     }
 }

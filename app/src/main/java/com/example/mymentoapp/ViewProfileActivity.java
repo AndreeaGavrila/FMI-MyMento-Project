@@ -30,7 +30,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     TextView firstName, lastName, phoneNumber, email, studyYear, domain;
     Button editProfile;
 //    ListView list;
-    Button becameTutorBtn;
+
     TextView textView;
     private ArrayAdapter<String> adapter;
     MyRoomDatabase roomDatabase;
@@ -54,7 +54,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
         editProfile = findViewById(R.id.edit_btn);
-        becameTutorBtn = findViewById(R.id.became_tutor_btn);
 
         AtomicInteger studentId = new AtomicInteger();
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
@@ -75,13 +74,13 @@ public class ViewProfileActivity extends AppCompatActivity {
                 courseNames.add(specificCourse.getCourseName());
 
             }
-            System.out.println("id student este " + student.getIdStudent());
-            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
-            System.out.println(t.getEmail());
-            if(t != null){
-                System.out.println(student.getIdStudent() + student.getFirstName());
-                System.out.println("este tutore");
-            }
+//            System.out.println("id student este " + student.getIdStudent());
+//            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
+//            System.out.println(t.getEmail());
+//            if(t != null){
+//                System.out.println(student.getIdStudent() + student.getFirstName());
+//                System.out.println("este tutore");
+//            }
 
 //            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
 //                    this,

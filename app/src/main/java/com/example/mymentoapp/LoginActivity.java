@@ -65,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 new Thread(() -> {
                     Student student = studentDao.getStudentByUsernameAndPassword2(username,password);
-                    System.out.println("username si password" + username + password);
-                    System.out.println(student.getIdStudent());
+                    //System.out.println("username si password" + username + password);
+                    //System.out.println(student.getIdStudent());
 //                    int studentId = student.getIdStudent();
 //                    List<SpecificCourse> courses = (List)specificCourseDao.getAllSpecificCoursesForStudent(studentId);
 //
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 //
 //                    System.out.println(courses.toString());
 
-                    System.out.println("student first name" + student.getFirstName());
+                    //System.out.println("student first name" + student.getFirstName());
                     if( student == null)
                     {
                         runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show());

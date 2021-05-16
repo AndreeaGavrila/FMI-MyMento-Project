@@ -9,7 +9,9 @@ import androidx.room.Update;
 
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentWithCourse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -21,18 +23,17 @@ public interface StudentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSpecificCourses(List<SpecificCourse> specificCourses);
 
+//    @Update
+//    void updateStudentWithCourse(StudentWithCourse studentWithCourse);
+
     @Query("DELETE FROM student_table")
     void deleteAll();
 
     @Query("SELECT * FROM student_table")
     LiveData<List<Student>> getAllStudents();
 
-    @Query("SELECT * FROM student_table where username=:usernameInput and password=:passwordInput")
+    @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
     Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput);
-//
-//    @Query("SELECT * FROM student_table where username=:usernameInput and password=:passwordInput")
-//    Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput);
-
 
     @Query("SELECT * FROM student_table where username=:usernameInput and password=:passwordInput")
     Student getStudentByUsernameAndPassword2(String usernameInput, String passwordInput);

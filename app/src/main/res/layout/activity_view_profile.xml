@@ -100,6 +100,18 @@
                 android:layout_height="55dp"
                 android:text="TextView" />
 
+            <TextView
+                android:id="@+id/course_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="My courses" />
+
+
+            <TextView
+                android:id="@+id/text_view_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/edit_btn"
                 android:layout_width="match_parent"

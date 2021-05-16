@@ -135,18 +135,5 @@ public class Student {
     }
 
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "idStudent=" + idStudent +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", studyYear='" + studyYear + '\'' +
-                ", studyDomain='" + studyDomain + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+
 }
