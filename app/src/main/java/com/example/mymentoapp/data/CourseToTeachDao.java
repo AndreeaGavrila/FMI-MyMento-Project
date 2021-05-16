@@ -30,6 +30,7 @@ public interface CourseToTeachDao {
     @Query("SELECT * FROM course_to_teach WHERE courseName=:courseName")
     List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName);
 
+
 //    @Query("DELETE FROM course_to_teach WHERE id_FkTutor = :id")
 //    void deleteCourseToTeach(int id);
 

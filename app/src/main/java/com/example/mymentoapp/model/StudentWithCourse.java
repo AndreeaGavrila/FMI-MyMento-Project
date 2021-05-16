@@ -8,12 +8,12 @@ import java.util.List;
 public class StudentWithCourse {
 
     @Embedded
-    public Student student;
+    private Student student;
     @Relation(
             parentColumn = "idStudent",
             entityColumn = "id_FkStudent"
     )
-    public List<SpecificCourse> specificCourses;
+    private List<SpecificCourse> specificCourses;
 
     public StudentWithCourse(Student student, List<SpecificCourse> specificCourses) {
         this.student = student;
