@@ -43,27 +43,27 @@ public class TutorRepository {
 
     }
 
-//    public void insertTutorWithCourses(TutorWithCourse tutorWithCourse) {
-//        new TutorRepository.insertAsync(tutorDao).execute(tutorWithCourse);
-//    }
+    public void insertTutorWithCourses(TutorWithCourse tutorWithCourse) {
+        new TutorRepository.insertAsync(tutorDao).execute(tutorWithCourse);
+    }
 
 
-//    private static class insertAsync extends AsyncTask<TutorWithCourse, Void, Void> {
-//        private TutorDao tutorDaoAsync;
-//
-//        insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
-//        @Override
-//        protected Void doInBackground(TutorWithCourse... tutorWithCourses) {
-//
-//            long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].tutor);
-//
-//            for (CourseToTeach courseToTeach : tutorWithCourses[0].courseToTeach) {
-//                courseToTeach.setId_FkTutor(identifier);
-//            }
-//            tutorDaoAsync.insertToTeachCourses(tutorWithCourses[0].courseToTeach);
-//            return null;
-//        }
-//    }
+    private static class insertAsync extends AsyncTask<TutorWithCourse, Void, Void> {
+        private TutorDao tutorDaoAsync;
+
+        insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
+        @Override
+        protected Void doInBackground(TutorWithCourse... tutorWithCourses) {
+
+            long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].tutor);
+
+            for (CourseToTeach courseToTeach : tutorWithCourses[0].courseToTeach) {
+                courseToTeach.setId_FkTutor(identifier);
+            }
+            tutorDaoAsync.insertToTeachCourses(tutorWithCourses[0].courseToTeach);
+            return null;
+        }
+    }
 
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{

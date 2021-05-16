@@ -26,6 +26,8 @@ public class StudentViewModel extends AndroidViewModel {
     public static void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }
+
+
     public static void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
 //        System.out.println("aici a ajuns");
 //        System.out.println(studentWithTaughtCourses.getStudent());
@@ -36,6 +38,7 @@ public class StudentViewModel extends AndroidViewModel {
     public LiveData<List<Student>> getAllStudents(){
         return allStudents;
     }
+
     public static void insert(Student student){
         repository.insertStudent(student);
     }

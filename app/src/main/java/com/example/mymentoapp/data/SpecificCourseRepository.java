@@ -14,6 +14,7 @@ public class SpecificCourseRepository {
 
     private SpecificCourseDao specificCourseDao;
     private StudentDao studentDao;
+
     private LiveData<List<Student>> allStudents;
     private LiveData<List<SpecificCourse>> allSpecificCourses;
     private LiveData<List<SpecificCourse>> allSpecificCoursesForStudent;

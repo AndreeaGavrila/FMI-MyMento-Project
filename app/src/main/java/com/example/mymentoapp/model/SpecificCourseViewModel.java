@@ -22,12 +22,14 @@ public class SpecificCourseViewModel  extends AndroidViewModel {
 
     }
     private SpecificCourseRepository specificCourseRepository;
+
     public LiveData<List<SpecificCourse>> getAllSpecificCourses(){
         return allSpecificCourses;
     }
     public LiveData<List<SpecificCourse>> getAllSpecificCoursesForStudent(int idInput){
         return repository.getAllSpecificCoursesForStudent(idInput);
     }
+
     public static void insert(SpecificCourse specificCourse){
         repository.insert(specificCourse);
     }

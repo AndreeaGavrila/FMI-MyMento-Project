@@ -41,6 +41,7 @@ public class ProfileStudentActivity extends AppCompatActivity {
     EditText lastName, firstName, phoneNumber, email;
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     Button btn_submit_student;
+
     MyRoomDatabase roomDatabase;
 
     AssignCourse assignCourse;
@@ -50,13 +51,16 @@ public class ProfileStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_profile);
+
         lastName = (EditText) findViewById(R.id.last_name_edit);
         firstName = (EditText) findViewById(R.id.first_name_edit);
         phoneNumber = (EditText) findViewById(R.id.phone_edit);
         email = (EditText) findViewById(R.id.email_edit);
+
         radioGroupSpec = findViewById(R.id.radio_group_spec);
 
         radioGroupStudyYear = (RadioGroup) findViewById(R.id.radio_year_edit);
+
         radioGroupDomain = (RadioGroup) findViewById(R.id.radio_domain_edit);
 
         btn_submit_student = (Button) findViewById(R.id.btn_edit);
@@ -118,7 +122,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 String phonePattern = "^\\+[0-9]{10,13}$";
 
-
                 int selectedId = radioGroupDomain.getCheckedRadioButtonId();
                 RadioButton selecteddomainbutton = (RadioButton) findViewById(selectedId);
                 String domain = (String)selecteddomainbutton.getText();
@@ -130,10 +133,10 @@ public class ProfileStudentActivity extends AppCompatActivity {
                     RadioButton specializationButton = (RadioButton) findViewById(selectedId3);
                     specialization  = (String)selecteddomainbutton.getText();
                 }
+
                 int selectedId2 = radioGroupStudyYear.getCheckedRadioButtonId();
                 RadioButton selectedyearbutton = findViewById(selectedId2);
                 String studyYear = (String)selectedyearbutton.getText();
-
 
 
                 if (firstname.equals("") || lastname.equals("") || phonenumber.equals("") || email1.equals("")  ||
@@ -164,8 +167,8 @@ public class ProfileStudentActivity extends AppCompatActivity {
                         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
                         StudentDao studentDao = roomDatabase.studentDao();
 
-
                         String finalSpecialization = specialization;
+
                         new Thread(() -> {
 
                             System.out.println("in thread");
@@ -180,9 +183,12 @@ public class ProfileStudentActivity extends AppCompatActivity {
                             StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
                             StudentViewModel.insertStudentWithCourses(studentWithCourse);
                             studentDao.updateStudent(student);
+
                             Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
+
                             intent.putExtra("lista_cursuri", courseNameList);
                             intent.putExtra("from", "ProfileStudentActivity");
+
                             startActivity(intent);
                         }).start();
 

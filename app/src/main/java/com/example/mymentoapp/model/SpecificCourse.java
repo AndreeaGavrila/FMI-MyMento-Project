@@ -28,7 +28,6 @@ public class SpecificCourse implements Serializable {
             )
     private long id_FkStudent;
 
-
     @ColumnInfo(name = "courseName")
     private String courseName;
 
@@ -45,9 +44,7 @@ public class SpecificCourse implements Serializable {
         return idSpecificCourse;
     }
 
-    public void setIdSpecificCourse(int idSpecificCourse) {
-        this.idSpecificCourse = idSpecificCourse;
-    }
+    public void setIdSpecificCourse(int idSpecificCourse) { this.idSpecificCourse = idSpecificCourse; }
 
     public String getCourseName() {
         return courseName;

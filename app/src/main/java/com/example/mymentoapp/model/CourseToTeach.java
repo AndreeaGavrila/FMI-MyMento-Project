@@ -1,17 +1,21 @@
 package com.example.mymentoapp.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "course_to_teach", indices = {@Index(value = {"courseName"},
         unique = true)})
 
-public class CourseToTeach {
+public class CourseToTeach implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
     private int idCourseToTeach;
 
@@ -24,14 +28,14 @@ public class CourseToTeach {
 
             )
     private long id_FkTutor;
+
     @ColumnInfo(name = "courseName")
     private String courseName;
 
     @ColumnInfo(name = "description")
     private String description;
 
-    public CourseToTeach(){}
-    public CourseToTeach( String courseName, String description) {
+    public CourseToTeach(@NonNull String courseName, @NonNull String description) {
         this.courseName = courseName;
         this.description = description;
     }
@@ -66,5 +70,16 @@ public class CourseToTeach {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    @Override
+    public String toString() {
+        return "CourseToTeach{" +
+                "idCourseToTeach=" + idCourseToTeach +
+                ", id_FkTutor=" + id_FkTutor +
+                ", courseName='" + courseName + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

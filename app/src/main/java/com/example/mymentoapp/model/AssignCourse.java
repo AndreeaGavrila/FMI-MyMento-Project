@@ -463,4 +463,6 @@ public class AssignCourse {
     public void setSpecificCourseList(List<SpecificCourse> specificCourseList) {
         this.specificCourseList = specificCourseList;
     }
+
+    public List<SpecificCourse> getCourseToTeachList() { return specificCourseList; }
 }
