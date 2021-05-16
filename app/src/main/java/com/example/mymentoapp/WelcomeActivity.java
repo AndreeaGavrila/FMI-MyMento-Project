@@ -5,9 +5,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mymentoapp.model.SpecificCourse;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,18 +30,17 @@ public class WelcomeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int idStudent = bundle.getInt("idStudent");
         System.out.println("id student welcome: " + idStudent);;
-        ArrayList<String> extras_courses;
-        extras_courses = (ArrayList<String>) bundle.get("lista_cursuri");
+        ArrayList<SpecificCourse> extras_courses = (ArrayList<SpecificCourse>) bundle.getSerializable("lista_cursuri");
 
-        ArrayList<String> finalExtras_courses = extras_courses;
-        viewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
-                intent.putExtra("idStudent", idStudent);
-                intent.putExtra("lista_cursuri", finalExtras_courses);
-                startActivity(intent);
-            }
+        //ArrayList<String> finalExtras_courses = extras_courses;
+        viewProfile.setOnClickListener(v -> {
+            Bundle b = new Bundle();
+            b.putSerializable("lista_cursuri", extras_courses);
+            Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
+            intent.putExtra("idStudent", idStudent);
+            //intent.putExtra("lista_cursuri", extras_courses);
+            intent.putExtras(b);
+            startActivity(intent);
         });
     }
 }

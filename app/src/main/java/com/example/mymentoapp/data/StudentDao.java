@@ -27,8 +27,12 @@ public interface StudentDao {
     @Query("SELECT * FROM student_table")
     LiveData<List<Student>> getAllStudents();
 
-    @Query("SELECT idStudent FROM student_table where username=:usernameInput and password=:passwordInput")
+    @Query("SELECT * FROM student_table where username=:usernameInput and password=:passwordInput")
     Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput);
+//
+//    @Query("SELECT * FROM student_table where username=:usernameInput and password=:passwordInput")
+//    Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput);
+
 
     @Query("SELECT * FROM student_table WHERE idStudent=:studentIdInput")
     Student getStudent(int studentIdInput);

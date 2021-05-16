@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
+import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
@@ -49,21 +50,25 @@ public class ViewProfileActivity extends AppCompatActivity {
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
         StudentDao studentDao = roomDatabase.studentDao();
 
-        Bundle extras = getIntent().getExtras();
-        ArrayList<String> extractedCourses = (ArrayList<String>) extras.get("lista_cursuri");
+        //Bundle extras = getIntent().getExtras();
+        ArrayList<SpecificCourse> extractedCourses = (ArrayList<SpecificCourse>) bundle.getSerializable("lista_cursuri");
 
-        System.out.println("extras" + extras.get("lista_cursuri").toString());
+        System.out.println("extras" +bundle.get("lista_cursuri").toString());
         //ArrayAdapter<String> courseList = new ArrayAdapter<>(this, R.layout.activity_view_profile, R.id.text_view_list, extractedCourses);
 
         new Thread(() -> {
             Student student = studentDao.getStudent(idStudent);
             studentId.set(student.getIdStudent());
             this.runOnUiThread(() -> {
-                for(String s : extractedCourses){
-                    textView.append(s);
+//                for(String s : extractedCourses){
+//                    textView.append(s);
+//                    textView.append("\n");
+//                }
+                //textView.setText(extras.get("lista_cursuri").toString());
+                for(SpecificCourse course : extractedCourses){
+                    textView.append(course.getCourseName());
                     textView.append("\n");
                 }
-                //textView.setText(extras.get("lista_cursuri").toString());
                 firstName.setText(student.getFirstName());
                 lastName.setText(student.getLastName());
                 phoneNumber.setText(student.getPhoneNumber());

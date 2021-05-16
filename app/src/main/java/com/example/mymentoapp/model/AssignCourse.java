@@ -102,7 +102,6 @@ public class AssignCourse {
 
             }
             else if (domain.equals("Mathematics")) {
-
                 specificCourseList.add(new SpecificCourse("Linear Algebra", "Basics and Advanced principles"));
                 specificCourseList.add(new SpecificCourse("Algebra I", "The beginning"));
                 specificCourseList.add(new SpecificCourse("Mathematical Analysis I", "Only the beginning"));

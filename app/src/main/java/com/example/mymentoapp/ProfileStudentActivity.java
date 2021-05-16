@@ -177,7 +177,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                             student.setLastName(lastname);
                             student.setFirstName(firstname);
 
-
                             StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
                             StudentViewModel.insertStudentWithCourses(studentWithCourse);
                             studentDao.updateStudent(student);
@@ -188,7 +187,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                         }).start();
 
                     }
-
 
                 }
 
