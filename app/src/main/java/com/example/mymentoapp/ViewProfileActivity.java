@@ -9,23 +9,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
+import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
     TextView firstName, lastName, phoneNumber, email, studyYear, domain;
     Button editProfile;
-    ListView list;
+//    ListView list;
+    Button becameTutorBtn;
     TextView textView;
     private ArrayAdapter<String> adapter;
     MyRoomDatabase roomDatabase;
@@ -49,16 +54,14 @@ public class ViewProfileActivity extends AppCompatActivity {
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
         editProfile = findViewById(R.id.edit_btn);
+        becameTutorBtn = findViewById(R.id.became_tutor_btn);
 
         AtomicInteger studentId = new AtomicInteger();
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+        TutorDao tutorDao = roomDatabase.tutorDao();
+
         StudentDao studentDao = roomDatabase.studentDao();
         SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
-//
-//        Bundle extras = getIntent().getExtras();
-//        ArrayList extractedCourses = (ArrayList<String>) extras.get("lista_cursuri");
-//        System.out.println("extras" + extras.get("lista_cursuri").toString());
-        //ArrayAdapter<String> courseList = new ArrayAdapter<>(this, R.layout.activity_view_profile, R.id.text_view_list, extractedCourses);
 
 
         new Thread(() -> {
@@ -71,6 +74,13 @@ public class ViewProfileActivity extends AppCompatActivity {
             for(SpecificCourse specificCourse : courses){
                 courseNames.add(specificCourse.getCourseName());
 
+            }
+            System.out.println("id student este " + student.getIdStudent());
+            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
+            System.out.println(t.getEmail());
+            if(t != null){
+                System.out.println(student.getIdStudent() + student.getFirstName());
+                System.out.println("este tutore");
             }
 
 //            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
