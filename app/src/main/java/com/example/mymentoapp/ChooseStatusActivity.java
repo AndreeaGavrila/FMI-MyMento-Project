@@ -24,9 +24,7 @@ import com.example.mymentoapp.model.TutorViewModel;
 
 public class ChooseStatusActivity extends AppCompatActivity {
 
-
     Button chooseStudent, chooseTutor;
-    Boolean insert;
 
     private RegisterViewModel registerViewModel;
 

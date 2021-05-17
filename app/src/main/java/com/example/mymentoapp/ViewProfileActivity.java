@@ -1,38 +1,43 @@
 package com.example.mymentoapp;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mymentoapp.data.CourseToTeachDao;
 import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
-import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
-import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
-import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.Tutor;
-import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
     TextView firstName, lastName, phoneNumber, email, studyYear, domain;
     Button editProfile;
-    TextView textViewSpecificCourse, textViewToTeachCourse,  textView;
+//    ListView list;
+
+    TextView textViewSpecificCourse;
+    TextView textViewToTeachCourse;
+    TextView textView;
     private ArrayAdapter<String> adapter;
     MyRoomDatabase roomDatabase;
 
@@ -46,9 +51,9 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         //System.out.println("id student view profile = "+ idStudent);
         //list = (ListView) findViewById(R.id.list_view_courses);
-        textViewSpecificCourse = findViewById(R.id.text_view_course);
-        textViewToTeachCourse = findViewById(R.id.teach_courses);
-        textView = findViewById(R.id.text_view_course2);
+        textViewSpecificCourse = (TextView) findViewById(R.id.text_view_course);
+        textViewToTeachCourse = (TextView) findViewById(R.id.teach_courses);
+        textView = (TextView) findViewById(R.id.text_view_course2);
         //recycler = findViewById(R.id.recycle_course_view);
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
@@ -62,6 +67,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
         TutorDao tutorDao = roomDatabase.tutorDao();
         textViewToTeachCourse.setVisibility(View.VISIBLE);
+       // textView.setVisibility(View.VISIBLE);
         StudentDao studentDao = roomDatabase.studentDao();
         SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
         CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
@@ -69,25 +75,26 @@ public class ViewProfileActivity extends AppCompatActivity {
         new Thread(() -> {
 
             Student student = studentDao.getStudent(idStudent);
+
             ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
             System.out.println("LISTA DE CURSURI ADUSE PE VIEW PROFILE");
-            System.out.println(courses.get(0).getCourseName());
             Tutor tutor = tutorDao.getTutorByUserName(student.getUsername());
-            ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
-//            for(SpecificCourse specificCourse : courses){
-//                courseNames.add(specificCourse.getCourseName());
-//
-//            }
+            ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<CourseToTeach>();
             if(tutor != null){
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachDao.getAllSpecificCoursesForTutor(tutor.getIdStudent());
             }
-//            System.out.println("id student este " + student.getIdStudent());
-            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
-//            System.out.println(t.getEmail());
-//            if(t != null){
-//                System.out.println(student.getIdStudent() + student.getFirstName());
-//                System.out.println("este tutore");
+//            ArrayList<String> specificCourseNames = new ArrayList<>();
+//            for(SpecificCourse specificCourse : courses){
+//                specificCourseNames.add(specificCourse.getCourseName());
 //            }
+//
+//            ArrayList<String> toTeachCourseNames = new ArrayList<>();
+//            for(CourseToTeach courseToTeach: courseToTeachArrayList){
+//                toTeachCourseNames.add(courseToTeach.getCourseName());
+//            }
+
+
+//            System.out.println("id student este " + student.getIdStudent());
 
 //            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
 //                    this,
@@ -96,9 +103,12 @@ public class ViewProfileActivity extends AppCompatActivity {
 //            list.setAdapter(arrayAdapter);
 
 
+
             studentId.set(student.getIdStudent());
             ArrayList<CourseToTeach> finalCourseToTeachArrayList = courseToTeachArrayList;
             this.runOnUiThread(() -> {
+
+
                 if(tutor != null){
                     System.out.println("diferit de null");
 
@@ -112,6 +122,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                     textViewSpecificCourse.append(course.getCourseName());
                     textViewSpecificCourse.append("\n");
                 }
+
 
                 firstName.setText(student.getFirstName());
                 lastName.setText(student.getLastName());

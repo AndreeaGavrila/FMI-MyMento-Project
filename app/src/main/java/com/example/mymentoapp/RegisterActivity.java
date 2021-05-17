@@ -27,7 +27,6 @@ public class RegisterActivity extends AppCompatActivity {
     Button register, login;
     EditText et_username, et_password, et_cpassword;
 
-    Boolean insert;
 
     private RegisterViewModel registerViewModel;
 
@@ -77,23 +76,19 @@ public class RegisterActivity extends AppCompatActivity {
 
                     new Thread(() -> {
                         Student student1 = studentDao.getStudentByUsername(username);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run()
-                            {
-                                if(student1 != null){
-                                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Username already used!", Toast.LENGTH_SHORT).show());
-                                }
-                                else{
-                                    studentDao.registerStudent(student);
-                                    runOnUiThread(() -> {
-                                        Toast.makeText(getApplicationContext(), "Student Registred!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(RegisterActivity.this, ChooseStatusActivity.class);
-                                        intent.putExtra("username", username);
-                                        intent.putExtra("password", password);
-                                        startActivity(intent);
-                                    });
-                                }
+                        new Thread(() -> {
+                            if(student1 != null){
+                                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Username already used!", Toast.LENGTH_SHORT).show());
+                            }
+                            else{
+                                studentDao.registerStudent(student);
+                                runOnUiThread(() -> {
+                                    Toast.makeText(getApplicationContext(), "Student Registred!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegisterActivity.this, ChooseStatusActivity.class);
+                                    intent.putExtra("username", username);
+                                    intent.putExtra("password", password);
+                                    startActivity(intent);
+                                });
                             }
                         }).start();
 
