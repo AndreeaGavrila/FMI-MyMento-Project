@@ -2,12 +2,9 @@ package com.example.mymentoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -15,26 +12,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
-
-import com.example.mymentoapp.data.TutorDao;
-
 import com.example.mymentoapp.model.AssignCourse;
-import com.example.mymentoapp.model.RegisterViewModel;
-
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
-
 import com.example.mymentoapp.model.StudentWithCourse;
-import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class ProfileStudentActivity extends AppCompatActivity {
@@ -60,13 +45,8 @@ public class ProfileStudentActivity extends AppCompatActivity {
         radioGroupStudyYear = findViewById(R.id.radio_year_edit);
         radioGroupDomain = findViewById(R.id.radio_domain_edit);
         btn_submit_student = findViewById(R.id.btn_edit);
-
-//        int studyYearId = radioGroupStudyYear.getCheckedRadioButtonId();
-//        RadioButton yearButton = (RadioButton) findViewById(studyYearId);
-//
-//        int domainId = radioGroupDomain.getCheckedRadioButtonId();
-//        RadioButton domainButton = (RadioButton) findViewById(domainId);
         courseNameList = new ArrayList<>();
+
         specialization1 = "" ;
         studyYear1 = "";
         domain1 = "";
@@ -146,39 +126,19 @@ public class ProfileStudentActivity extends AppCompatActivity {
             String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
             String phonePattern = "^\\+[0-9]{10,13}$";
 
-
-//                int selectedId = radioGroupDomain.getCheckedRadioButtonId();
-//                RadioButton selecteddomainbutton = (RadioButton) findViewById(selectedId);
-//                String domain = (String)selecteddomainbutton.getText();
-//
-//                String specialization = null;
-//
-//                int selectedId3 = radioGroupSpec.getCheckedRadioButtonId();
-//                if(selectedId3 > -1){
-//                    RadioButton specializationButton = (RadioButton) findViewById(selectedId3);
-//                    specialization  = (String)selecteddomainbutton.getText();
-//                }
-//                int selectedId2 = radioGroupStudyYear.getCheckedRadioButtonId();
-//                RadioButton selectedyearbutton = findViewById(selectedId2);
-//                String studyYear = (String)selectedyearbutton.getText();
-
-
-
             if (firstname.equals("") || lastname.equals("") || phonenumber.equals("") || email1.equals("")  ||
                     radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
 
                 Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
             }
-            if (!(email1.matches(emailPattern))) {
-
+            else if (!(email1.matches(emailPattern))) {
                     Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
                 }
 
-                if (!(phonenumber.matches(phonePattern))) {
-
+            else  if (!(phonenumber.matches(phonePattern))) {
                     Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
                 }
-                if(!domain1.equals("CTI") && (studyYear1.equals("IV"))){
+            else if(!domain1.equals("CTI") && (studyYear1.equals("IV"))){
                     Toast.makeText(getApplicationContext(), "ONLY CTI HAS 4 YEARS", Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -186,14 +146,10 @@ public class ProfileStudentActivity extends AppCompatActivity {
 
                     Bundle bundle = getIntent().getExtras();
                     String username  = bundle.getString("username");
-
                     System.out.println("username student: " + username);
-
-                    //String password = auxIntent.getStringExtra("registeredPassword");
                     roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
                     StudentDao studentDao = roomDatabase.studentDao();
 
-//                        String finalSpecialization = specialization;
                     new Thread(() -> {
 
                         System.out.println("in thread");
@@ -204,8 +160,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                         student.setEmail(email1);
                         student.setLastName(lastname);
                         student.setFirstName(firstname);
-
-
 
                         System.out.println("specialization" + specialization1);
                         System.out.println("domain" + domain1);
@@ -225,8 +179,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                         StudentViewModel.insertStudentWithCourses(studentWithCourse);
                         studentDao.updateStudent(student);
                         Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
-//                            intent.putExtra("lista_cursuri", courseNameList);
-//                            intent.putExtra("from", "ProfileStudentActivity");
                         startActivity(intent);
                     }).start();
 

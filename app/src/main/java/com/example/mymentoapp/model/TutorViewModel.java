@@ -36,4 +36,8 @@ public class TutorViewModel extends AndroidViewModel {
     public static void deleteAll(){
         repository.deleteAll();
     }
+
+    public static void updateTutor(Tutor tutor){repository.updateTutor(tutor);}
+
+    public static Tutor getTutor(String username){return repository.getTutorByUsername(username);}
 }

@@ -15,10 +15,12 @@ import com.example.mymentoapp.data.StudentRepository;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.SpecificCourse;
+import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.Tutor;
+import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.ArrayList;
@@ -85,7 +87,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
 
-            student = studentDao.getStudent(studentId);
+            //student = studentDao.getStudent(studentId);
             firstName.setText(student.getFirstName());
             lastName.setText(student.getLastName());
             phoneNumber.setText(student.getPhoneNumber());
@@ -118,6 +120,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     break;
             }
         }).start();
+
 
         courseNameList = new ArrayList<>();
         specialization1 = "" ;
@@ -216,6 +219,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 System.out.println((specificCourse.getCourseName()));
             }
 
+            SpecificCourseViewModel.deleteSpecificCourse(student.getIdStudent());
             StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
             StudentViewModel.insertStudentWithCourses(studentWithCourse);
             //StudentViewModel.updateStudentWithCourse(studentWithCourse);
@@ -231,18 +235,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 t[0].setStudyDomain(checkedDomain.getText().toString());
                 System.out.println("after set tutor");
             }
-
-            new Thread(() -> {
-                studentDao.updateStudent(student);
-                if(t[0] != null){
+            StudentViewModel.updateStudent(student);
+            if(t[0] != null){
                     System.out.println("Before update tutor");
-                    tutorDao.updateTutor(t[0]);
+                    TutorViewModel.updateTutor(t[0]);
                     System.out.println("After update tutor");
                 }
                 Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
                 intent.putExtra("idStudent", studentId);
                 startActivity(intent);
-            }).start();
         });
 
     }

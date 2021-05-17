@@ -2,6 +2,7 @@ package com.example.mymentoapp.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -22,6 +23,10 @@ public interface StudentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSpecificCourses(List<SpecificCourse> specificCourses);
+
+    //@Delete
+//    @Query("DELETE FROM specific_course WHERE id_FkStudent = :idFkInput")
+//    void deleteSpecificCourses(int idFkInput);
 
 //    @Update
 //    void updateStudentWithCourse(StudentWithCourse studentWithCourse);

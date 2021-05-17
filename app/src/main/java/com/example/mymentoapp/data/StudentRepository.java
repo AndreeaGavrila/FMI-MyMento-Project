@@ -51,6 +51,22 @@ public class StudentRepository {
 //        });
 //    }
 
+    public void updateStudent(Student student){
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            studentDao.updateStudent(student);
+        });
+    }
+
+    public Student getStudent(int id){
+        return studentDao.getStudent(id);
+    }
+
+//    public void deleteSpecificCourse(int idFkinput){
+//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+//            studentDao.deleteSpecificCourses(idFkinput);
+//        });
+//    }
+
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             studentDao.deleteAll();

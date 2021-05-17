@@ -31,4 +31,5 @@ public class CourseToTeachViewModel {
     public static void deleteAll(){
         repository.deleteAll();
     }
+    public static List<CourseToTeach> getAllSpecificCourses(int id){return repository.getAllSpecificCourses(id);}
 }

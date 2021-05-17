@@ -44,4 +44,8 @@ public class CourseToTeachRepository {
         });
     }
 
+    public List<CourseToTeach> getAllSpecificCourses(int id){
+        return courseToTeachDao.getAllSpecificCoursesForTutor(id);
+    }
+
 }
