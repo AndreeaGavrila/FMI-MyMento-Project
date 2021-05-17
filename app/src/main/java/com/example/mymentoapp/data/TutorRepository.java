@@ -33,10 +33,6 @@ public class TutorRepository {
     }
 
     public void insertTutor(Tutor tutor){
-//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//            studentDao.insertStudent(tutor);
-//        });
-
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             tutorDao.insertTutor(tutor);
         });
@@ -55,12 +51,12 @@ public class TutorRepository {
         @Override
         protected Void doInBackground(TutorWithCourse... tutorWithCourses) {
 
-            long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].tutor);
+            long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].getTutor());
 
-            for (CourseToTeach courseToTeach : tutorWithCourses[0].courseToTeach) {
+            for (CourseToTeach courseToTeach : tutorWithCourses[0].getCourseToTeach()) {
                 courseToTeach.setId_FkTutor(identifier);
             }
-            tutorDaoAsync.insertToTeachCourses(tutorWithCourses[0].courseToTeach);
+            tutorDaoAsync.insertToTeachCourses(tutorWithCourses[0].getCourseToTeach());
             return null;
         }
     }
@@ -71,7 +67,15 @@ public class TutorRepository {
         });
     }
 
+    public Tutor getTutorByUsername(String inputUsername){
+        return tutorDao.getTutorByUserName(inputUsername);
+    }
 
+    public void updateTutor(Tutor tutor){
+        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            tutorDao.updateTutor(tutor);
+        });
+    }
 
 
 

@@ -7,13 +7,11 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
-
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "specific_course", indices = {@Index(value = {"courseName", "id_FkStudent"},
         unique = true)})
-public class SpecificCourse implements Serializable {
+public class SpecificCourse {
 
     @PrimaryKey(autoGenerate = true)
     private int idSpecificCourse;
@@ -39,6 +37,7 @@ public class SpecificCourse implements Serializable {
         this.description = description;
 
     }
+
 
     public int getIdSpecificCourse() {
         return idSpecificCourse;
@@ -68,15 +67,5 @@ public class SpecificCourse implements Serializable {
 
     public void setId_FkStudent(long id_FkStudent) {
         this.id_FkStudent = id_FkStudent;
-    }
-
-    @Override
-    public String toString() {
-        return "SpecificCourse{" +
-                "idSpecificCourse=" + idSpecificCourse +
-                ", id_FkStudent=" + id_FkStudent +
-                ", courseName='" + courseName + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

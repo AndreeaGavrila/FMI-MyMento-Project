@@ -21,12 +21,20 @@ public interface TutorDao {
     long insertTutor(Tutor tutor);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertToTeachCourses(List<CourseToTeach> courseToTeaches);
+    void insertToTeachCourses(List<CourseToTeach> courseToTeach);
 
     @Query("DELETE FROM tutor_table")
     void deleteAll();
 
+    @Query("SELECT * FROM tutor_table WHERE username =:userName")
+    Tutor getTutorByUserName(String userName);
+
     @Query("SELECT * FROM tutor_table")
     LiveData<List<Tutor>> getAllTutors();
 
+    @Query("SELECT * FROM tutor_table WHERE idStudent=:studentIdInput")
+    Tutor getTutor(int studentIdInput);
+
+    @Update
+    void updateTutor(Tutor tutor);
 }

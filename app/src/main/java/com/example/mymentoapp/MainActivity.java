@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra("from", "MainActivity");
                 startActivity(intent);
@@ -73,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
 //        TutorViewModel.deleteAll();
 //        StudentViewModel.deleteAll();
 //        SpecificCourseViewModel.deleteAll();
-
-        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
-        TutorViewModel.repository.insertTutor(tutor);
+//
+//        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
+//        TutorViewModel.repository.insertTutor(tutor);
 
 //        CourseToTeach courseToTeach =  new CourseToTeach("OOP", "oricand");
 //        System.out.println("course"+ courseToTeach.getCourseName());
@@ -87,28 +88,28 @@ public class MainActivity extends AppCompatActivity {
 //        TutorWithCourse tutorWithCourse =  new TutorWithCourse(tutor, courseToTeachList);
 //        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
 
-
-        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
-        StudentViewModel.repository.insertStudent(student);
-
-        SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
-        SpecificCourse specificCourse2 = new SpecificCourse("BD", "Curs sustinut la baze de date");
-
-        List<SpecificCourse> specificCourseList =  new ArrayList<SpecificCourse>();
-        specificCourseList.add(specificCourse);
-
-        List<SpecificCourse> specificCourseList2 =  new ArrayList<SpecificCourse>();
-        specificCourseList2.add(specificCourse);
-        specificCourseList2.add(specificCourse2);
-
-        StudentWithCourse studentWithCourse =  new StudentWithCourse(student, specificCourseList);
-        StudentViewModel.insertStudentWithCourses(studentWithCourse); // asta cand ii adaug direct cu cursuri
-        // TODO: 06.05.2021 daca fac asta asat mai jos se pune automat si in tabel chiar daca am adaugat mai sus
-
-        // specificCourseList.add(specificCourse2);
-
-        StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
-        StudentViewModel.insertStudentWithCourses(studentWithCourse1);
+//
+//        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
+//        StudentViewModel.repository.insertStudent(student);
+//
+//        SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
+//        SpecificCourse specificCourse2 = new SpecificCourse("BD", "Curs sustinut la baze de date");
+//
+//        List<SpecificCourse> specificCourseList =  new ArrayList<SpecificCourse>();
+//        specificCourseList.add(specificCourse);
+//
+//        List<SpecificCourse> specificCourseList2 =  new ArrayList<SpecificCourse>();
+//        specificCourseList2.add(specificCourse);
+//        specificCourseList2.add(specificCourse2);
+//
+//        StudentWithCourse studentWithCourse =  new StudentWithCourse(student, specificCourseList);
+//        StudentViewModel.insertStudentWithCourses(studentWithCourse); // asta cand ii adaug direct cu cursuri
+//        // TODO: 06.05.2021 daca fac asta asat mai jos se pune automat si in tabel chiar daca am adaugat mai sus
+//
+//        // specificCourseList.add(specificCourse2);
+//
+//        StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
+//        StudentViewModel.insertStudentWithCourses(studentWithCourse1);
 
 
 
@@ -129,3 +130,4 @@ public class MainActivity extends AppCompatActivity {
 // DIN ACEST TABEL IAU ATUNCI CAND STUDENTU CAUTA UN ANUME CURS CU UN PROF
 // CAND STUDENTUL ALEGE SA FACA UN CURS CU UN PROF, ACEL CURS SE ADAUGA IN ALT TABEL LETS SAY CURSURI_TINUTE CARE ARE
 // ATAT ID-UL PROFULUI CAT SI AL STUDENTULUI 1-M DE LA STUDENT SI 1-M DE LA PROF CATRE ACEST TABEL
+

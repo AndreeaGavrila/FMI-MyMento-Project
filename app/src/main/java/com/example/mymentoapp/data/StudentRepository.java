@@ -35,13 +35,6 @@ public class StudentRepository {
         });
     }
 
-    public Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput){
-        return studentDao.getStudentByUsernameAndPassword(usernameInput, passwordInput);
-    }
-    public Student getStudentByUsername(String usernameInput){
-        return studentDao.getStudentByUsername(usernameInput);
-    }
-
 
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
         new insertAsync(studentDao).execute(studentWithCourse);
@@ -54,6 +47,11 @@ public class StudentRepository {
 //            });
 //        }
     }
+//    public void updateStudentWithCourse(StudentWithCourse studentWithCourse){
+//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+//            studentDao.updateStudentWithCourse(studentWithCourse);
+//        });
+//    }
 
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
