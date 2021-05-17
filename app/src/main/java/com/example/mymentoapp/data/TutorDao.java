@@ -35,4 +35,6 @@ public interface TutorDao {
     @Query("SELECT * FROM tutor_table WHERE idStudent=:studentIdInput")
     Tutor getTutor(int studentIdInput);
 
+    @Update
+    void updateTutor(Tutor tutor);
 }

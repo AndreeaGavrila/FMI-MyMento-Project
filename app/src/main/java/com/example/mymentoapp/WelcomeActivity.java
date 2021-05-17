@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class WelcomeActivity extends AppCompatActivity {
 
     Button viewProfile;
+    Button showRecommend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,11 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         viewProfile = findViewById(R.id.btn_viewProfile);
+        showRecommend = findViewById(R.id.btn_recommend);
         Bundle bundle = getIntent().getExtras();
         int idStudent = bundle.getInt("idStudent");
+
+
 //        System.out.println("id student welcome: " + idStudent);;
 //        ArrayList<String> extras_courses = new ArrayList<>();
 //        extras_courses = (ArrayList<String>) bundle.get("lista_cursuri");
@@ -37,6 +41,16 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
                 intent.putExtra("idStudent", idStudent);
                // intent.putExtra("lista_cursuri", finalExtras_courses);
+                startActivity(intent);
+            }
+        });
+
+        showRecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, RecommendActivity.class);
+                intent.putExtra("idStudent", idStudent);
+                // intent.putExtra("lista_cursuri", finalExtras_courses);
                 startActivity(intent);
             }
         });

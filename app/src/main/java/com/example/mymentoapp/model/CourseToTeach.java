@@ -31,6 +31,13 @@ public class CourseToTeach {
     private String description;
 
     public CourseToTeach(){}
+
+    public CourseToTeach(CourseToTeach courseToTeach){
+        this.courseName=courseToTeach.getCourseName();
+        this.description=courseToTeach.getDescription();
+        this.id_FkTutor = courseToTeach.getId_FkTutor();
+        this.idCourseToTeach =courseToTeach.getIdCourseToTeach();
+    }
     public CourseToTeach( String courseName, String description) {
         this.courseName = courseName;
         this.description = description;
