@@ -2,22 +2,37 @@ package com.example.mymentoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
+import com.example.mymentoapp.data.TutorDao;
+import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
     TextView firstName, lastName, phoneNumber, email, studyYear, domain;
     Button editProfile;
+//    ListView list;
 
+    TextView textView;
+    private ArrayAdapter<String> adapter;
     MyRoomDatabase roomDatabase;
 
     @Override
@@ -29,7 +44,9 @@ public class ViewProfileActivity extends AppCompatActivity {
         int idStudent = bundle.getInt("idStudent");
 
         //System.out.println("id student view profile = "+ idStudent);
-
+        //list = (ListView) findViewById(R.id.list_view_courses);
+        textView = (TextView) findViewById(R.id.text_view_course);
+        //recycler = findViewById(R.id.recycle_course_view);
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         phoneNumber = findViewById(R.id.phoneNumber);
@@ -40,11 +57,45 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         AtomicInteger studentId = new AtomicInteger();
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+        TutorDao tutorDao = roomDatabase.tutorDao();
+
         StudentDao studentDao = roomDatabase.studentDao();
+        SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
+
+
         new Thread(() -> {
+
             Student student = studentDao.getStudent(idStudent);
+            ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
+            System.out.println("LISTA DE CURSURI ADUSE PE VIEW PROFILE");
+            System.out.println(courses.get(0).getCourseName());
+            ArrayList<String> courseNames = new ArrayList<>();
+            for(SpecificCourse specificCourse : courses){
+                courseNames.add(specificCourse.getCourseName());
+
+            }
+//            System.out.println("id student este " + student.getIdStudent());
+//            Tutor t = tutorDao.getTutorByUserName(student.getEmail());
+//            System.out.println(t.getEmail());
+//            if(t != null){
+//                System.out.println(student.getIdStudent() + student.getFirstName());
+//                System.out.println("este tutore");
+//            }
+
+//            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+//                    this,
+//                    android.R.layout.simple_list_item_1, courseNames);
+//
+//            list.setAdapter(arrayAdapter);
+
+
             studentId.set(student.getIdStudent());
             this.runOnUiThread(() -> {
+                for(SpecificCourse course : courses){
+                    textView.append(course.getCourseName());
+                    textView.append("\n");
+                }
+
                 firstName.setText(student.getFirstName());
                 lastName.setText(student.getLastName());
                 phoneNumber.setText(student.getPhoneNumber());

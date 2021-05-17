@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
@@ -50,51 +51,13 @@ public class MainActivity extends AppCompatActivity {
         specificCourseViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.
                 this.getApplication()).create(SpecificCourseViewModel.class);
 
-//        TutorViewModel.deleteAll();
-//        StudentViewModel.deleteAll();
-//        SpecificCourseViewModel.deleteAll();
-
-        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
-        TutorViewModel.repository.insertTutor(tutor);
-
-//        CourseToTeach courseToTeach =  new CourseToTeach("OOP", "oricand");
-//        System.out.println("course"+ courseToTeach.getCourseName());
-//        CourseToTeachViewModel.repository.insert(courseToTeach);
-//
-//        List<CourseToTeach> courseToTeachList =  new ArrayList<CourseToTeach>();
-//        courseToTeachList.add(courseToTeach);
-//
-//        TutorWithCourse tutorWithCourse =  new TutorWithCourse(tutor, courseToTeachList);
-//        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
-
-
-        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
-        StudentViewModel.repository.insertStudent(student);
-
-        SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
-        SpecificCourse specificCourse2 = new SpecificCourse("BD", "Curs sustinut la baze de date");
-
-        List<SpecificCourse> specificCourseList =  new ArrayList<SpecificCourse>();
-        specificCourseList.add(specificCourse);
-
-        List<SpecificCourse> specificCourseList2 =  new ArrayList<SpecificCourse>();
-        specificCourseList2.add(specificCourse);
-        specificCourseList2.add(specificCourse2);
-
-        StudentWithCourse studentWithCourse =  new StudentWithCourse(student, specificCourseList);
-        StudentViewModel.insertStudentWithCourses(studentWithCourse); // asta cand ii adaug direct cu cursuri
-        // TODO: 06.05.2021 daca fac asta asat mai jos se pune automat si in tabel chiar daca am adaugat mai sus
-
-        // specificCourseList.add(specificCourse2);
-
-        StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
-        StudentViewModel.insertStudentWithCourses(studentWithCourse1);
-
         btn_login = (Button)findViewById(R.id.login_button);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.putExtra("from", "MainActivity");
                 startActivity(intent);
             }
         });
@@ -108,8 +71,53 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+//        TutorViewModel.deleteAll();
+//        StudentViewModel.deleteAll();
+//        SpecificCourseViewModel.deleteAll();
+
+//        Tutor tutor = new Tutor("Ionel", "Mihaila", "III", "Mathematics", "0758848988", "mihaila@gmail.com", "mionel", "1243", 5, "142424242242422");
+//        TutorViewModel.repository.insertTutor(tutor);
+
+//        CourseToTeach courseToTeach =  new CourseToTeach("OOP", "oricand");
+//        System.out.println("course"+ courseToTeach.getCourseName());
+//        CourseToTeachViewModel.repository.insert(courseToTeach);
+//
+//        List<CourseToTeach> courseToTeachList =  new ArrayList<CourseToTeach>();
+//        courseToTeachList.add(courseToTeach);
+//
+//        TutorWithCourse tutorWithCourse =  new TutorWithCourse(tutor, courseToTeachList);
+//        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
+
+
+//        Student student = new Student("ROMICA", "Andronache", "II", "Mathematics", "0758848988", "romica@gmail.com", "mionel", "1243");
+//        StudentViewModel.repository.insertStudent(student);
+
+//        SpecificCourse specificCourse = new SpecificCourse("OOP2", "UN CURS FOARTE REUSIT");
+//        SpecificCourse specificCourse2 = new SpecificCourse("BD", "Curs sustinut la baze de date");
+//
+//        List<SpecificCourse> specificCourseList =  new ArrayList<SpecificCourse>();
+//        specificCourseList.add(specificCourse);
+//
+//        List<SpecificCourse> specificCourseList2 =  new ArrayList<SpecificCourse>();
+//        specificCourseList2.add(specificCourse);
+//        specificCourseList2.add(specificCourse2);
+
+//        StudentWithCourse studentWithCourse =  new StudentWithCourse(student, specificCourseList);
+//        StudentViewModel.insertStudentWithCourses(studentWithCourse); // asta cand ii adaug direct cu cursuri
+        // TODO: 06.05.2021 daca fac asta asat mai jos se pune automat si in tabel chiar daca am adaugat mai sus
+
+        // specificCourseList.add(specificCourse2);
+
+//        StudentWithCourse studentWithCourse1  =  new StudentWithCourse(tutor, specificCourseList2);
+//        StudentViewModel.insertStudentWithCourses(studentWithCourse1);
+
+
+
+
 
     }
+
+
 }
 // TODO: 29.04.2021 cand creez un profil de student in functie de an ii adaugi cursurile, la fel si la prof
 // TODO: 29.04.2021  pentru profi faci alte cursuri pe care le pot preda -> toti anii de mai jos de el la toate domeniile

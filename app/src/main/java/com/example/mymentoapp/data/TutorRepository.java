@@ -67,7 +67,15 @@ public class TutorRepository {
         });
     }
 
+    public Tutor getTutorByUsername(String inputUsername){
+        return tutorDao.getTutorByUserName(inputUsername);
+    }
 
+    public void updateTutor(Tutor tutor){
+        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            tutorDao.updateTutor(tutor);
+        });
+    }
 
 
 
