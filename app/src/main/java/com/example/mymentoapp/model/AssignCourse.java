@@ -9,12 +9,14 @@ public class AssignCourse {
     private String domain;
     private String specialization;
     private List<SpecificCourse> specificCourseList;
+    private List<CourseToTeach> courseToTeachList;
 
     public AssignCourse(String studyYear, String domain, String specialization) {
         this.studyYear = studyYear;
         this.domain = domain;
         this.specialization = specialization;
         this.specificCourseList= new ArrayList<>();
+        this.courseToTeachList = new ArrayList<>();
 
         if(studyYear.equals("I")) {
             if (domain.equals("Informatics")) {
@@ -32,6 +34,7 @@ public class AssignCourse {
                 specificCourseList.add(new SpecificCourse("Web Techniques", "Basically HTML, CSS, JavaScript, NodeJs"));
                 specificCourseList.add(new SpecificCourse("Geometry and Linear Algebra", "Course on the principles of vector geometry and linear algebra"));
                 specificCourseList.add(new SpecificCourse("Formal and Automatic Languages", "Interesting course on formal and automatic languages, Noam Chomsky stuff"));
+
 
             } else if (domain.equals("CTI")) {
                 specificCourseList.add(new SpecificCourse("Mathematical Analysis", "Numerical series, continuity"));
@@ -463,5 +466,21 @@ public class AssignCourse {
 
     public void setSpecificCourseList(List<SpecificCourse> specificCourseList) {
         this.specificCourseList = specificCourseList;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public List<CourseToTeach> getCourseToTeachList() {
+        return courseToTeachList;
+    }
+
+    public void setCourseToTeachList(List<CourseToTeach> courseToTeachList) {
+        this.courseToTeachList = courseToTeachList;
     }
 }
