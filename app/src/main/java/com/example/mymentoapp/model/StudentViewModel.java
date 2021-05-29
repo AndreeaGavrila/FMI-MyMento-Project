@@ -10,6 +10,7 @@ import com.example.mymentoapp.data.StudentRepository;
 
 
 import java.util.List;
+import java.util.Objects;
 
 public class StudentViewModel extends AndroidViewModel {
     public static StudentRepository repository;
@@ -23,6 +24,16 @@ public class StudentViewModel extends AndroidViewModel {
 
     }
 
+//    public Student getStudent(int id){
+//        Student student = Objects.requireNonNull(repository.getAllData().getValue()).listIterator().next();
+//            if(student.getIdStudent() == id){
+//                return student;
+//        }
+//        return null;
+//    }
+    public void updateStudent(Student student){
+        repository.updateStudent(student);
+    }
     public static void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }

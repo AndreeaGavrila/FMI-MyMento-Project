@@ -33,6 +33,12 @@ public class CourseToTeachRepository {
             courseToTeachDao.insertCourseToTeach(courseToTeach);
         });
     }
+
+    public List<CourseToTeach> getAllSpecificCoursesForTutor(int idInput){
+        return courseToTeachDao.getAllSpecificCoursesForTutor(idInput);
+    }
+
+
 //    public void update(){
 //        MyRoomDatabase.databaseWriteExecutor.execute(()->{
 //            courseToTeachDao.updateSpecificCourses();

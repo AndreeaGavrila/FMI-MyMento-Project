@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentWithCourse;
-import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
@@ -50,6 +49,17 @@ public class StudentRepository {
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             studentDao.deleteAll();
         });
+    }
+    public void updateStudent(Student student){
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            studentDao.updateStudent(student);
+        });
+    }
+    public Student getStudent(int id){
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            studentDao.getStudent(id);
+        });
+        return null;
     }
 
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {

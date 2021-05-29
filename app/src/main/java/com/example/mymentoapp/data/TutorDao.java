@@ -27,12 +27,12 @@ public interface TutorDao {
     void deleteAll();
 
     @Query("SELECT * FROM tutor_table WHERE username =:userName")
-    Tutor getTutorByUserName(String userName);
+    public Tutor getTutorByUserName(String userName);
 
     @Query("SELECT * FROM tutor_table")
-    LiveData<List<Tutor>> getAllTutors();
+    public LiveData<List<Tutor>> getAllTutors();
 
     @Query("SELECT * FROM tutor_table WHERE idStudent=:studentIdInput")
-    Tutor getTutor(int studentIdInput);
+    public Tutor getTutor(int studentIdInput);
 
 }

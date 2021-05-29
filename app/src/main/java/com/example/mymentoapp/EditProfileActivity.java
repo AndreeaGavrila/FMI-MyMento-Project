@@ -32,22 +32,23 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class EditProfileActivity extends AppCompatActivity {
-    StudentRepository repository;
+
+    StudentViewModel studentViewModel = new StudentViewModel(this.getApplication());
+    TutorViewModel tutorViewModel = new TutorViewModel(this.getApplication());
+
     EditText firstName, lastName, phoneNumber, email, iban;
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     RadioButton radioYear1, radioYear2, radioYear3, radioYear4, radioInfo, radioMath, radioCTI;
     Button edit;
     Student student;
     Button becameTutorBtn;
-    MyRoomDatabase roomDatabase;
-    StudentDao studentDao;
-    TutorDao tutorDao;
     String studyYear1, domain1, specialization1;
     AssignCourse assignCourse;
     LinearLayout linearLayout;
     AssignCourse assignCourse2;
     TextView course_to_teach;
     Tutor newTutor;
+
     private ArrayList<String> courseNameList;
 
     @Override
@@ -79,7 +80,7 @@ public class EditProfileActivity extends AppCompatActivity {
         course_to_teach = findViewById(R.id.courses_to_teach1);
 
 
-        repository = new StudentRepository(this.getApplication());
+//        repository = new StudentRepository(this.getApplication());
 
         courseNameList = new ArrayList<>();
         specialization1 = "" ;
@@ -218,76 +219,62 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
+//        student = stude.getStudent(studentId);
 
+        Tutor tutor = tutorViewModel.getTutorByUserName(student.getUsername());
+        System.out.println("id student este " + student.getIdStudent());
 
-        final Tutor[] t = {null};
-
-
-            roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-            studentDao = roomDatabase.studentDao();
-            tutorDao = roomDatabase.tutorDao();
-            student = studentDao.getStudent(studentId);
-            Tutor tutor = tutorDao.getTutorByUserName(student.getUsername());
-            t[0] = tutorDao.getTutorByUserName(student.getUsername());
-            System.out.println("id student este " + student.getIdStudent());
-
-            if(tutor != null){
+        if(tutor != null){
                 System.out.println(student.getIdStudent() + student.getFirstName());
                 System.out.println("este tutore");
                 becameTutorBtn.setVisibility(View.GONE);
-            }
-            else{
+        }
+//        else{
+//
+//                Tutor newTutor = new Tutor();
+//                newTutor.setIdStudent(student.getIdStudent());
+//                newTutor.setFirstName(student.getFirstName());
+//                newTutor.setLastName(student.getLastName());
+//                newTutor.setEmail(student.getEmail());
+//                newTutor.setPassword(student.getPassword());
+//                newTutor.setPhoneNumber(student.getPhoneNumber());
+//                newTutor.setStudyDomain(student.getStudyDomain());
+//                newTutor.setStudyYear(student.getStudyYear());
+//                newTutor.setUsername(student.getUsername());
+//
+//        }
 
-                newTutor = new Tutor();
-                newTutor.setIdStudent(student.getIdStudent());
-                newTutor.setFirstName(student.getFirstName());
-                newTutor.setLastName(student.getLastName());
-                newTutor.setEmail(student.getEmail());
-                newTutor.setPassword(student.getPassword());
-                newTutor.setPhoneNumber(student.getPhoneNumber());
-                newTutor.setStudyDomain(student.getStudyDomain());
-                newTutor.setStudyYear(student.getStudyYear());
-                newTutor.setUsername(student.getUsername());
-
-            }
-
-
-            student = studentDao.getStudent(studentId);
-            firstName.setText(student.getFirstName());
-            lastName.setText(student.getLastName());
-            phoneNumber.setText(student.getPhoneNumber());
-            email.setText(student.getEmail());
-            String year = student.getStudyYear();
-            switch (year) {
-                case "I":
-                    radioYear1.setChecked(true);
-                    break;
-                case "II":
-                    radioYear2.setChecked(true);
-                    break;
-                case "III":
-                    radioYear3.setChecked(true);
-                    break;
-                default:
-                    radioYear4.setChecked(true);
-                    break;
-            }
-            String domain = student.getStudyDomain();
-            switch (domain){
-                case "Mathematics":
-                    radioMath.setChecked(true);
-                    break;
-                case "Informatics":
-                    radioInfo.setChecked(true);
-                    break;
-                case "CTI":
-                    radioCTI.setChecked(true);
-                    break;
-            }
-
-
-
-
+        firstName.setText(student.getFirstName());
+        lastName.setText(student.getLastName());
+        phoneNumber.setText(student.getPhoneNumber());
+        email.setText(student.getEmail());
+       String year = student.getStudyYear();
+        switch (year) {
+            case "I":
+                radioYear1.setChecked(true);
+                break;
+            case "II":
+                radioYear2.setChecked(true);
+                break;
+            case "III":
+                radioYear3.setChecked(true);
+                break;
+            default:
+                radioYear4.setChecked(true);
+                break;
+        }
+        String domain = student.getStudyDomain();
+        switch (domain){
+            case "Mathematics":
+                radioMath.setChecked(true);
+                break;
+            case "Informatics":
+                radioInfo.setChecked(true);
+                break;
+            case "CTI":
+                radioCTI.setChecked(true);
+                break;
+        }
 
 
 
@@ -338,27 +325,26 @@ public class EditProfileActivity extends AppCompatActivity {
             StudentViewModel.insertStudentWithCourses(studentWithCourse);
             //StudentViewModel.updateStudentWithCourse(studentWithCourse);
 
-            if(t[0] != null){
+            if(newTutor != null){
                 System.out.println("before set tutor");
-                t[0].setIban(iban.getText().toString());
-                t[0].setFirstName(firstName.getText().toString());
-                t[0].setLastName(lastName.getText().toString());
-                t[0].setEmail(email.getText().toString());
-                t[0].setPhoneNumber(phoneNumber.getText().toString());
-                t[0].setStudyYear(checkedStudyYear.getText().toString());
-                t[0].setStudyDomain(checkedDomain.getText().toString());
+                newTutor.setIban(iban.getText().toString());
+                newTutor.setFirstName(firstName.getText().toString());
+                newTutor.setLastName(lastName.getText().toString());
+                newTutor.setEmail(email.getText().toString());
+                newTutor.setPhoneNumber(phoneNumber.getText().toString());
+                newTutor.setStudyYear(checkedStudyYear.getText().toString());
+                newTutor.setStudyDomain(checkedDomain.getText().toString());
                 System.out.println("after set tutor");
             }
 
-            new Thread(() -> {
-                studentDao.updateStudent(student);
-                assignCourse.setCourseToTeachList(courseToTeachArrayList);
-                TutorWithCourse tutorWithCourse = new TutorWithCourse(newTutor, assignCourse.getCourseToTeachList());
-                TutorViewModel.insertTutorWithCourses(tutorWithCourse);
-                Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
-                intent.putExtra("idStudent", studentId);
-                startActivity(intent);
-            }).start();
+
+            studentViewModel.updateStudent(student);
+            assignCourse.setCourseToTeachList(courseToTeachArrayList);
+            TutorWithCourse tutorWithCourse = new TutorWithCourse(newTutor, assignCourse.getCourseToTeachList());
+            TutorViewModel.insertTutorWithCourses(tutorWithCourse);
+            Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
+            intent.putExtra("idStudent", studentId);
+            startActivity(intent);
         });
 
     }
