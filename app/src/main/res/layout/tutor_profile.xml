@@ -184,13 +184,13 @@
                 android:id="@+id/to_teach_course"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"/>
+                android:orientation="vertical"></LinearLayout>
 
             <Button
                 android:id="@+id/btn_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/submit" />
+                android:text="Submit" />
 
         </LinearLayout>
     </ScrollView>

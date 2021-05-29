@@ -25,9 +25,6 @@ public class TutorViewModel extends AndroidViewModel {
     public static void insertTutorWithCourses(TutorWithCourse tutorWithCourse){
         repository.insertTutorWithCourses(tutorWithCourse);
     }
-    public Tutor getTutorByUserName(String userName){
-        return repository.getTutorByUserName(userName);
-    }
 
     public LiveData<List<Tutor>> getAllTutors(){
         return allTutors;
@@ -39,4 +36,8 @@ public class TutorViewModel extends AndroidViewModel {
     public static void deleteAll(){
         repository.deleteAll();
     }
+
+    public static void updateTutor(Tutor tutor){repository.updateTutor(tutor);}
+
+    public static Tutor getTutor(String username){return repository.getTutorByUsername(username);}
 }

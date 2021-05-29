@@ -28,6 +28,7 @@ public interface SpecificCourseDao {
 
     @Query("DELETE FROM specific_course WHERE id_FkStudent = :id")
     void deleteSpecificCourse(int id);
+
     @Update
     void updateSpecificCourses(SpecificCourse... specificCourses);
 }

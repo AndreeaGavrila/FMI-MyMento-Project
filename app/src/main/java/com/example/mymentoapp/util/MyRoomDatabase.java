@@ -19,6 +19,7 @@ import com.example.mymentoapp.model.Login;
 import com.example.mymentoapp.model.Register;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.Tutor;
 
 import java.util.concurrent.ExecutorService;
@@ -35,12 +36,12 @@ public abstract class MyRoomDatabase extends RoomDatabase {
     public abstract CourseToTeachDao courseToTeachDao();
     public abstract RegisterDao registerDao();
     public abstract LoginDao loginDao();
+    //public abstract StudentWithCourseDao studentWithCourseDao();
 
     public static final int NUMBER_OF_THREADS = 4;
 
     private static volatile MyRoomDatabase INSTANCE;
-    public static final ExecutorService databaseWriteExecutor
-            = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static MyRoomDatabase getDatabase(final Context context){
 
@@ -90,6 +91,7 @@ public abstract class MyRoomDatabase extends RoomDatabase {
 
                         LoginDao loginDao = INSTANCE.loginDao();
                         loginDao.deleteAll();
+
 
 
                     });

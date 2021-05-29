@@ -43,10 +43,6 @@ public class TutorRepository {
         new TutorRepository.insertAsync(tutorDao).execute(tutorWithCourse);
     }
 
-    public Tutor getTutorByUserName(String name){
-        Tutor tutor =  tutorDao.getTutorByUserName(name);
-        return tutor;
-    }
 
     private static class insertAsync extends AsyncTask<TutorWithCourse, Void, Void> {
         private TutorDao tutorDaoAsync;
@@ -71,7 +67,15 @@ public class TutorRepository {
         });
     }
 
+    public Tutor getTutorByUsername(String inputUsername){
+        return tutorDao.getTutorByUserName(inputUsername);
+    }
 
+    public void updateTutor(Tutor tutor){
+        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
+            tutorDao.updateTutor(tutor);
+        });
+    }
 
 
 

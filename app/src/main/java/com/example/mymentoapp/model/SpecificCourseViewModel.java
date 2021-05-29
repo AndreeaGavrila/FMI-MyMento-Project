@@ -32,7 +32,6 @@ public class SpecificCourseViewModel  extends AndroidViewModel {
     public static void deleteAll(){
         repository.deleteAll();
     }
-    public List<SpecificCourse> getAllSpecificCoursesForStudent(int idInput){
-        return repository.getAllSpecificCoursesForStudent(idInput);
-    }
+    public static void deleteSpecificCourse(int id){repository.deleteSpecificCourse(id);}
+    public static List<SpecificCourse> getAllSpecificCoursesForStudent(int id){return repository.getAllSpecificCoursesForStudent(id);}
 }

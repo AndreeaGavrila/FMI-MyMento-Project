@@ -157,21 +157,6 @@
 
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/courses_to_teach1"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:gravity="center"
-            android:text="Choose courses you want to teach"
-            android:textColor="#0A0000"
-            android:textSize="16sp"
-            android:visibility="invisible" />
-
-        <LinearLayout
-            android:id="@+id/to_teach_course1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"/>
         <Button
             android:id="@+id/became_tutor_btn"
             android:layout_width="match_parent"
