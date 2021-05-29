@@ -32,6 +32,7 @@ public class ChooseStatusActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
     private StudentDao studentDao;
 
+
     private TutorViewModel tutorViewModel;
     private TutorDao tutorDao;
 
