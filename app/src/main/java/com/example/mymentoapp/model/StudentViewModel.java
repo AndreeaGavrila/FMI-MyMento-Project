@@ -47,6 +47,12 @@ public class StudentViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
+    public static void updateStudent(Student student){repository.updateStudent(student);};
+
+    public static Student getStudent(int id){return  repository.getStudent(id);}
+
+    //public static void deleteSpecificCourse(int idFkInput){repository.deleteSpecificCourse(idFkInput);}
+
 //    public static void updateStudentWithCourse(StudentWithCourse studentWithCourse){
 //        repository.updateStudentWithCourse(studentWithCourse);
 //    }

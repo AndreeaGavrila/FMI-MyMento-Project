@@ -49,6 +49,15 @@
             android:hint="Phone number"
             android:inputType="phone" />
 
+        <EditText
+            android:id="@+id/iban_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/study_year_text"
             android:layout_width="match_parent"
@@ -109,6 +118,31 @@
                 android:layout_height="wrap_content"
                 android:text="Mathematics" />
 
+            <RadioGroup
+                android:id="@+id/radio_group_spec_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/btn_spec1_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pure Mathematics" />
+
+                <RadioButton
+                    android:id="@+id/btn_spec2_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Applied Mathematics" />
+
+                <RadioButton
+                    android:id="@+id/btn_spec3_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mathematics-Informatics" />
+            </RadioGroup>
+
             <RadioButton
                 android:id="@+id/radio_info"
                 android:layout_width="match_parent"
@@ -128,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BECAME A TUTOR!"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_edit"
