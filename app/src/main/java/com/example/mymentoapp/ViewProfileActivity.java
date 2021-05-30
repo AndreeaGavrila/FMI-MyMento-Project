@@ -39,15 +39,10 @@ public class ViewProfileActivity extends AppCompatActivity {
     private CourseToTeachViewModel courseToTeachViewModel;
     private TutorViewModel tutorViewModel;
     private SpecificCourseViewModel specificCourseViewModel;
-    private TaughtCourseViewModel taughtCourseViewModel;
 
-
-    TextView firstName, lastName, phoneNumber, email, studyYear, domain;
+    TextView firstName, lastName, phoneNumber, email, studyYear, domain, textViewToTeachCourse,
+            textViewSpecificCourse, textView;
     Button editProfile;
-
-    TextView textViewSpecificCourse;
-    TextView textViewToTeachCourse;
-    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +52,10 @@ public class ViewProfileActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
 
-        //System.out.println("id student view profile = "+ idStudent);
-        //list = (ListView) findViewById(R.id.list_view_courses);
         textViewSpecificCourse = (TextView) findViewById(R.id.text_view_course);
         textViewToTeachCourse = (TextView) findViewById(R.id.teach_courses);
         textView = (TextView) findViewById(R.id.text_view_course2);
-        //recycler = findViewById(R.id.recycle_course_view);
+
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         phoneNumber = findViewById(R.id.phoneNumber);
@@ -82,39 +75,16 @@ public class ViewProfileActivity extends AppCompatActivity {
             Student student = studentViewModel.getStudentByUsername(studentName);
 
             ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
-            System.out.println("LISTA DE CURSURI ADUSE PE VIEW PROFILE");
             Tutor tutor = tutorViewModel.getTutor(student.getUsername());
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<CourseToTeach>();
             if(tutor != null){
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
             }
-//            ArrayList<String> specificCourseNames = new ArrayList<>();
-//            for(SpecificCourse specificCourse : courses){
-//                specificCourseNames.add(specificCourse.getCourseName());
-//            }
-//
-//            ArrayList<String> toTeachCourseNames = new ArrayList<>();
-//            for(CourseToTeach courseToTeach: courseToTeachArrayList){
-//                toTeachCourseNames.add(courseToTeach.getCourseName());
-//            }
-
-
-//            System.out.println("id student este " + student.getIdStudent());
-
-//            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-//                    this,
-//                    android.R.layout.simple_list_item_1, courseNames);
-//
-//            list.setAdapter(arrayAdapter);
-
 
             ArrayList<CourseToTeach> finalCourseToTeachArrayList = courseToTeachArrayList;
             this.runOnUiThread(() -> {
 
-
                 if(tutor != null){
-                    System.out.println("diferit de null");
-
                     textView.setVisibility(View.VISIBLE);
                     for(CourseToTeach courseToTeach : finalCourseToTeachArrayList){
                         textViewToTeachCourse.append(courseToTeach.getCourseName());
@@ -122,10 +92,10 @@ public class ViewProfileActivity extends AppCompatActivity {
                     }
                 }
                 for(SpecificCourse course : courses){
+
                     textViewSpecificCourse.append(course.getCourseName());
                     textViewSpecificCourse.append("\n");
                 }
-
 
                 firstName.setText(student.getFirstName());
                 lastName.setText(student.getLastName());
@@ -135,7 +105,6 @@ public class ViewProfileActivity extends AppCompatActivity {
                 domain.setText(student.getStudyDomain());
             });
         }).start();
-
 
         editProfile.setOnClickListener(v -> {
             Intent newIntent = new Intent (ViewProfileActivity.this, EditProfileActivity.class);

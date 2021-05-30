@@ -39,25 +39,24 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class EditProfileActivity extends AppCompatActivity {
+
     private StudentViewModel studentViewModel;
     private  CourseToTeachViewModel courseToTeachViewModel;
     private  TutorViewModel tutorViewModel;
     private  SpecificCourseViewModel specificCourseViewModel;
-    private  TaughtCourseViewModel taughtCourseViewModel;
 
-    EditText firstName, lastName, phoneNumber, email, iban;
-    RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
-    RadioButton radioYear1, radioYear2, radioYear3, radioYear4, radioInfo, radioMath, radioCTI;
-    Button edit;
-    Student student;
-    Button becameTutorBtn;
-    Tutor tutor;
-    String studyYear1, domain1, specialization1, oldStudyDomain;
-    AssignCourse assignCourse, assignCourse2;
-    LinearLayout linearLayout;
-    TextView courseToTeach;
-    List<SpecificCourse> specificCourseList;
-    List<CourseToTeach> courseToTeachList;
+    private EditText firstName, lastName, phoneNumber, email, iban;
+    private RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
+    private RadioButton radioYear1, radioYear2, radioYear3, radioYear4, radioInfo, radioMath, radioCTI;
+    Button edit,  becameTutorBtn;
+    private Student student;
+    private Tutor tutor;
+    private String studyYear1, domain1, specialization1, oldStudyDomain;
+    private AssignCourse assignCourse, assignCourse2;
+    private LinearLayout linearLayout;
+    private TextView courseToTeach;
+    private List<SpecificCourse> specificCourseList;
+    private List<CourseToTeach> courseToTeachList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -94,41 +93,43 @@ public class EditProfileActivity extends AppCompatActivity {
         new Thread(() -> {
 
             studentViewModel = new StudentViewModel(this.getApplication());
-            student = studentViewModel.getStudentByUsername(studentName);
-            oldStudyDomain = student.getStudyDomain();
             tutorViewModel = new TutorViewModel(this.getApplication());
+
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
             courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
 
-
+            student = studentViewModel.getStudentByUsername(studentName);
             tutor = tutorViewModel.getTutor(student.getUsername());
+
             studyYear1 = student.getStudyYear();
             domain1 = student.getStudyDomain();
+            oldStudyDomain = student.getStudyDomain();
 
             if(tutor != null){
+
                 specificCourseList = specificCourseViewModel.getAllSpecificCoursesForStudent(tutor.getIdStudent());
                 courseToTeachList = courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
+
                 this.runOnUiThread(()->{
 
+                   radioMath.setEnabled(true);
+                   radioInfo.setEnabled(true);
+                   radioCTI.setEnabled(true);
+                   radioGroupSpec.setVisibility(View.GONE);
                    linearLayout.removeAllViews();
+
                    for(SpecificCourse specificCourse: specificCourseList) {
-                       System.out.println("Primul for");
                        CheckBox checkBox = new CheckBox(EditProfileActivity.this);
                        checkBox.setText(specificCourse.getCourseName());
                        checkBox.setVisibility(View.VISIBLE);
                        for(CourseToTeach c : courseToTeachList){
                            if(c.getCourseName().equals(specificCourse.getCourseName())){
                                checkBox.setChecked(true);
-                               System.out.println("al doilea for if"
-                               );
                            }
-                           System.out.println("al doilea for");
                        }
-
-
-
                        linearLayout.addView(checkBox);
                    }
+
                    becameTutorBtn.setVisibility(View.GONE);
                    iban.setVisibility(View.VISIBLE);
                    iban.setText(tutor.getIban());
@@ -137,16 +138,24 @@ public class EditProfileActivity extends AppCompatActivity {
                        linearLayout.removeAllViews();
                        RadioButton rb2 = findViewById(checkedId);
                        studyYear1 = rb2.getText().toString();
+                       if(studyYear1.equals("IV")){
+                           radioGroupSpec.setVisibility(View.GONE);
+                           radioInfo.setEnabled(false);
+                           radioMath.setEnabled(false);
+                           radioCTI.setChecked(true);
+                       }else{
+                           radioMath.setEnabled(true);
+                           radioInfo.setEnabled(true);
+                           radioCTI.setEnabled(true);
+                       }
 
                    });
 
                    radioGroupDomain.setOnCheckedChangeListener((group, checkedId) -> {
 
                        courseToTeach.setVisibility(View.VISIBLE);
-                       // checkedId is the RadioButton selected
                        RadioButton rb = findViewById(checkedId);
                        domain1 = rb.getText().toString();
-                       System.out.println("study+year" +rb.getText());
 
                        radioGroupStudyYear.setOnCheckedChangeListener((group1, checkedId2) -> {
                            RadioButton rb2 = findViewById(checkedId2);
@@ -157,6 +166,17 @@ public class EditProfileActivity extends AppCompatActivity {
                                    RadioButton rb3 = findViewById(checkedId3);
                                    specialization1 = rb3.getText().toString();
                                });
+                           }
+
+                           if(studyYear1.equals("IV")){
+                               radioGroupSpec.setVisibility(View.GONE);
+                               radioInfo.setEnabled(false);
+                               radioMath.setEnabled(false);
+                               radioCTI.setChecked(true);
+                           }else{
+                               radioMath.setEnabled(true);
+                               radioInfo.setEnabled(true);
+                               radioCTI.setEnabled(true);
                            }
                            if(studyYear1.equals("I") || studyYear1.equals("IV")){
                                radioGroupSpec.setVisibility(View.GONE);
@@ -189,7 +209,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
                            radioGroupSpec.setOnCheckedChangeListener((group12, checkedId3) -> {
                                RadioButton rb3 = findViewById(checkedId3);
-
                                specialization1 = rb3.getText().toString();
                                assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                                linearLayout.removeAllViews();
@@ -255,7 +274,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
 
-
             firstName.setText(student.getFirstName());
             lastName.setText(student.getLastName());
             phoneNumber.setText(student.getPhoneNumber());
@@ -292,7 +310,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     break;
             }
 
-
         }).start();
 
 
@@ -304,6 +321,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     edit.setOnClickListener(v -> {
         new Thread(() -> {
+
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
             courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
             student.setFirstName(firstName.getText().toString());
@@ -318,13 +336,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 for (int i = 0; i < specificCourseList.size(); i++) {
                     CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
                     if (checkBox.isChecked()) {
-                        System.out.println("is checked" + i);
                         CourseToTeach courseToTeach = new CourseToTeach(specificCourseList.get(i).getCourseName(), specificCourseList.get(i).getDescription());
                         courseToTeachList.add(courseToTeach);
                     }
                 }
             }
-
 
             String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
             String phonePattern = "^\\+[0-9]{10,13}$";
@@ -339,31 +355,23 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
             else{
+
                 int checkedStudyYearId = radioGroupStudyYear.getCheckedRadioButtonId();
                 RadioButton checkedStudyYear = findViewById(checkedStudyYearId);
                 student.setStudyYear(checkedStudyYear.getText().toString());
-
 
                 int checkedDomainId = radioGroupDomain.getCheckedRadioButtonId();
                 RadioButton checkedDomain = findViewById(checkedDomainId);
                 student.setStudyDomain(checkedDomain.getText().toString());
 
-
                 assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
-
-                System.out.println("CURSURILE");
-                for(SpecificCourse specificCourse: assignCourse.getSpecificCourseList()) {
-                    System.out.println((specificCourse.getCourseName()));
-                }
-
                 specificCourseViewModel.deleteSpecificCourse(student.getIdStudent());
+
                 StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
                 studentViewModel.insertStudentWithCourses(studentWithCourse);
-                //StudentViewModel.updateStudentWithCourse(studentWithCourse);
 
                 if(tutor != null){
 
-                    System.out.println("before set tutor");
                     tutor.setIban(iban.getText().toString());
                     tutor.setFirstName(firstName.getText().toString());
                     tutor.setLastName(lastName.getText().toString());
@@ -371,22 +379,15 @@ public class EditProfileActivity extends AppCompatActivity {
                     tutor.setPhoneNumber(phoneNumber.getText().toString());
                     tutor.setStudyYear(checkedStudyYear.getText().toString());
                     tutor.setStudyDomain(checkedDomain.getText().toString());
-                    System.out.println("after set tutor");
 
                     StudentWithCourse studentWithCourse1 = new StudentWithCourse(tutor, assignCourse.getSpecificCourseList());
                     studentViewModel.insertStudentWithCourses(studentWithCourse1);
-
-                    if(oldStudyDomain!= null && !oldStudyDomain.equals(checkedDomain.getText().toString())){
-                        courseToTeachViewModel.deleteCoursesForTutor(tutor.getIdStudent());
-                    }
-
                     courseToTeachViewModel.deleteCoursesForTutor(tutor.getIdStudent());
-                    TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, courseToTeachList);
-                    tutorViewModel.insertTutorWithCourses(tutorWithCourse);
 
-                    System.out.println("Before update tutor");
+                    TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, courseToTeachList);
+
+                    tutorViewModel.insertTutorWithCourses(tutorWithCourse);
                     tutorViewModel.updateTutor(tutor);
-                    System.out.println("After update tutor");
                 }
 
                 Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
@@ -394,8 +395,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }).start();
-
-
 
     });
     }
