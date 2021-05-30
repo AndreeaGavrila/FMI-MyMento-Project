@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     TextView firstName, lastName, phoneNumber, email, studyYear, domain, textViewToTeachCourse,
             textViewSpecificCourse, textView;
     Button editProfile;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
         editProfile = findViewById(R.id.edit_btn);
+        linearLayout = findViewById(R.id.layout_btn);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
 
@@ -91,10 +94,18 @@ public class ViewProfileActivity extends AppCompatActivity {
                         textViewToTeachCourse.append("\n");
                     }
                 }
+
                 for(SpecificCourse course : courses){
 
-                    textViewSpecificCourse.append(course.getCourseName());
-                    textViewSpecificCourse.append("\n");
+                    Button btn = new Button(this.getApplicationContext());
+                    btn.setText(course.getCourseName());
+                    btn.setOnClickListener(v->{
+                        Intent newIntent = new Intent (ViewProfileActivity.this, ViewAvailableCoursesActivity.class);
+                        newIntent.putExtra("courseName", course.getCourseName());
+                        newIntent.putExtra("studentName", student.getUsername());
+                        startActivity(newIntent);
+                    });
+                    linearLayout.addView(btn);
                 }
 
                 firstName.setText(student.getFirstName());

@@ -40,4 +40,8 @@ public class TutorViewModel extends AndroidViewModel {
     public void updateTutor(Tutor tutor){repository.updateTutor(tutor);}
 
     public Tutor getTutor(String username){return repository.getTutorByUsername(username);}
+
+    public Tutor getTutorById(int id){
+        return  repository.getTutor(id);
+    }
 }

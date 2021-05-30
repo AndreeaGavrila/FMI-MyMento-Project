@@ -330,7 +330,7 @@ public class EditProfileActivity extends AppCompatActivity {
             student.setPhoneNumber(phoneNumber.getText().toString());
 
             courseToTeachList.clear();
-            specificCourseList =  assignCourse2.getSpecificCourseList();
+           // specificCourseList =  assignCourse2.getSpecificCourseList();
 
             if(specificCourseList.size()>0){
                 for (int i = 0; i < specificCourseList.size(); i++) {
@@ -385,9 +385,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     courseToTeachViewModel.deleteCoursesForTutor(tutor.getIdStudent());
 
                     TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, courseToTeachList);
-
                     tutorViewModel.insertTutorWithCourses(tutorWithCourse);
-                    tutorViewModel.updateTutor(tutor);
                 }
 
                 Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);

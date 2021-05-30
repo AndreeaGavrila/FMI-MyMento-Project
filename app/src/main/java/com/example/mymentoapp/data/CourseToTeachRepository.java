@@ -52,5 +52,12 @@ public class CourseToTeachRepository {
             courseToTeachDao.deleteCourseToTeach(id);
         });
     }
+    public List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName){
+        return courseToTeachDao.getAllCoursesForSpecificCourse(courseName);
+    }
+    public List<CourseToTeach> getAllCoursesWithout(int id){
+        return courseToTeachDao.getAllCoursesWithout(id);
+    }
+
 
 }

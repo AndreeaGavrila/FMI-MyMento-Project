@@ -70,6 +70,9 @@ public class TutorRepository {
     public Tutor getTutorByUsername(String inputUsername){
         return tutorDao.getTutorByUserName(inputUsername);
     }
+    public Tutor getTutor(int id){
+        return tutorDao.getTutor(id);
+    }
 
     public void updateTutor(Tutor tutor){
         MyRoomDatabase.databaseWriteExecutor.execute(() -> {

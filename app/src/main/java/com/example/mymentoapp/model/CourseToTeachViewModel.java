@@ -14,6 +14,7 @@ public class CourseToTeachViewModel {
     public static CourseToTeachRepository repository;
     public List<CourseToTeach> allToTeachCourses;
 
+
     public CourseToTeachViewModel(@NonNull Application application) {
         super();
         repository =  new CourseToTeachRepository(application);
@@ -34,4 +35,11 @@ public class CourseToTeachViewModel {
         repository.deleteAll();
     }
     public List<CourseToTeach> getAllToTeachCourses(int id){return repository.getAllCourseToTeach(id);}
+    public List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName){
+        return repository.getAllCoursesForSpecificCourse(courseName);
+    }
+    public List<CourseToTeach> getAllCoursesWithout(int id){
+        return repository.getAllCoursesWithout(id);
+    }
+
 }
