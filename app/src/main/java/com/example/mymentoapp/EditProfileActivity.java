@@ -125,6 +125,8 @@ public class EditProfileActivity extends AppCompatActivity {
                            System.out.println("al doilea for");
                        }
 
+
+
                        linearLayout.addView(checkBox);
                    }
                    becameTutorBtn.setVisibility(View.GONE);
