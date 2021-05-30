@@ -1,8 +1,6 @@
 package com.example.mymentoapp.data;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -10,9 +8,8 @@ import androidx.room.Update;
 
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
-import com.example.mymentoapp.model.StudentWithCourse;
+import com.example.mymentoapp.model.TaughtCourse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -23,6 +20,9 @@ public interface StudentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSpecificCourses(List<SpecificCourse> specificCourses);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTaughtCourses(List<TaughtCourse> taughtCourses);
 
     //@Delete
 //    @Query("DELETE FROM specific_course WHERE id_FkStudent = :idFkInput")
@@ -35,7 +35,7 @@ public interface StudentDao {
     void deleteAll();
 
     @Query("SELECT * FROM student_table")
-    LiveData<List<Student>> getAllStudents();
+    List<Student> getAllStudents();
 
     @Query("SELECT * FROM student_table where username=:usernameInput and password=:passwordInput")
     Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput);
@@ -49,6 +49,9 @@ public interface StudentDao {
 
     @Query("SELECT * FROM student_table WHERE idStudent=:studentIdInput")
     Student getStudent(int studentIdInput);
+
+    @Query("SELECT * FROM student_table WHERE idStudent=:studentIdInput")
+    long getStudentData(int studentIdInput);
 
     @Update
     void updateStudents(Student... students);

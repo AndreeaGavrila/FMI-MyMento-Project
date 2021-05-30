@@ -30,7 +30,7 @@ public interface TutorDao {
     Tutor getTutorByUserName(String userName);
 
     @Query("SELECT * FROM tutor_table")
-    LiveData<List<Tutor>> getAllTutors();
+    List<Tutor> getAllTutors();
 
     @Query("SELECT * FROM tutor_table WHERE idStudent=:studentIdInput")
     Tutor getTutor(int studentIdInput);

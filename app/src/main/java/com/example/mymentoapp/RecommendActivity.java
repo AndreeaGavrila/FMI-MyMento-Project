@@ -29,7 +29,7 @@ public class RecommendActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
         Bundle bundle = getIntent().getExtras();
-        int idStudent = bundle.getInt("idStudent");
+        String studentName = bundle.getString("studentName");
 
         textViewToTeachCourse = (TextView) findViewById(R.id.recommended_courses);
 
@@ -43,7 +43,7 @@ public class RecommendActivity  extends AppCompatActivity {
         System.out.println("in recommend");
 
         new Thread(() -> {
-            Student student = studentDao.getStudent(idStudent);
+            Student student = studentDao.getStudentByUsername(studentName);
             System.out.println("in thread");
 //                if (student.getStudyDomain().equals("Informatics")) {
 //                    System.out.println("info");

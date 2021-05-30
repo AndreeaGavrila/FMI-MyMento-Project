@@ -111,22 +111,21 @@
 
             <TextView
                 android:id="@+id/text_view_course"
+                style="@style/text_view_style"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/text_view_course2"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
+                style="@style/course_style"
                 android:text="Courses I teach"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/teach_courses"
+                style="@style/text_view_style"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="match_parent"
                 android:visibility="invisible" />
 
             <Button

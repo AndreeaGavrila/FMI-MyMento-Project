@@ -28,5 +28,6 @@
 
     <string name="create_tutor_profile">Create Tutor Profile</string>
     <string name="view_profile">View Profile</string>
+    <string name="became_tutor_cond">If you want to became a tutor you have to chose at least one corse to teach.</string>
 
 </resources>

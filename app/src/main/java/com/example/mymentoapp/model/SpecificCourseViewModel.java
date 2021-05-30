@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SpecificCourseViewModel  extends AndroidViewModel {
     public static SpecificCourseRepository repository;
-    public final LiveData<List<SpecificCourse>> allSpecificCourses;
+    public final List<SpecificCourse> allSpecificCourses;
 
     public SpecificCourseViewModel(@NonNull Application application) {
         super(application);
@@ -21,17 +21,17 @@ public class SpecificCourseViewModel  extends AndroidViewModel {
         allSpecificCourses = repository.getAllData();
 
     }
-    private SpecificCourseRepository specificCourseRepository;
 
-    public LiveData<List<SpecificCourse>> getAllSpecificCourses(){
-        return allSpecificCourses;
+
+    public List<SpecificCourse> getAllSpecificCourses(){
+        return repository.getAllData();
     }
-    public static void insert(SpecificCourse specificCourse){
+    public void insert(SpecificCourse specificCourse){
         repository.insert(specificCourse);
     }
-    public static void deleteAll(){
+    public void deleteAll(){
         repository.deleteAll();
     }
-    public static void deleteSpecificCourse(int id){repository.deleteSpecificCourse(id);}
-    public static List<SpecificCourse> getAllSpecificCoursesForStudent(int id){return repository.getAllSpecificCoursesForStudent(id);}
+    public void deleteSpecificCourse(int id){repository.deleteSpecificCourse(id);}
+    public List<SpecificCourse> getAllSpecificCoursesForStudent(int id){return repository.getAllSpecificCoursesForStudent(id);}
 }

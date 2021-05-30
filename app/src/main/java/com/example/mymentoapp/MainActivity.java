@@ -1,14 +1,20 @@
 package com.example.mymentoapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mymentoapp.data.CourseToTeachDao;
+import com.example.mymentoapp.data.CourseToTeachRepository;
+import com.example.mymentoapp.data.TaughtCourseDao;
+import com.example.mymentoapp.data.TaughtCourseRepository;
 import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
@@ -17,6 +23,9 @@ import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.StudentWithCourse;
+import com.example.mymentoapp.model.StudentWithTaughtCourses;
+import com.example.mymentoapp.model.TaughtCourse;
+import com.example.mymentoapp.model.TaughtCourseViewModel;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.model.TutorWithCourse;
@@ -27,29 +36,18 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private StudentViewModel studentViewModel;
+    private CourseToTeachViewModel courseToTeachViewModel;
     private TutorViewModel tutorViewModel;
     private SpecificCourseViewModel specificCourseViewModel;
+    private TaughtCourseViewModel taughtCourseViewModel;
     private Button btn_login, btn_register;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        studentViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.
-                this.getApplication()).create(StudentViewModel.class);
-        studentViewModel.getAllStudents().observe(this, students -> {
-            StringBuilder builder =  new StringBuilder();
-            for(Student cd : students){
-                builder.append(" - ").append(cd.getFirstName()).append(" ").append(cd.getLastName());
-                System.out.println("oncreate " + cd.getFirstName());
-            }
-        });
-        tutorViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.
-                this.getApplication()).create(TutorViewModel.class);
-
-        specificCourseViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.
-                this.getApplication()).create(SpecificCourseViewModel.class);
 
         btn_login = (Button)findViewById(R.id.login_button);
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +67,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        new Thread(() -> {
+
+            studentViewModel = new StudentViewModel(this.getApplication());
+            courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+            Student student = studentViewModel.getStudent(1);
+            taughtCourseViewModel = new TaughtCourseViewModel(this.getApplication());
+            List<Student> students = studentViewModel.getAllStudents();
+            assert students != null;
+            System.out.println(students.toString());
+
+            List<CourseToTeach> courseToTeach = courseToTeachViewModel.getAllToTeachCourse();
+
+            List<TaughtCourse> taughtCourseList = new ArrayList<>();
+
+            for(CourseToTeach c : courseToTeach){
+                TaughtCourse taughtCourse = new TaughtCourse(c.getCourseName(), c.getDescription());
+                taughtCourse.setId_FkTutor(c.getId_FkTutor());
+                taughtCourseList.add(taughtCourse);
+
+            }
+
+            System.out.println("AICI" + taughtCourseList.toString());
+            StudentWithTaughtCourses studentWithTaughtCourses =  new StudentWithTaughtCourses(student, taughtCourseList);
+            StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
+        }).start();
 
 
 //        TutorViewModel.deleteAll();

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StudentViewModel extends AndroidViewModel {
     public static StudentRepository repository;
-    public final LiveData<List<Student>> allStudents;
+    public final List<Student> allStudents;
 
 
     public StudentViewModel(@NonNull Application application) {
@@ -23,31 +23,33 @@ public class StudentViewModel extends AndroidViewModel {
 
     }
 
-    public static void insertStudentWithCourses(StudentWithCourse studentWithCourse){
+    public void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }
     public static void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
-//        System.out.println("aici a ajuns");
-//        System.out.println(studentWithTaughtCourses.getStudent());
-//        repository.insertStudentWithTaughtCourses(studentWithTaughtCourses);
-//        System.out.println("dupa insert");
+        System.out.println("aici a ajuns");
+        System.out.println(studentWithTaughtCourses.getStudent());
+        repository.insertStudentWithTaughtCourses(studentWithTaughtCourses);
+        System.out.println("dupa insert");
     }
 
-    public LiveData<List<Student>> getAllStudents(){
+    public List<Student> getAllStudents(){
         return allStudents;
     }
-    public static void insert(Student student){
+    public void insert(Student student){
         repository.insertStudent(student);
     }
 
-    public static void deleteAll(){
+    public void deleteAll(){
         repository.deleteAll();
     }
 
-    public static void updateStudent(Student student){repository.updateStudent(student);};
+    public void updateStudent(Student student){repository.updateStudent(student);};
 
-    public static Student getStudent(int id){return  repository.getStudent(id);}
-
+    public Student getStudent(int id){return  repository.getStudent(id);}
+    public Student getStudentByUsername(String name){
+        return repository.getStudentByUsername(name);
+    }
     //public static void deleteSpecificCourse(int idFkInput){repository.deleteSpecificCourse(idFkInput);}
 
 //    public static void updateStudentWithCourse(StudentWithCourse studentWithCourse){

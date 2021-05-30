@@ -23,7 +23,8 @@ public interface CourseToTeachDao {
     void deleteAll();
 
     @Query("SELECT * FROM course_to_teach")
-    LiveData<List<CourseToTeach>> getAllToTeachCourses();
+    List<CourseToTeach> getAllToTeachCourses();
+
     @Query("SELECT * FROM course_to_teach WHERE id_FkTutor=:idInput")
     List<CourseToTeach> getAllSpecificCoursesForTutor(int idInput);
 
@@ -31,8 +32,8 @@ public interface CourseToTeachDao {
     List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName);
 
 
-//    @Query("DELETE FROM course_to_teach WHERE id_FkTutor = :id")
-//    void deleteCourseToTeach(int id);
+    @Query("DELETE FROM course_to_teach WHERE id_FkTutor = :id")
+    void deleteCourseToTeach(int id);
 
 
 //    @Update

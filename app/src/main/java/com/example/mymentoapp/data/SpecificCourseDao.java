@@ -21,7 +21,7 @@ public interface SpecificCourseDao {
     void deleteAll();
 
     @Query("SELECT * FROM specific_course")
-    LiveData<List<SpecificCourse>> getAllSpecificCourses();
+    List<SpecificCourse> getAllSpecificCourses();
 
     @Query("SELECT * FROM specific_course WHERE id_FkStudent=:idInput")
     List<SpecificCourse> getAllSpecificCoursesForStudent(int idInput);

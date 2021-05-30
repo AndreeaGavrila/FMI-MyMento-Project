@@ -17,9 +17,14 @@ import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
+import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentViewModel;
+import com.example.mymentoapp.model.TaughtCourseViewModel;
 import com.example.mymentoapp.model.Tutor;
+import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import org.w3c.dom.Text;
@@ -30,16 +35,19 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ViewProfileActivity extends AppCompatActivity {
+    private StudentViewModel studentViewModel;
+    private CourseToTeachViewModel courseToTeachViewModel;
+    private TutorViewModel tutorViewModel;
+    private SpecificCourseViewModel specificCourseViewModel;
+    private TaughtCourseViewModel taughtCourseViewModel;
+
 
     TextView firstName, lastName, phoneNumber, email, studyYear, domain;
     Button editProfile;
-//    ListView list;
 
     TextView textViewSpecificCourse;
     TextView textViewToTeachCourse;
     TextView textView;
-    private ArrayAdapter<String> adapter;
-    MyRoomDatabase roomDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_profile);
 
         Bundle bundle = getIntent().getExtras();
-        int idStudent = bundle.getInt("idStudent");
+        String studentName = bundle.getString("studentName");
 
         //System.out.println("id student view profile = "+ idStudent);
         //list = (ListView) findViewById(R.id.list_view_courses);
@@ -63,25 +71,22 @@ public class ViewProfileActivity extends AppCompatActivity {
         domain = findViewById(R.id.domain);
         editProfile = findViewById(R.id.edit_btn);
 
-        AtomicInteger studentId = new AtomicInteger();
-        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-        TutorDao tutorDao = roomDatabase.tutorDao();
         textViewToTeachCourse.setVisibility(View.VISIBLE);
-       // textView.setVisibility(View.VISIBLE);
-        StudentDao studentDao = roomDatabase.studentDao();
-        SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
-        CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
 
         new Thread(() -> {
 
-            Student student = studentDao.getStudent(idStudent);
+            studentViewModel = new StudentViewModel(this.getApplication());
+            tutorViewModel = new TutorViewModel(this.getApplication());
+            courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+            specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
+            Student student = studentViewModel.getStudentByUsername(studentName);
 
-            ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
+            ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             System.out.println("LISTA DE CURSURI ADUSE PE VIEW PROFILE");
-            Tutor tutor = tutorDao.getTutorByUserName(student.getUsername());
+            Tutor tutor = tutorViewModel.getTutor(student.getUsername());
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<CourseToTeach>();
             if(tutor != null){
-                courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachDao.getAllSpecificCoursesForTutor(tutor.getIdStudent());
+                courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
             }
 //            ArrayList<String> specificCourseNames = new ArrayList<>();
 //            for(SpecificCourse specificCourse : courses){
@@ -103,8 +108,6 @@ public class ViewProfileActivity extends AppCompatActivity {
 //            list.setAdapter(arrayAdapter);
 
 
-
-            studentId.set(student.getIdStudent());
             ArrayList<CourseToTeach> finalCourseToTeachArrayList = courseToTeachArrayList;
             this.runOnUiThread(() -> {
 
@@ -136,7 +139,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         editProfile.setOnClickListener(v -> {
             Intent newIntent = new Intent (ViewProfileActivity.this, EditProfileActivity.class);
-            newIntent.putExtra("studentId", idStudent);
+            newIntent.putExtra("studentName", studentName);
             startActivity(newIntent);
         });
     }

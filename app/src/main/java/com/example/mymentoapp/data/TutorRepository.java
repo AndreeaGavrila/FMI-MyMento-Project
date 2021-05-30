@@ -17,9 +17,9 @@ import java.util.List;
 
 public class TutorRepository {
     private TutorDao tutorDao;
-    private LiveData<List<Tutor>> allTutors;
+    private List<Tutor> allTutors;
     private StudentDao studentDao;
-    private LiveData<List<Student>> allStudents;
+    private List<Student> allStudents;
 
     public TutorRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -28,7 +28,7 @@ public class TutorRepository {
         studentDao = db.studentDao();
         allStudents = studentDao.getAllStudents();
     }
-    public LiveData<List<Tutor>> getAllData(){
+    public List<Tutor> getAllData(){
         return allTutors;
     }
 
