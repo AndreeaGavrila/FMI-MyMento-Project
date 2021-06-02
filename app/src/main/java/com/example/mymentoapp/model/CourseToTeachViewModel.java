@@ -12,7 +12,8 @@ import java.util.List;
 
 public class CourseToTeachViewModel {
     public static CourseToTeachRepository repository;
-    public final LiveData<List<CourseToTeach>> allToTeachCourses;
+    public List<CourseToTeach> allToTeachCourses;
+
 
     public CourseToTeachViewModel(@NonNull Application application) {
         super();
@@ -21,15 +22,24 @@ public class CourseToTeachViewModel {
 
     }
 
-
-    public LiveData<List<CourseToTeach>> getAllToTeachCourses(){
+    public void deleteCoursesForTutor(int id){
+        repository.deleteCoursesForTutor(id);
+    }
+    public List<CourseToTeach> getAllToTeachCourse(){
         return allToTeachCourses;
     }
-    public static void insert(CourseToTeach courseToTeach){
+    public void insert(CourseToTeach courseToTeach){
         repository.insert(courseToTeach);
     }
-    public static void deleteAll(){
+    public void deleteAll(){
         repository.deleteAll();
     }
-    public static List<CourseToTeach> getAllSpecificCourses(int id){return repository.getAllSpecificCourses(id);}
+    public List<CourseToTeach> getAllToTeachCourses(int id){return repository.getAllCourseToTeach(id);}
+    public List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName){
+        return repository.getAllCoursesForSpecificCourse(courseName);
+    }
+    public List<CourseToTeach> getAllCoursesWithout(int id){
+        return repository.getAllCoursesWithout(id);
+    }
+
 }

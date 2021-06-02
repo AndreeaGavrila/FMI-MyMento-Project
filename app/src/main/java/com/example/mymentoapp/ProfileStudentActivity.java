@@ -46,7 +46,7 @@ public class ProfileStudentActivity extends AppCompatActivity {
     String studyYear1, domain1, specialization1;
     AssignCourse assignCourse;
     private ArrayList<String> courseNameList;
-
+    private StudentViewModel studentViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +171,7 @@ public class ProfileStudentActivity extends AppCompatActivity {
                         StudentDao studentDao = roomDatabase.studentDao();
 
                         new Thread(() -> {
-
+                            studentViewModel = new StudentViewModel(ProfileStudentActivity.this.getApplication());
                             System.out.println("in thread");
                             Student student = studentDao.getStudentByUsername(username);
                             student.setStudyDomain(domain1);
@@ -198,7 +198,7 @@ public class ProfileStudentActivity extends AppCompatActivity {
                             }
 
                             StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
-                            StudentViewModel.insertStudentWithCourses(studentWithCourse);
+                            studentViewModel.insertStudentWithCourses(studentWithCourse);
                             studentDao.updateStudent(student);
                             Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
                             startActivity(intent);

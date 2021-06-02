@@ -27,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
         viewProfile = findViewById(R.id.btn_viewProfile);
         showRecommend = findViewById(R.id.btn_recommend);
         Bundle bundle = getIntent().getExtras();
-        int idStudent = bundle.getInt("idStudent");
+        String studentName = bundle.getString("studentName");
 
 //        System.out.println("id student welcome: " + idStudent);;
 //        ArrayList<String> extras_courses = new ArrayList<>();
@@ -38,7 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
-                intent.putExtra("idStudent", idStudent);
+                intent.putExtra("studentName", studentName);
                // intent.putExtra("lista_cursuri", finalExtras_courses);
                 startActivity(intent);
             }
@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WelcomeActivity.this, RecommendActivity.class);
-                intent.putExtra("idStudent", idStudent);
+                intent.putExtra("studentName", studentName);
                 // intent.putExtra("lista_cursuri", finalExtras_courses);
                 startActivity(intent);
             }

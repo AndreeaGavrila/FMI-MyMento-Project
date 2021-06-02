@@ -18,10 +18,6 @@ import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class RecommendActivity  extends AppCompatActivity {
     StudentDao studentDao;
@@ -33,7 +29,7 @@ public class RecommendActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
         Bundle bundle = getIntent().getExtras();
-        int idStudent = bundle.getInt("idStudent");
+        String studentName = bundle.getString("studentName");
 
         textViewToTeachCourse = (TextView) findViewById(R.id.recommended_courses);
 
@@ -44,18 +40,17 @@ public class RecommendActivity  extends AppCompatActivity {
         CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
         textViewToTeachCourse.setVisibility(View.VISIBLE);
         StringBuilder textTeach = new StringBuilder();
-        List<String> recommendedText = new ArrayList<>();
         System.out.println("in recommend");
 
         new Thread(() -> {
-            Student student = studentDao.getStudent(idStudent);
+            Student student = studentDao.getStudentByUsername(studentName);
             System.out.println("in thread");
-
+//                if (student.getStudyDomain().equals("Informatics")) {
+//                    System.out.println("info");
                     ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
                     for (int i = 0; i < courses.size(); i++) {
                         System.out.println(courses.get(i).getCourseName());
                         ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachDao.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
-                        textTeach.delete(0,textTeach.length());
                         for (int j = 0; j < courseToTeach.size(); j++) {
                             System.out.println(courseToTeach.get(j).getId_FkTutor());
                             int tutorId=(int)courseToTeach.get(j).getId_FkTutor();
@@ -67,21 +62,57 @@ public class RecommendActivity  extends AppCompatActivity {
                             textTeach.append(tutor.getLastName());
                             textTeach.append("\n");
                             textTeach.append("\n");
-                            recommendedText.add(textTeach.toString());
+
 
                         }
                     }
-            System.out.println(recommendedText);
-            Collections.sort(recommendedText);
-            StringBuilder recommendedTextSorted = new StringBuilder();
-            for(int i =0; i<recommendedText.size();i++)
-            {
-                recommendedTextSorted.append(recommendedText.get(i));
-            }
+            System.out.println(textTeach);
             this.runOnUiThread(() -> {
 
-                            textViewToTeachCourse.append(textTeach.toString());
+                        textViewToTeachCourse.append(textTeach.toString());
                     });
+//                } else if (student.getStudyDomain().equals("Mathematics")) {
+//                    ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
+//                    for (int i = 0; i < courses.size(); i++) {
+//                        System.out.println(courses.get(i).getCourseName());
+//                        ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachDao.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
+//                        for (int j = 0; j < courseToTeach.size(); j++) {
+//                            System.out.println(courseToTeach.get(j).getId_FkTutor());
+//                            int tutorId=(int)courseToTeach.get(j).getId_FkTutor();
+//                            textTeach.concat(courseToTeach.get(j).getCourseName());
+//                            textTeach.concat("\n");
+//                            Tutor tutor = tutorDao.getTutor(tutorId);
+//                            textTeach.concat(tutor.getFirstName());
+//                            textTeach.concat(" ");
+//                            textTeach.concat(tutor.getLastName());
+//                            textTeach.concat("\n");
+//                        }
+//                    }
+//
+//                } else if (student.getStudyDomain().equals("CTI")) {
+//
+//                    ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
+//                    for (int i = 0; i < courses.size(); i++) {
+//                        System.out.println(courses.get(i).getCourseName());
+//                        ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachDao.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
+//                        for (int j = 0; j < courseToTeach.size(); j++) {
+//                            System.out.println(courseToTeach.get(j).getId_FkTutor());
+//                            int tutorId = (int) courseToTeach.get(j).getId_FkTutor();
+//                            textTeach.concat(courseToTeach.get(j).getCourseName());
+//                            textTeach.concat("\n");
+//                            Tutor tutor = tutorDao.getTutor(tutorId);
+//                            textTeach.concat(tutor.getFirstName());
+//                            textTeach.concat(" ");
+//                            textTeach.concat(tutor.getLastName());
+//                            textTeach.concat("\n");
+//                        }
+//                    }
+//                }
+
+//                    this.runOnUiThread(() -> {
+//            });
+
+
 
         }).start();
     }
