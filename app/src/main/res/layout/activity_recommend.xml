@@ -21,7 +21,7 @@
         android:id="@+id/titleRecommend"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="My Recommended Courses"
+        android:text="  My Recommended Courses"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
