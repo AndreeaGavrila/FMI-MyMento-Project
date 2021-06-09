@@ -6,172 +6,195 @@
     android:layout_height="match_parent"
     tools:context=".EditProfileActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/first_name_edit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="First name"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/last_name_edit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Last name"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/email_edit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/phone_edit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Phone number"
-            android:inputType="phone" />
-
-        <EditText
-            android:id="@+id/iban_edit"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:visibility="gone" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/study_year_text"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:height="45dp"
-            android:text="Study year"
-            android:textSize="18sp" />
+            <EditText
+                android:id="@+id/first_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="First name"
+                android:inputType="textPersonName" />
 
-        <RadioGroup
-            android:id="@+id/radio_year_edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/last_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Last name"
+                android:inputType="textPersonName" />
 
-            <RadioButton
-                android:id="@+id/radio_year1"
+            <EditText
+                android:id="@+id/email_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/phone_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Phone number"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/iban_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="I" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:visibility="gone" />
 
-            <RadioButton
-                android:id="@+id/radio_year2"
+            <TextView
+                android:id="@+id/study_year_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="II" />
-
-            <RadioButton
-                android:id="@+id/radio_year3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="III" />
-
-            <RadioButton
-                android:id="@+id/radio_year4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="IV" />
-
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:height="45dp"
-            android:text="Domain"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:id="@+id/radio_domain_edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RadioButton
-                android:id="@+id/radio_math"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mathematics" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Study year"
+                android:textSize="18sp" />
 
             <RadioGroup
-                android:id="@+id/radio_group_spec_edit"
+                android:id="@+id/radio_year_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:visibility="gone">
+                android:layout_height="match_parent">
 
                 <RadioButton
-                    android:id="@+id/btn_spec1_edit"
+                    android:id="@+id/radio_year1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pure Mathematics" />
+                    android:text="I" />
 
                 <RadioButton
-                    android:id="@+id/btn_spec2_edit"
+                    android:id="@+id/radio_year2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Applied Mathematics" />
+                    android:text="II" />
 
                 <RadioButton
-                    android:id="@+id/btn_spec3_edit"
+                    android:id="@+id/radio_year3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mathematics-Informatics" />
+                    android:text="III" />
+
+                <RadioButton
+                    android:id="@+id/radio_year4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="IV" />
+
             </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radio_info"
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:height="45dp"
+                android:text="Domain"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radio_domain_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radio_math"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mathematics" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_spec_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="50dp"
+                    tools:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/btn_spec1_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pure Mathematics" />
+
+                    <RadioButton
+                        android:id="@+id/btn_spec2_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Applied Mathematics" />
+
+                    <RadioButton
+                        android:id="@+id/btn_spec3_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mathematics-Informatics" />
+                </RadioGroup>
+
+                <RadioButton
+                    android:id="@+id/radio_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informatics" />
+
+                <RadioButton
+                    android:id="@+id/radio_cti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CTI" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/became_tutor_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Informatics" />
+                android:text="BECAME A TUTOR!"
+                android:visibility="visible" />
 
-            <RadioButton
-                android:id="@+id/radio_cti"
+            <ScrollView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="50dp"
+                android:paddingTop="50dp">
+
+                <LinearLayout
+                    android:id="@+id/to_teach_course"
+                    style="@style/to_teach_course_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_view_course"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </ScrollView>
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CTI" />
+                android:layout_marginStart="150dp"
+                android:layout_marginLeft="150dp"
+                android:text="Edit" />
 
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/became_tutor_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="BECAME A TUTOR!"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginLeft="150dp"
-            android:text="Edit" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

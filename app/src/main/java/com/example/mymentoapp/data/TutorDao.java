@@ -21,7 +21,7 @@ public interface TutorDao {
     long insertTutor(Tutor tutor);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertToTeachCourses(List<CourseToTeach> courseToTeach);
+    void insertToTeachCourses(List<CourseToTeach> courseToTeaches);
 
     @Query("DELETE FROM tutor_table")
     void deleteAll();
@@ -30,7 +30,7 @@ public interface TutorDao {
     Tutor getTutorByUserName(String userName);
 
     @Query("SELECT * FROM tutor_table")
-    LiveData<List<Tutor>> getAllTutors();
+    List<Tutor> getAllTutors();
 
     @Query("SELECT * FROM tutor_table WHERE idStudent=:studentIdInput")
     Tutor getTutor(int studentIdInput);

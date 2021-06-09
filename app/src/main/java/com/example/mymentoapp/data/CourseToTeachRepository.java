@@ -15,7 +15,7 @@ public class CourseToTeachRepository {
 
     private CourseToTeachDao courseToTeachDao;
 
-    private LiveData<List<CourseToTeach>> allCoursesToTeach;
+    private List<CourseToTeach> allCoursesToTeach;
 
     public CourseToTeachRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -24,7 +24,7 @@ public class CourseToTeachRepository {
 
 
     }
-    public LiveData<List<CourseToTeach>> getAllData(){
+    public List<CourseToTeach> getAllData(){
         return allCoursesToTeach;
     }
 
@@ -44,8 +44,20 @@ public class CourseToTeachRepository {
         });
     }
 
-    public List<CourseToTeach> getAllSpecificCourses(int id){
+    public List<CourseToTeach> getAllCourseToTeach(int id){
         return courseToTeachDao.getAllSpecificCoursesForTutor(id);
     }
+    public void deleteCoursesForTutor(int id){
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            courseToTeachDao.deleteCourseToTeach(id);
+        });
+    }
+    public List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName){
+        return courseToTeachDao.getAllCoursesForSpecificCourse(courseName);
+    }
+    public List<CourseToTeach> getAllCoursesWithout(int id){
+        return courseToTeachDao.getAllCoursesWithout(id);
+    }
+
 
 }

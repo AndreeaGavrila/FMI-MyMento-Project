@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
@@ -36,9 +37,11 @@ public class ProfileTutorActivity extends AppCompatActivity {
     String studyYear1, domain1, specialization1;
     AssignCourse assignCourse, assignCourse2;
     LinearLayout linearLayout;
-    CheckBox checkBox;
     TextView courseToTeach;
     private ArrayList<String> courseNameList;
+    private StudentViewModel studentViewModel;
+    private CourseToTeachViewModel courseToTeachViewModel;
+    private  TutorViewModel tutorViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,6 +217,8 @@ public class ProfileTutorActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "You have to choose at least one course", Toast.LENGTH_SHORT).show();
                 } else {
                     new Thread(() -> {
+                        studentViewModel = new StudentViewModel(this.getApplication());
+                        tutorViewModel = new TutorViewModel(this.getApplication());
                         System.out.println("in thread");
                         Student student = studentDao.getStudentByUsername(username);
                         student.setStudyDomain(domain1);
@@ -245,11 +250,11 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         TutorViewModel.repository.insertTutor(tutor);
 
                         StudentWithCourse studentWithCourse = new StudentWithCourse(tutor, assignCourse.getSpecificCourseList());
-                        StudentViewModel.insertStudentWithCourses(studentWithCourse);
+                        studentViewModel.insertStudentWithCourses(studentWithCourse);
 
 
                         TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, assignCourse.getCourseToTeachList());
-                        TutorViewModel.insertTutorWithCourses(tutorWithCourse);
+                        tutorViewModel.insertTutorWithCourses(tutorWithCourse);
 
                         Intent intent = new Intent(ProfileTutorActivity.this, LoginActivity.class);
                         startActivity(intent);
