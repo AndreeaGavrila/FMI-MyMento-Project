@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 //            System.out.println("AICI" + taughtCourseList.toString());
 //            StudentWithTaughtCourses studentWithTaughtCourses =  new StudentWithTaughtCourses(student, taughtCourseList);
 //            StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
-
         }).start();
 
 
