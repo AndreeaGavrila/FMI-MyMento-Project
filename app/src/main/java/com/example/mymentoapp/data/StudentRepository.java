@@ -50,20 +50,6 @@ public class StudentRepository {
         });
     }
 
-    public Student getStudent(int id){
-        return studentDao.getStudent(id);
-    }
-//    public void updateStudentWithCourse(StudentWithCourse studentWithCourse){
-//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//            studentDao.updateStudentWithCourse(studentWithCourse);
-//        });
-//    }
-
-    public void updateStudent(Student student){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            studentDao.updateStudent(student);
-        });
-    }
 
     public Student getStudent(int id){
         return studentDao.getStudent(id);
