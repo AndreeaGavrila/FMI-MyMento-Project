@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "taught_course_table")
+@Entity(tableName = "taught_course")
 public class TaughtCourse extends CourseToTeach {
 
     @ForeignKey
@@ -24,9 +24,6 @@ public class TaughtCourse extends CourseToTeach {
     public TaughtCourse(String courseName, String description) {
         super(courseName, description);
     }
-
-
-
 
 
 

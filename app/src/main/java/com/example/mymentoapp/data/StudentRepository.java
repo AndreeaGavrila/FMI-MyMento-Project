@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentWithCourse;
+import com.example.mymentoapp.model.StudentWithTaughtCourses;
+import com.example.mymentoapp.model.TaughtCourse;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
@@ -17,7 +19,7 @@ public class StudentRepository {
 
     private StudentDao studentDao;
     private TutorDao tutorDao;
-    private LiveData<List<Student>> allStudents;
+    private List<Student> allStudents;
 
     public StudentRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -25,7 +27,7 @@ public class StudentRepository {
         tutorDao = db.tutorDao();
         allStudents = studentDao.getAllStudents();
     }
-    public LiveData<List<Student>> getAllData(){
+    public List<Student> getAllData(){
         return allStudents;
     }
 
@@ -35,23 +37,12 @@ public class StudentRepository {
         });
     }
 
-
-    public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
-        new insertAsync(studentDao).execute(studentWithCourse);
-
-
-//        if(studentWithCourse.student instanceof Tutor){
-//            System.out.println("dada" + " tutor");
-//            MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//                tutorDao.insertTutor((Tutor)studentWithCourse.student);
-//            });
-//        }
+    public Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput){
+        return studentDao.getStudentByUsernameAndPassword(usernameInput, passwordInput);
     }
-//    public void updateStudentWithCourse(StudentWithCourse studentWithCourse){
-//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//            studentDao.updateStudentWithCourse(studentWithCourse);
-//        });
-//    }
+    public Student getStudentByUsername(String usernameInput){
+        return studentDao.getStudentByUsername(usernameInput);
+    }
 
     public void updateStudent(Student student){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
@@ -63,26 +54,25 @@ public class StudentRepository {
         return studentDao.getStudent(id);
     }
 
-//    public void deleteSpecificCourse(int idFkinput){
-//        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-//            studentDao.deleteSpecificCourses(idFkinput);
-//        });
-//    }
-
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             studentDao.deleteAll();
         });
     }
+    public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
+        new insertAsync(studentDao).execute(studentWithCourse);
+    }
+
 
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {
         private StudentDao studentDaoAsync;
-       // private TutorDao tutorDaoAsync;
+
 
         insertAsync(StudentDao studentDao) {
             studentDaoAsync = studentDao;
         }
-        //insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
+
+
         @Override
         protected Void doInBackground(StudentWithCourse... studentWithCourses) {
 
@@ -93,6 +83,33 @@ public class StudentRepository {
                 specificCourse.setId_FkStudent(identifier);
             }
             studentDaoAsync.insertSpecificCourses(studentWithCourses[0].getSpecificCourses());
+            return null;
+        }
+
+    }
+
+    public void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourse) {
+        new insertAsync2(studentDao).execute(studentWithTaughtCourse);
+    }
+
+
+    private static class insertAsync2 extends AsyncTask<StudentWithTaughtCourses, Void, Void> {
+        private StudentDao studentDaoAsync2;
+
+        insertAsync2(StudentDao studentDao) {
+            studentDaoAsync2 = studentDao;
+        }
+
+        @Override
+        protected Void doInBackground(StudentWithTaughtCourses... studentWithTaughtCourses) {
+
+            long identifier = studentDaoAsync2.getStudentData(studentWithTaughtCourses[0].getStudent().getIdStudent());
+
+            // TODO: 06.05.2021  e ok pt ca un student o sa fie adaugat direct cu cursurile lui
+            for (TaughtCourse taughtCourse : studentWithTaughtCourses[0].getTaughtCourses()) {
+               taughtCourse.setId_FkStudent(identifier);
+            }
+            studentDaoAsync2.insertTaughtCourses(studentWithTaughtCourses[0].getTaughtCourses());
             return null;
         }
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TutorViewModel extends AndroidViewModel {
     public static TutorRepository repository;
-    public final LiveData<List<Tutor>> allTutors;
+    public final List<Tutor> allTutors;
 
     public TutorViewModel(@NonNull Application application) {
         super(application);
@@ -22,22 +22,26 @@ public class TutorViewModel extends AndroidViewModel {
 
     }
 
-    public static void insertTutorWithCourses(TutorWithCourse tutorWithCourse){
+    public void insertTutorWithCourses(TutorWithCourse tutorWithCourse){
         repository.insertTutorWithCourses(tutorWithCourse);
     }
 
-    public LiveData<List<Tutor>> getAllTutors(){
+    public List<Tutor> getAllTutors(){
         return allTutors;
     }
-    public static void insert(Tutor tutor){
+    public void insert(Tutor tutor){
         repository.insertTutor(tutor);
     }
 
-    public static void deleteAll(){
+    public void deleteAll(){
         repository.deleteAll();
     }
 
-    public static void updateTutor(Tutor tutor){repository.updateTutor(tutor);}
+    public void updateTutor(Tutor tutor){repository.updateTutor(tutor);}
 
-    public static Tutor getTutor(String username){return repository.getTutorByUsername(username);}
+    public Tutor getTutor(String username){return repository.getTutorByUsername(username);}
+
+    public Tutor getTutorById(int id){
+        return  repository.getTutor(id);
+    }
 }

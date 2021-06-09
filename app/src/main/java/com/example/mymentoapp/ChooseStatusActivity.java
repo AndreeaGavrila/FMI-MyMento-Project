@@ -24,15 +24,9 @@ import com.example.mymentoapp.model.TutorViewModel;
 
 public class ChooseStatusActivity extends AppCompatActivity {
 
+
     Button chooseStudent, chooseTutor;
 
-    private RegisterViewModel registerViewModel;
-
-    private StudentViewModel studentViewModel;
-    private StudentDao studentDao;
-
-    private TutorViewModel tutorViewModel;
-    private TutorDao tutorDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +52,10 @@ public class ChooseStatusActivity extends AppCompatActivity {
             intent.putExtra("username", username);
             startActivity(intent);
         });
+    }
+
+
+}
 
 //
 
@@ -132,8 +130,4 @@ public class ChooseStatusActivity extends AppCompatActivity {
 //        });
 
 
-    }
-
-
-}
 
