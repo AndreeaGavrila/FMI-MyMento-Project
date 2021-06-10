@@ -29,6 +29,9 @@ public interface TutorDao {
     @Query("SELECT * FROM tutor_table WHERE username =:userName")
     Tutor getTutorByUserName(String userName);
 
+    @Query("SELECT * FROM tutor_table WHERE lastName=:lastName and firstName=:firstName")
+    Tutor getTutorByName(String lastName, String firstName);
+
     @Query("SELECT * FROM tutor_table")
     List<Tutor> getAllTutors();
 

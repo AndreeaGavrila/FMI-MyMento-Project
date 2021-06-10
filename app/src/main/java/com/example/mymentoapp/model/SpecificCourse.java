@@ -26,7 +26,6 @@ public class SpecificCourse {
             )
     private long id_FkStudent;
 
-
     @ColumnInfo(name = "courseName")
     private String courseName;
 
@@ -44,9 +43,7 @@ public class SpecificCourse {
         return idSpecificCourse;
     }
 
-    public void setIdSpecificCourse(int idSpecificCourse) {
-        this.idSpecificCourse = idSpecificCourse;
-    }
+    public void setIdSpecificCourse(int idSpecificCourse) { this.idSpecificCourse = idSpecificCourse; }
 
     public String getCourseName() {
         return courseName;

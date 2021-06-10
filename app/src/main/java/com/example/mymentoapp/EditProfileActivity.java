@@ -254,7 +254,6 @@ public class EditProfileActivity extends AppCompatActivity {
                    });
 
                    if(radioGroupSpec.getVisibility() == View.VISIBLE){
-
                        radioGroupSpec.setOnCheckedChangeListener((group, checkedId3) -> {
                            RadioButton rb3 = (RadioButton)findViewById(checkedId3);
                            specialization1 = rb3.getText().toString();
@@ -329,10 +328,10 @@ public class EditProfileActivity extends AppCompatActivity {
             student.setEmail(email.getText().toString());
             student.setPhoneNumber(phoneNumber.getText().toString());
 
-            courseToTeachList = new ArrayList<>();
-           // specificCourseList =  assignCourse2.getSpecificCourseList();
+            //courseToTeachList.clear();
+            specificCourseList =  assignCourse2.getSpecificCourseList();
 
-            if(specificCourseList.size()>0){
+            if(specificCourseList != null && specificCourseList.size()>0){
                 for (int i = 0; i < specificCourseList.size(); i++) {
                     CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
                     if (checkBox.isChecked()) {

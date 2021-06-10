@@ -3,37 +3,22 @@ package com.example.mymentoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mymentoapp.data.CourseToTeachDao;
-import com.example.mymentoapp.data.SpecificCourseDao;
-import com.example.mymentoapp.data.StudentDao;
-import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
-import com.example.mymentoapp.model.TaughtCourseViewModel;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
-import com.example.mymentoapp.util.MyRoomDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ViewProfileActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
@@ -65,7 +50,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
         editProfile = findViewById(R.id.edit_btn);
-        linearLayout = findViewById(R.id.layout_btn);
+        linearLayout = findViewById(R.id.layout_recommended);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
 
