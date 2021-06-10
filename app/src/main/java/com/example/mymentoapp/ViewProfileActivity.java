@@ -30,6 +30,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             textViewSpecificCourse, textView;
     Button editProfile;
     LinearLayout linearLayout;
+    Button downloadButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
         editProfile = findViewById(R.id.edit_btn);
+        downloadButton = findViewById(R.id.download_btn);
         linearLayout = findViewById(R.id.layout_recommended);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
@@ -107,5 +109,12 @@ public class ViewProfileActivity extends AppCompatActivity {
             newIntent.putExtra("studentName", studentName);
             startActivity(newIntent);
         });
+
+        downloadButton.setOnClickListener(v -> {
+            Intent newIntent = new Intent (ViewProfileActivity.this, DownloadActivity.class);
+            newIntent.putExtra("studentName", studentName);
+            startActivity(newIntent);
+        });
+
     }
 }
