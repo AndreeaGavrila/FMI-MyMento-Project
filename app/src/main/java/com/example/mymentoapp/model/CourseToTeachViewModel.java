@@ -35,6 +35,7 @@ public class CourseToTeachViewModel {
         repository.deleteAll();
     }
     public List<CourseToTeach> getAllToTeachCourses(int id){return repository.getAllCourseToTeach(id);}
+
     public List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName){
         return repository.getAllCoursesForSpecificCourse(courseName);
     }

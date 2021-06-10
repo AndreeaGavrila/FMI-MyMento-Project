@@ -99,19 +99,19 @@ public class EditProfileActivity extends AppCompatActivity {
             domain1 = student.getStudyDomain();
             oldStudyDomain = student.getStudyDomain();
 
-            if(tutor != null){
+            if(tutor != null) {
 
                 specificCourseList = specificCourseViewModel.getAllSpecificCoursesForStudent(tutor.getIdStudent());
                 courseToTeachList = courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
+            }else{
+                specificCourseList = specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent());
+            }
 
-                this.runOnUiThread(()->{
-
-                    radioMath.setEnabled(true);
-                    radioInfo.setEnabled(true);
-                    radioCTI.setEnabled(true);
-                    radioGroupSpec.setVisibility(View.GONE);
-                    linearLayout.removeAllViews();
-
+            this.runOnUiThread(()->{
+                if(tutor != null){
+                    becameTutorBtn.setVisibility(View.GONE);
+                    iban.setVisibility(View.VISIBLE);
+                    iban.setText(tutor.getIban());
                     for(SpecificCourse specificCourse: specificCourseList) {
                         CheckBox checkBox = new CheckBox(EditProfileActivity.this);
                         checkBox.setText(specificCourse.getCourseName());
@@ -123,10 +123,15 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                         linearLayout.addView(checkBox);
                     }
+                }
 
-                    becameTutorBtn.setVisibility(View.GONE);
-                    iban.setVisibility(View.VISIBLE);
-                    iban.setText(tutor.getIban());
+                    radioMath.setEnabled(true);
+                    radioInfo.setEnabled(true);
+                    radioCTI.setEnabled(true);
+                    radioGroupSpec.setVisibility(View.GONE);
+                    linearLayout.removeAllViews();
+
+
                     radioGroupStudyYear.setOnCheckedChangeListener((group, checkedId) -> {
                         linearLayout.removeAllViews();
                         RadioButton rb2 = findViewById(checkedId);
@@ -145,11 +150,11 @@ public class EditProfileActivity extends AppCompatActivity {
                     });
 
                     radioGroupDomain.setOnCheckedChangeListener((group, checkedId) -> {
-
-                        courseToTeach.setVisibility(View.VISIBLE);
+                        if(tutor != null) {
+                            courseToTeach.setVisibility(View.VISIBLE);
+                        }
                         RadioButton rb = findViewById(checkedId);
                         domain1 = rb.getText().toString();
-
                         radioGroupStudyYear.setOnCheckedChangeListener((group1, checkedId2) -> {
                             RadioButton rb2 = findViewById(checkedId2);
                             studyYear1 = rb2.getText().toString();
@@ -176,12 +181,15 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
                             assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                             linearLayout.removeAllViews();
-                            for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
-                                CheckBox checkBox = new CheckBox(EditProfileActivity.this);
-                                checkBox.setText(specificCourse.getCourseName());
-                                checkBox.setVisibility(View.VISIBLE);
-                                linearLayout.addView(checkBox);
+                            if(tutor!=null){
+                                for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
+                                    CheckBox checkBox = new CheckBox(EditProfileActivity.this);
+                                    checkBox.setText(specificCourse.getCourseName());
+                                    checkBox.setVisibility(View.VISIBLE);
+                                    linearLayout.addView(checkBox);
+                                }
                             }
+
                         });
                         if(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III"))){
                             radioGroupSpec.setVisibility(View.VISIBLE);
@@ -190,24 +198,30 @@ public class EditProfileActivity extends AppCompatActivity {
                             specialization1 = r.getText().toString();
                             linearLayout.removeAllViews();
                             assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
-                            for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
-                                CheckBox checkBox = new CheckBox(EditProfileActivity.this);
-                                checkBox.setText(specificCourse.getCourseName());
-                                checkBox.setVisibility(View.VISIBLE);
-                                linearLayout.addView(checkBox);
-                            }
-
-                            radioGroupSpec.setOnCheckedChangeListener((group12, checkedId3) -> {
-                                RadioButton rb3 = findViewById(checkedId3);
-                                specialization1 = rb3.getText().toString();
-                                assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
-                                linearLayout.removeAllViews();
+                            if(tutor!=null){
                                 for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
                                     CheckBox checkBox = new CheckBox(EditProfileActivity.this);
                                     checkBox.setText(specificCourse.getCourseName());
                                     checkBox.setVisibility(View.VISIBLE);
                                     linearLayout.addView(checkBox);
                                 }
+                            }
+
+
+                            radioGroupSpec.setOnCheckedChangeListener((group12, checkedId3) -> {
+                                RadioButton rb3 = findViewById(checkedId3);
+                                specialization1 = rb3.getText().toString();
+                                assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
+                                linearLayout.removeAllViews();
+                                if(tutor!=null){
+                                    for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
+                                        CheckBox checkBox = new CheckBox(EditProfileActivity.this);
+                                        checkBox.setText(specificCourse.getCourseName());
+                                        checkBox.setVisibility(View.VISIBLE);
+                                        linearLayout.addView(checkBox);
+                                    }
+                                }
+
                             });
                         }
                         if(radioGroupSpec.getVisibility() == View.VISIBLE){
@@ -216,12 +230,15 @@ public class EditProfileActivity extends AppCompatActivity {
                                 specialization1 = rb3.getText().toString();
                                 assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                                 linearLayout.removeAllViews();
-                                for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
-                                    CheckBox checkBox = new CheckBox(EditProfileActivity.this);
-                                    checkBox.setText(specificCourse.getCourseName());
-                                    checkBox.setVisibility(View.VISIBLE);
-                                    linearLayout.addView(checkBox);
+                                if(tutor!=null){
+                                    for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
+                                        CheckBox checkBox = new CheckBox(EditProfileActivity.this);
+                                        checkBox.setText(specificCourse.getCourseName());
+                                        checkBox.setVisibility(View.VISIBLE);
+                                        linearLayout.addView(checkBox);
+                                    }
                                 }
+
                             });
                         }
                         if(!(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III")))){
@@ -229,12 +246,15 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                         assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                         linearLayout.removeAllViews();
-                        for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
-                            CheckBox checkBox = new CheckBox(EditProfileActivity.this);
-                            checkBox.setText(specificCourse.getCourseName());
-                            checkBox.setVisibility(View.VISIBLE);
-                            linearLayout.addView(checkBox);
+                        if(tutor!=null){
+                            for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
+                                CheckBox checkBox = new CheckBox(EditProfileActivity.this);
+                                checkBox.setText(specificCourse.getCourseName());
+                                checkBox.setVisibility(View.VISIBLE);
+                                linearLayout.addView(checkBox);
+                            }
                         }
+
                     });
                     if(radioGroupSpec.getVisibility() == View.VISIBLE){
                         radioGroupSpec.setOnCheckedChangeListener((group, checkedId3) -> {
@@ -243,17 +263,17 @@ public class EditProfileActivity extends AppCompatActivity {
                             System.out.println(studyYear1 + domain1);
                             assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                             linearLayout.removeAllViews();
-                            for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
-                                CheckBox checkBox = new CheckBox(EditProfileActivity.this);
-                                checkBox.setText(specificCourse.getCourseName());
-                                checkBox.setVisibility(View.VISIBLE);
-                                linearLayout.addView(checkBox);
+                            if(tutor!=null){
+                                for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
+                                    CheckBox checkBox = new CheckBox(EditProfileActivity.this);
+                                    checkBox.setText(specificCourse.getCourseName());
+                                    checkBox.setVisibility(View.VISIBLE);
+                                    linearLayout.addView(checkBox);
+                                }
                             }
+
                         });
                     }
-                });
-
-            }
 
             firstName.setText(student.getFirstName());
             lastName.setText(student.getLastName());
@@ -286,6 +306,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     radioCTI.setChecked(true);
                     break;
             }
+            });
 
         }).start();
 
@@ -300,25 +321,33 @@ public class EditProfileActivity extends AppCompatActivity {
             new Thread(() -> {
 
                 specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
-                courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+
+
                 student.setFirstName(firstName.getText().toString());
                 student.setLastName(lastName.getText().toString());
                 student.setEmail(email.getText().toString());
                 student.setPhoneNumber(phoneNumber.getText().toString());
-                courseToTeachList.clear();
 
-                if (assignCourse2.getSpecificCourseList() != null){
-                    specificCourseList = assignCourse2.getSpecificCourseList()  ;
+
+                if (assignCourse2!= null){
+                    specificCourseList = assignCourse2.getSpecificCourseList();
+                    System.out.println("ASSIGN CURS");
                 }
                 else{
+                    System.out.println("ELSE");
                     specificCourseList = specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent());
                 }
-                if(specificCourseList.size()>0){
-                    for (int i = 0; i < specificCourseList.size(); i++) {
-                        CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
-                        if (checkBox.isChecked()) {
-                            CourseToTeach courseToTeach = new CourseToTeach(specificCourseList.get(i).getCourseName(), specificCourseList.get(i).getDescription());
-                            courseToTeachList.add(courseToTeach);
+
+                if(tutor!=null) {
+                    courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+                    courseToTeachList.clear();
+                    if (specificCourseList.size() > 0) {
+                        for (int i = 0; i < specificCourseList.size(); i++) {
+                            CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
+                            if (checkBox.isChecked()) {
+                                CourseToTeach courseToTeach = new CourseToTeach(specificCourseList.get(i).getCourseName(), specificCourseList.get(i).getDescription());
+                                courseToTeachList.add(courseToTeach);
+                            }
                         }
                     }
                 }

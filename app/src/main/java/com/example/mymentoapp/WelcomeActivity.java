@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
             builder.setTitle("Log Out")
                     .setMessage("Are you sure you want to logout?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        Intent intent = new Intent(WelcomeActivity.this, Login.class);
+                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                         startActivity(intent);
                     })
                     .setNegativeButton("No", null )
