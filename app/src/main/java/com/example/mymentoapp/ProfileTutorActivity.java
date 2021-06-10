@@ -231,29 +231,41 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         ;
                         System.out.println("domain" + domain1);
                         System.out.println("year" + studyYear1);
-                        assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
-                        assignCourse.setCourseToTeachList(courseToTeachArrayList);
+//                        assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
+                        assignCourse2.setCourseToTeachList(courseToTeachArrayList);
 
 
                         courseNameList.clear();
-                        for (SpecificCourse specificCourse : assignCourse.getSpecificCourseList()) {
+                        for (SpecificCourse specificCourse : assignCourse2.getSpecificCourseList()) {
                             courseNameList.add(specificCourse.getCourseName());
                         }
-                        System.out.println("CURSURILE");
-                        for (SpecificCourse specificCourse : assignCourse.getSpecificCourseList()) {
-                            System.out.println((specificCourse.getCourseName()));
-                        }
-
 
                         studentDao.updateStudent(student);
                         Tutor tutor = new Tutor(firstname, lastname, studyYear1, domain1, phonenumber, email1, student.getUsername(), student.getPassword(), 0, iban1);
                         TutorViewModel.repository.insertTutor(tutor);
+                        System.out.println("ASTEA AR TREBUI INVATATE");
 
-                        StudentWithCourse studentWithCourse = new StudentWithCourse(tutor, assignCourse.getSpecificCourseList());
+                        for(SpecificCourse c : assignCourse2.getSpecificCourseList()){
+                            System.out.println(c.getCourseName());
+                        }
+
+
+                        ArrayList<SpecificCourse> specificCourseArrayList = assignCourse2.getSpecificCourseList();
+
+                        ArrayList<CourseToTeach> toTeachArrayList = assignCourse2.getCourseToTeachList();
+
+
+                        StudentWithCourse studentWithCourse = new StudentWithCourse(tutor, specificCourseArrayList);
                         studentViewModel.insertStudentWithCourses(studentWithCourse);
 
 
-                        TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, assignCourse.getCourseToTeachList());
+                        System.out.println("ASTEA AR TREBUI PREDATE");
+
+                        for(CourseToTeach c : toTeachArrayList){
+                            System.out.println(c.getCourseName());
+                        }
+
+                        TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, toTeachArrayList);
                         tutorViewModel.insertTutorWithCourses(tutorWithCourse);
 
                         Intent intent = new Intent(ProfileTutorActivity.this, LoginActivity.class);

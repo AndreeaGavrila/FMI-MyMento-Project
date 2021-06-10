@@ -8,8 +8,8 @@ public class AssignCourse {
     private String studyYear;
     private String domain;
     private String specialization;
-    private List<SpecificCourse> specificCourseList;
-    private List<CourseToTeach> courseToTeachList;
+    private ArrayList<SpecificCourse> specificCourseList;
+    private ArrayList<CourseToTeach> courseToTeachList;
 
     public AssignCourse(String studyYear, String domain, String specialization) {
         this.studyYear = studyYear;
@@ -459,13 +459,6 @@ public class AssignCourse {
         this.domain = domain;
     }
 
-    public List<SpecificCourse> getSpecificCourseList() {
-        return specificCourseList;
-    }
-
-    public void setSpecificCourseList(List<SpecificCourse> specificCourseList) {
-        this.specificCourseList = specificCourseList;
-    }
 
     public String getSpecialization() {
         return specialization;
@@ -475,11 +468,20 @@ public class AssignCourse {
         this.specialization = specialization;
     }
 
-    public List<CourseToTeach> getCourseToTeachList() {
+
+    public ArrayList<SpecificCourse> getSpecificCourseList() {
+        return specificCourseList;
+    }
+
+    public void setSpecificCourseList(ArrayList<SpecificCourse> specificCourseList) {
+        this.specificCourseList = specificCourseList;
+    }
+
+    public ArrayList<CourseToTeach> getCourseToTeachList() {
         return courseToTeachList;
     }
 
-    public void setCourseToTeachList(List<CourseToTeach> courseToTeachList) {
+    public void setCourseToTeachList(ArrayList<CourseToTeach> courseToTeachList) {
         this.courseToTeachList = courseToTeachList;
     }
 }

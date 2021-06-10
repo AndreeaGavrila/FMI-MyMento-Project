@@ -45,13 +45,16 @@ public class TutorRepository {
 
 
     private static class insertAsync extends AsyncTask<TutorWithCourse, Void, Void> {
-        private TutorDao tutorDaoAsync;
+        private final TutorDao tutorDaoAsync;
 
         insertAsync(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
         @Override
         protected Void doInBackground(TutorWithCourse... tutorWithCourses) {
 
             long identifier = tutorDaoAsync.insertTutor(tutorWithCourses[0].getTutor());
+            System.out.println("In insert cursuri de predat");
+            for (CourseToTeach c : tutorWithCourses[0].getCourseToTeach())
+                System.out.println(c.getCourseName());
 
             for (CourseToTeach courseToTeach : tutorWithCourses[0].getCourseToTeach()) {
                 courseToTeach.setId_FkTutor(identifier);

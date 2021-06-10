@@ -16,7 +16,7 @@ import java.util.List;
 @Dao
 public interface CourseToTeachDao {
     @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCourseToTeach(CourseToTeach courseToTeach);
 
     @Query("DELETE FROM course_to_teach")

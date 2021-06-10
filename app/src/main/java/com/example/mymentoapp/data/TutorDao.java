@@ -20,7 +20,7 @@ public interface TutorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertTutor(Tutor tutor);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertToTeachCourses(List<CourseToTeach> courseToTeaches);
 
     @Query("DELETE FROM tutor_table")

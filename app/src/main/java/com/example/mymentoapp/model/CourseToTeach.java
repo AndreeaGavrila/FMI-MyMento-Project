@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "course_to_teach", indices = {@Index(value = {"courseName"},
+@Entity(tableName = "course_to_teach", indices = {@Index(value = {"courseName", "id_FkTutor"},
         unique = true)})
 
 public class CourseToTeach {
