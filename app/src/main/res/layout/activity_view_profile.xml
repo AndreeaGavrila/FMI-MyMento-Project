@@ -110,7 +110,7 @@
 
 
             <LinearLayout
-                android:id="@+id/layout_btn"
+                android:id="@+id/layout_recommended"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"></LinearLayout>
