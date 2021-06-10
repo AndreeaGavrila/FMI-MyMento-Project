@@ -128,7 +128,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     iban.setVisibility(View.VISIBLE);
                     iban.setText(tutor.getIban());
                     radioGroupStudyYear.setOnCheckedChangeListener((group, checkedId) -> {
-
+                        linearLayout.removeAllViews();
                         RadioButton rb2 = findViewById(checkedId);
                         studyYear1 = rb2.getText().toString();
                         if(studyYear1.equals("IV")){
