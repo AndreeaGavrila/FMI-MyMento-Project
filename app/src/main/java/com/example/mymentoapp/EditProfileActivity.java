@@ -329,7 +329,7 @@ public class EditProfileActivity extends AppCompatActivity {
             student.setEmail(email.getText().toString());
             student.setPhoneNumber(phoneNumber.getText().toString());
 
-            courseToTeachList.clear();
+            courseToTeachList = new ArrayList<>();
            // specificCourseList =  assignCourse2.getSpecificCourseList();
 
             if(specificCourseList.size()>0){
