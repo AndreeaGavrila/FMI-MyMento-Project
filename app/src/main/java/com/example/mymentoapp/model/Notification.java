@@ -52,7 +52,7 @@ public class Notification {
 
 
     public Notification() {
-        this.description = "You have a new notification!";
+        this.description = "You have a new notification from ";
     }
 
     public Notification(long id_FkTutor, String description, long id_FkStudent, long id_FkCourseToTeach) {

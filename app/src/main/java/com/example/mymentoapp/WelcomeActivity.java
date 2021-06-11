@@ -11,9 +11,7 @@ import com.example.mymentoapp.ViewProfileActivity;
 import com.example.mymentoapp.model.Login;
 public class WelcomeActivity extends AppCompatActivity {
 
-    Button viewProfile;
-    Button showRecommend;
-    Button logOut;
+    Button viewProfile, logOut, showRecommend, notification;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,25 +20,23 @@ public class WelcomeActivity extends AppCompatActivity {
         logOut = findViewById(R.id.logout);
         viewProfile = findViewById(R.id.btn_viewProfile);
         showRecommend = findViewById(R.id.btn_recommend);
+        notification = findViewById(R.id.notification_btn);
+
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
-//        System.out.println("id student welcome: " + idStudent);;
-//        ArrayList<String> extras_courses = new ArrayList<>();
-//        extras_courses = (ArrayList<String>) bundle.get("lista_cursuri");
-        // ArrayList<String> finalExtras_courses = extras_courses;
+
         viewProfile.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
             intent.putExtra("studentName", studentName);
-            // intent.putExtra("lista_cursuri", finalExtras_courses);
             startActivity(intent);
         });
         showRecommend.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, RecommendActivity.class);
             intent.putExtra("studentName", studentName);
-            // intent.putExtra("lista_cursuri", finalExtras_courses);
+
             startActivity(intent);
         });
         logOut.setOnClickListener(v -> {
@@ -54,6 +50,12 @@ public class WelcomeActivity extends AppCompatActivity {
                     .setNegativeButton("No", null )
                     .create()
                     .show();
+        });
+
+        notification.setOnClickListener(v ->{
+            Intent intent = new Intent(WelcomeActivity.this, ViewNotificationActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
         });
     }
 }
