@@ -6,10 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.model.CourseToTeach;
@@ -23,9 +21,8 @@ import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.model.TutorWithCourse;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class BecameTutorActivity extends AppCompatActivity {
+public class BecomeTutorActivity extends AppCompatActivity {
     LinearLayout linearLayoutCourseToTeach;
     Button btnAddCourses;
 
@@ -58,7 +55,7 @@ public class BecameTutorActivity extends AppCompatActivity {
 
             this.runOnUiThread(()-> {
                 for (SpecificCourse specificCourse : specificCourseList) {
-                    CheckBox checkBox = new CheckBox(BecameTutorActivity.this);
+                    CheckBox checkBox = new CheckBox(BecomeTutorActivity.this);
                     checkBox.setText(specificCourse.getCourseName());
                     checkBox.setVisibility(View.VISIBLE);
                     linearLayoutCourseToTeach.addView(checkBox);
@@ -68,10 +65,6 @@ public class BecameTutorActivity extends AppCompatActivity {
 
 
         }).start();
-
-
-
-
 
         btnAddCourses.setOnClickListener(v -> {
 
@@ -104,17 +97,10 @@ public class BecameTutorActivity extends AppCompatActivity {
                 }).start();
             }
 
-            Intent intent = new Intent(BecameTutorActivity.this, ViewProfileActivity.class);
+            Intent intent = new Intent(BecomeTutorActivity.this, ViewProfileActivity.class);
             intent.putExtra("studentName", studentName);
             startActivity(intent);
         });
-
-
-
-
-
-
-
 
     }
 

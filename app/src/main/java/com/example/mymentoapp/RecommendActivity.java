@@ -89,40 +89,36 @@ public class RecommendActivity  extends AppCompatActivity {
                 }
             List<List<String>> finalCoursesList = new ArrayList<>((coursesList));
 
-            runOnUiThread((new Runnable() {
-                @Override
-                public void run() {
-                    for(int i=0;i<finalCoursesList.size();i++){
-                        Button btn = new Button(getApplicationContext());
-                        String course = finalCoursesList.get(i).get(0);
-                        btn.setText(course);
-                        btn.setOnClickListener(v->{
-                            Intent newIntent = new Intent (RecommendActivity.this, ViewAvailableCoursesActivity.class);
-                            newIntent.putExtra("courseName", course);
-                            newIntent.putExtra("studentName", studentName);
-                            startActivity(newIntent);
-                        });
+            runOnUiThread((() -> {
+                for(int i=0;i<finalCoursesList.size();i++){
+                    Button btn = new Button(getApplicationContext());
+                    String course = finalCoursesList.get(i).get(0);
+                    btn.setText(course);
+                    btn.setOnClickListener(v->{
+                        Intent newIntent = new Intent (RecommendActivity.this, ViewAvailableCoursesActivity.class);
+                        newIntent.putExtra("courseName", course);
+                        newIntent.putExtra("studentName", studentName);
+                        startActivity(newIntent);
+                    });
 
-                        StringBuilder tutor_name = new StringBuilder();
-                        String last_name = finalCoursesList.get(i).get(1);
-                        String first_name = finalCoursesList.get(i).get(2);
-                        tutor_name.append(finalCoursesList.get(i).get(1));
-                        tutor_name.append(" ");
-                        tutor_name.append(finalCoursesList.get(i).get(2));
-                        Button btn_tutor = new Button(getApplicationContext());
-                        btn_tutor.setText(tutor_name);
-                        btn_tutor.setOnClickListener(v->{
-                            Intent newIntent = new Intent (RecommendActivity.this, TutorContactActivity.class);
-                            //newIntent.putExtra("courseName", course);
-                            newIntent.putExtra("tutorLastName", last_name);
-                            newIntent.putExtra("tutorFirstName", first_name);
-                            startActivity(newIntent);
-                        });
-                        linearLayout.addView(btn);
-                        linearLayout.addView(btn_tutor);
-
-
-                    }
+                    StringBuilder tutor_name = new StringBuilder();
+                    String last_name = finalCoursesList.get(i).get(1);
+                    String first_name = finalCoursesList.get(i).get(2);
+                    tutor_name.append(finalCoursesList.get(i).get(1));
+                    tutor_name.append(" ");
+                    tutor_name.append(finalCoursesList.get(i).get(2));
+                    Button btn_tutor = new Button(getApplicationContext());
+                    btn_tutor.setText(tutor_name);
+                    btn_tutor.setOnClickListener(v->{
+                        Intent newIntent = new Intent (RecommendActivity.this, TutorContactActivity.class);
+                        //newIntent.putExtra("courseName", course);
+                        newIntent.putExtra("tutorLastName", last_name);
+                        newIntent.putExtra("tutorFirstName", first_name);
+                        newIntent.putExtra("studentUsername", studentName);
+                        startActivity(newIntent);
+                    });
+                    linearLayout.addView(btn);
+                    linearLayout.addView(btn_tutor);
                 }
             }));
 
