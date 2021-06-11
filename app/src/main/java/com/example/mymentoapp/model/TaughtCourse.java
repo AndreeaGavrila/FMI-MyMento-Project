@@ -10,6 +10,9 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(tableName = "taught_course")
 public class TaughtCourse extends CourseToTeach {
 
+    @PrimaryKey(autoGenerate = true)
+    private int idTaughtCourse;
+
     @ForeignKey
             (entity = Student.class,
                     parentColumns = "idStudent",
@@ -20,12 +23,17 @@ public class TaughtCourse extends CourseToTeach {
             )
     private long id_FkStudent;
 
+    public int getIdTaughtCourse() {
+        return idTaughtCourse;
+    }
+
+    public void setIdTaughtCourse(int idTaughtCourse) {
+        this.idTaughtCourse = idTaughtCourse;
+    }
 
     public TaughtCourse(String courseName, String description) {
         super(courseName, description);
     }
-
-
 
     public long getId_FkStudent() {
         return id_FkStudent;
@@ -34,4 +42,6 @@ public class TaughtCourse extends CourseToTeach {
     public void setId_FkStudent(long id_FkStudent) {
         this.id_FkStudent = id_FkStudent;
     }
+
+
 }

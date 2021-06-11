@@ -3,10 +3,8 @@ package com.example.mymentoapp.model;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import com.example.mymentoapp.data.CourseToTeachRepository;
-import com.example.mymentoapp.data.SpecificCourseRepository;
 
 import java.util.List;
 
@@ -22,6 +20,8 @@ public class CourseToTeachViewModel {
 
     }
 
+    public CourseToTeach getCourseById(int id){ return repository.getCourseById(id);
+    }
     public void deleteCoursesForTutor(int id){
         repository.deleteCoursesForTutor(id);
     }

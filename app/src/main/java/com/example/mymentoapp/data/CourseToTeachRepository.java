@@ -2,11 +2,7 @@ package com.example.mymentoapp.data;
 
 import android.app.Application;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.mymentoapp.model.CourseToTeach;
-import com.example.mymentoapp.model.SpecificCourse;
-import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
@@ -32,6 +28,10 @@ public class CourseToTeachRepository {
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             courseToTeachDao.insertCourseToTeach(courseToTeach);
         });
+    }
+
+    public CourseToTeach getCourseById(int id){
+        return courseToTeachDao.getCourseById(id);
     }
 //    public void update(){
 //        MyRoomDatabase.databaseWriteExecutor.execute(()->{
