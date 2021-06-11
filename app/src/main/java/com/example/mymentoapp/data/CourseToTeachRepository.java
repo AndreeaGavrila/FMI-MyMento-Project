@@ -13,9 +13,9 @@ import java.util.List;
 
 public class CourseToTeachRepository {
 
-    private CourseToTeachDao courseToTeachDao;
+    private final CourseToTeachDao courseToTeachDao;
 
-    private List<CourseToTeach> allCoursesToTeach;
+    private final List<CourseToTeach> allCoursesToTeach;
 
     public CourseToTeachRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
