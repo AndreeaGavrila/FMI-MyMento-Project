@@ -22,9 +22,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/id_tutor_name"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.143" />
 
     <Button
         android:id="@+id/id_tutor_phone"
@@ -35,7 +36,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_tutor_mail"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.094" />
 
     <RatingBar
         android:id="@+id/rating_bar"

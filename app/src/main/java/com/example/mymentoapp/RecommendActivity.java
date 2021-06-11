@@ -64,6 +64,8 @@ public class RecommendActivity  extends AppCompatActivity {
                     Tutor tutor = tutorDao.getTutor(tutorId);
                     textTeach.add(tutor.getLastName());
                     textTeach.add(tutor.getFirstName());
+                    Double tutorRating = tutor.getRating();
+                    textTeach.add(tutorRating.toString());
                     System.out.println(textTeach);
                     String tutorUsername = tutor.getUsername();
                     if (!tutorUsername.equals(studentName)) {
@@ -79,7 +81,10 @@ public class RecommendActivity  extends AppCompatActivity {
                     //System.out.println(jj.toString());
                     //System.out.println(coursesList.size());
                     //System.out.println(coursesList);
-                    if((coursesList.get(j)).get(0).compareTo((coursesList.get(i)).get(0))<0){
+                    if((coursesList.get(j)).get(3).compareTo((coursesList.get(i)).get(3))>0){
+                        Collections.swap(coursesList,i,j);
+                    }
+                    else if((coursesList.get(j)).get(0).compareTo((coursesList.get(i)).get(0))<0){
                         Collections.swap(coursesList,i,j);
                     }
                     else if((coursesList.get(j)).get(0).compareTo((coursesList.get(i)).get(0))==0 && (coursesList.get(j)).get(1).compareTo((coursesList.get(i)).get(1))<0){
