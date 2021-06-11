@@ -65,7 +65,10 @@ public class RecommendActivity  extends AppCompatActivity {
                     textTeach.add(tutor.getLastName());
                     textTeach.add(tutor.getFirstName());
                     System.out.println(textTeach);
-                    coursesList.add(new ArrayList<>(textTeach));
+                    String tutorUsername = tutor.getUsername();
+                    if (!tutorUsername.equals(studentName)) {
+                        coursesList.add(new ArrayList<>(textTeach));
+                    }
                     textTeach.clear();
                 }
             }
