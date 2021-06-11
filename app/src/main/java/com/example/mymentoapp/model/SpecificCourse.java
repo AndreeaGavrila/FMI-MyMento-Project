@@ -38,7 +38,6 @@ public class SpecificCourse {
 
     }
 
-
     public int getIdSpecificCourse() {
         return idSpecificCourse;
     }

@@ -10,6 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mymentoapp.data.CourseToTeachDao;
 import com.example.mymentoapp.data.LoginDao;
+import com.example.mymentoapp.data.RatingStudentDao;
 import com.example.mymentoapp.data.RegisterDao;
 import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
@@ -17,6 +18,7 @@ import com.example.mymentoapp.data.TaughtCourseDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.Login;
+import com.example.mymentoapp.model.RatingStudent;
 import com.example.mymentoapp.model.Register;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
@@ -27,7 +29,7 @@ import com.example.mymentoapp.model.Tutor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, Register.class, Login.class, TaughtCourse.class
+@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, Register.class, Login.class, TaughtCourse.class, RatingStudent.class
 
 }, version = 1, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
@@ -39,6 +41,7 @@ public abstract class MyRoomDatabase extends RoomDatabase {
     public abstract RegisterDao registerDao();
     public abstract LoginDao loginDao();
     public abstract TaughtCourseDao taughtCourseDao();
+    public abstract RatingStudentDao ratingStudentDao();
     //public abstract StudentWithCourseDao studentWithCourseDao();
 
     public static final int NUMBER_OF_THREADS = 4;
@@ -94,10 +97,12 @@ public abstract class MyRoomDatabase extends RoomDatabase {
 
                         LoginDao loginDao = INSTANCE.loginDao();
                         loginDao.deleteAll();
+
                         TaughtCourseDao taughtCourseDao = INSTANCE.taughtCourseDao();
                         taughtCourseDao.deleteAll();
 
-
+                        RatingStudentDao ratingStudentDao = INSTANCE.ratingStudentDao();
+                        ratingStudentDao.deleteAll();
 
                     });
                 }

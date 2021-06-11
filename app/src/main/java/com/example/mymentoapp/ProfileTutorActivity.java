@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class ProfileTutorActivity extends AppCompatActivity {
     EditText lastName, firstName, phoneNumber, email, iban;
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
+    RadioButton radioCTI, radioInfo, radioMath;
     Button btn_submit_tutor;
     MyRoomDatabase roomDatabase;
     String studyYear1, domain1, specialization1;
@@ -56,7 +57,9 @@ public class ProfileTutorActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.to_teach_course);
         courseToTeach = findViewById(R.id.courses_to_teach);
 
-
+        radioCTI = findViewById(R.id.radio_cti);
+        radioInfo = findViewById(R.id.radio_info);
+        radioMath = findViewById(R.id.radio_math);
         radioGroupSpec = findViewById(R.id.radio_group_spec_info);
         radioGroupStudyYear = findViewById(R.id.radio_year_edit);
         radioGroupDomain = findViewById(R.id.radio_domain_edit);
@@ -69,6 +72,15 @@ public class ProfileTutorActivity extends AppCompatActivity {
         radioGroupStudyYear.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton rb2 = findViewById(checkedId);
             studyYear1 = rb2.getText().toString();
+            if (studyYear1.equals("IV")){
+                radioInfo.setEnabled(false);
+                radioMath.setEnabled(false);
+                radioCTI.setChecked(true);
+            }else{
+                radioMath.setEnabled(true);
+                radioInfo.setEnabled(true);
+                radioCTI.setEnabled(true);
+            }
             linearLayout.removeAllViews();
         });
 
@@ -85,6 +97,15 @@ public class ProfileTutorActivity extends AppCompatActivity {
                 linearLayout.removeAllViews();
                 RadioButton rb2 = findViewById(checkedId2);
                 studyYear1 = rb2.getText().toString();
+                if (studyYear1.equals("IV")){
+                    radioInfo.setEnabled(false);
+                    radioMath.setEnabled(false);
+                    radioCTI.setChecked(true);
+                }else{
+                    radioMath.setEnabled(true);
+                    radioInfo.setEnabled(true);
+                    radioCTI.setEnabled(true);
+                }
                 if(domain1.equals("Mathematics") && (studyYear1.equals("II") || studyYear1.equals("III"))){
                     radioGroupSpec.setVisibility(View.VISIBLE);
                     radioGroupSpec.setOnCheckedChangeListener((group11, checkedId3) -> {
@@ -157,19 +178,17 @@ public class ProfileTutorActivity extends AppCompatActivity {
         });
 
         if(radioGroupSpec.getVisibility() == View.VISIBLE){
-            radioGroupSpec.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                public void onCheckedChanged(RadioGroup group, int checkedId3) {
-                    RadioButton rb3 = (RadioButton)findViewById(checkedId3);
-                    specialization1 = rb3.getText().toString();
-                    System.out.println(studyYear1 + domain1);
-                    assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
-                    linearLayout.removeAllViews();
-                    for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
-                        CheckBox checkBox = new CheckBox(ProfileTutorActivity.this);
-                        checkBox.setText(specificCourse.getCourseName());
-                        checkBox.setVisibility(View.VISIBLE);
-                        linearLayout.addView(checkBox);
-                    }
+            radioGroupSpec.setOnCheckedChangeListener((group, checkedId3) -> {
+                RadioButton rb3 = findViewById(checkedId3);
+                specialization1 = rb3.getText().toString();
+                System.out.println(studyYear1 + domain1);
+                assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
+                linearLayout.removeAllViews();
+                for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
+                    CheckBox checkBox = new CheckBox(ProfileTutorActivity.this);
+                    checkBox.setText(specificCourse.getCourseName());
+                    checkBox.setVisibility(View.VISIBLE);
+                    linearLayout.addView(checkBox);
                 }
             });
         }
@@ -178,17 +197,17 @@ public class ProfileTutorActivity extends AppCompatActivity {
         btn_submit_tutor.setOnClickListener(v -> {
             String firstname = firstName.getText().toString();
             String lastname = lastName.getText().toString();
-            String phonenumber = phoneNumber.getText().toString();
+            String number = phoneNumber.getText().toString();
             String email1 = email.getText().toString();
             String iban1 = iban.getText().toString();
             String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
             String phonePattern = "^\\+[0-9]{10,13}$";
 
-            if (firstname.equals("") || lastname.equals("") || phonenumber.equals("") || email1.equals("") || radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
+            if (firstname.equals("") || lastname.equals("") || number.equals("") || email1.equals("") || radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
                 Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
             } else if (!(email1.matches(emailPattern))) {
                 Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
-            } else if (!(phonenumber.matches(phonePattern))) {
+            } else if (!(number.matches(phonePattern))) {
                 Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
             } else if (!domain1.equals("CTI") && (studyYear1.equals("IV"))) {
                 Toast.makeText(getApplicationContext(), "ONLY CTI HAS 4 YEARS", Toast.LENGTH_SHORT).show();
@@ -223,7 +242,7 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         Student student = studentDao.getStudentByUsername(username);
                         student.setStudyDomain(domain1);
                         student.setStudyYear(studyYear1);
-                        student.setPhoneNumber(phonenumber);
+                        student.setPhoneNumber(number);
                         student.setEmail(email1);
                         student.setLastName(lastname);
                         student.setFirstName(firstname);
@@ -241,7 +260,7 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         }
 
                         studentDao.updateStudent(student);
-                        Tutor tutor = new Tutor(firstname, lastname, studyYear1, domain1, phonenumber, email1, student.getUsername(), student.getPassword(), 0, iban1);
+                        Tutor tutor = new Tutor(firstname, lastname, studyYear1, domain1, number, email1, student.getUsername(), student.getPassword(), 0, iban1);
                         TutorViewModel.repository.insertTutor(tutor);
                         System.out.println("ASTEA AR TREBUI INVATATE");
 
