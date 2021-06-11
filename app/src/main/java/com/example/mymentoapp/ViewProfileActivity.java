@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,7 @@ import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ViewProfileActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
@@ -31,6 +33,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     Button editProfile;
     LinearLayout linearLayout;
     Button downloadButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +54,15 @@ public class ViewProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.email_view);
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
+
         editProfile = findViewById(R.id.edit_btn);
         downloadButton = findViewById(R.id.download_btn);
+
         linearLayout = findViewById(R.id.layout_recommended);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
+
+        downloadButton.setVisibility(View.INVISIBLE);
 
         new Thread(() -> {
 
@@ -67,8 +75,11 @@ public class ViewProfileActivity extends AppCompatActivity {
             ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             Tutor tutor = tutorViewModel.getTutor(student.getUsername());
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<CourseToTeach>();
+
             if(tutor != null){
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
+
+                downloadButton.setVisibility(View.VISIBLE);
             }
 
             ArrayList<CourseToTeach> finalCourseToTeachArrayList = courseToTeachArrayList;
@@ -80,6 +91,8 @@ public class ViewProfileActivity extends AppCompatActivity {
                         textViewToTeachCourse.append(courseToTeach.getCourseName());
                         textViewToTeachCourse.append("\n");
                     }
+
+                    downloadButton.setVisibility(View.VISIBLE);
                 }
 
                 for(SpecificCourse course : courses){
@@ -110,11 +123,19 @@ public class ViewProfileActivity extends AppCompatActivity {
             startActivity(newIntent);
         });
 
+
         downloadButton.setOnClickListener(v -> {
-            Intent newIntent = new Intent (ViewProfileActivity.this, DownloadActivity.class);
-            newIntent.putExtra("studentName", studentName);
-            startActivity(newIntent);
+            int nr_hours = 7;
+            if (nr_hours < 85) {
+                Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Intent newIntent = new Intent(ViewProfileActivity.this, DownloadActivity.class);
+                newIntent.putExtra("studentName", studentName);
+                startActivity(newIntent);
+            }
         });
+
 
     }
 }
