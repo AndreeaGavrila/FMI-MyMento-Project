@@ -43,6 +43,10 @@ public class NotificationRepository {
     public List<Notification> getAllNotificationsForTutor(int id){
         return notificationDao.getAllNotificationsForTutor(id);
     }
+
+    public List<Notification> getAllNotificationsSentByStudent(int id){
+        return notificationDao.getAllNotificationsSentByStudent(id);
+    }
     public void deleteNotificationForTutor(int id){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             notificationDao.deleteNotificationForTutor(id);

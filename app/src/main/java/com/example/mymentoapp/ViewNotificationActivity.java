@@ -69,7 +69,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
             }
             for(Notification n : notificationArrayList){
 
-
                 Student student1 = studentViewModel.getStudent((int) n.getId_FkStudent());
                 String text = n.getDescription()  + student1.getFirstName() + " " + student1.getLastName() + " \n" ;
 
@@ -119,13 +118,7 @@ public class ViewNotificationActivity extends AppCompatActivity {
                             }).start();
                         }
                     });
-
-
-
-
                 });
-
-
                 System.out.println(n.toString());
             }
 

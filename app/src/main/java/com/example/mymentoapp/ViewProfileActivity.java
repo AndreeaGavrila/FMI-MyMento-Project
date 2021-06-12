@@ -24,6 +24,8 @@ import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
+import com.example.mymentoapp.model.TaughtCourse;
+import com.example.mymentoapp.model.TaughtCourseViewModel;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 
@@ -31,6 +33,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ViewProfileActivity extends AppCompatActivity {
@@ -38,6 +41,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     private CourseToTeachViewModel courseToTeachViewModel;
     private TutorViewModel tutorViewModel;
     private SpecificCourseViewModel specificCourseViewModel;
+    private TaughtCourseViewModel taughtCourseViewModel;
+    private List<TaughtCourse> taughtCoursesList;
 
     TextView firstName, lastName, phoneNumber, email, studyYear, domain, textViewToTeachCourse,
             textViewSpecificCourse, textView;
@@ -137,18 +142,34 @@ public class ViewProfileActivity extends AppCompatActivity {
         //createPDF();
 
         downloadButton.setOnClickListener(v -> {
-            int nr_hours = 700;
-            if (nr_hours < 85) {
-                Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                createPDF();
-                Toast.makeText(getApplicationContext(), "Download finished!", Toast.LENGTH_SHORT).show();
+            new Thread(() -> {
+                taughtCourseViewModel = new TaughtCourseViewModel(this.getApplication());
+                taughtCoursesList = taughtCourseViewModel.getAllTaughtCoursesForTutor(tutor.getIdStudent());
+                System.out.println("size " +  taughtCoursesList.size());
+
+                int nr_stud = taughtCoursesList.size();
+
+                int nr_hours = nr_stud * 10;
+                if (nr_hours < 30) {
+                    this.runOnUiThread(() ->{
+                        Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show();
+                    });
+
+                }
+                else {
+                    this.runOnUiThread(() ->{
+                        createPDF();
+                        Toast.makeText(getApplicationContext(), "Download finished!", Toast.LENGTH_SHORT).show();
+
+                    });
 
 //                Intent newIntent = new Intent(ViewProfileActivity.this, DownloadActivity.class);
 //                newIntent.putExtra("studentName", studentName);
 //                startActivity(newIntent);
-            }
+                }
+            }).start();
+
+
         });
 
     }
@@ -214,4 +235,4 @@ public class ViewProfileActivity extends AppCompatActivity {
         pdfDocument.close();
     }
 
-    }
+}
