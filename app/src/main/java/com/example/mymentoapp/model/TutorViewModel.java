@@ -19,7 +19,6 @@ public class TutorViewModel extends AndroidViewModel {
         super(application);
         repository =  new TutorRepository(application);
         allTutors = repository.getAllData();
-
     }
 
     public void insertTutorWithCourses(TutorWithCourse tutorWithCourse){
@@ -44,4 +43,6 @@ public class TutorViewModel extends AndroidViewModel {
     public Tutor getTutorById(int id){
         return  repository.getTutor(id);
     }
+
+    public Tutor getTutorByName(String lastName, String firstName){return repository.getTutorByName(lastName, firstName);}
 }

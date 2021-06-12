@@ -22,7 +22,6 @@ public class SpecificCourseViewModel  extends AndroidViewModel {
 
     }
 
-
     public List<SpecificCourse> getAllSpecificCourses(){
         return repository.getAllData();
     }

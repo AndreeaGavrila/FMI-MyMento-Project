@@ -16,9 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mymentoapp.data.StudentDao;
-import com.example.mymentoapp.data.StudentRepository;
-import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
@@ -27,16 +24,11 @@ import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.StudentWithCourse;
-import com.example.mymentoapp.model.TaughtCourse;
-import com.example.mymentoapp.model.TaughtCourseViewModel;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.model.TutorWithCourse;
-import com.example.mymentoapp.util.MyRoomDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -130,7 +122,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 radioCTI.setEnabled(true);
                 radioGroupSpec.setVisibility(View.GONE);
                 linearLayout.removeAllViews();
-
 
                 radioGroupStudyYear.setOnCheckedChangeListener((group, checkedId) -> {
                     linearLayout.removeAllViews();
@@ -312,7 +303,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         becameTutorBtn.setOnClickListener(v->{
-            Intent intent = new Intent(EditProfileActivity.this, BecameTutorActivity.class);
+            Intent intent = new Intent(EditProfileActivity.this, BecomeTutorActivity.class);
             intent.putExtra("idTutor", studentName);
             startActivity(intent);
         });
@@ -321,7 +312,6 @@ public class EditProfileActivity extends AppCompatActivity {
             new Thread(() -> {
 
                 specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
-
 
                 student.setFirstName(firstName.getText().toString());
                 student.setLastName(lastName.getText().toString());

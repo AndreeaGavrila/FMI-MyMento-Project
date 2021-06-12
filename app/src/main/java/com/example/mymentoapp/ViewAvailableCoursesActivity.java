@@ -46,9 +46,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
                     courseToTeachList2.add(c);
                 }
             }
-
             ArrayList<String> texts = new ArrayList<>();
-
             if(courseToTeachList2.size() > 0){
                 for(CourseToTeach c : courseToTeachList2){
                     text = c.getCourseName() + "\n" + tutorViewModel.getTutorById((int) c.getId_FkTutor()).getFirstName()
@@ -61,14 +59,10 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
                         textView.setText(st);
                         layout.addView(textView);
                     }
-
                 });
             }else{
                 System.out.println("Nu sunt cursuri");
             }
-
-
-
         }).start();
 
     }

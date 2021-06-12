@@ -83,6 +83,9 @@ public class TutorRepository {
         });
     }
 
+    public Tutor getTutorByName(String lastName, String firstName){
+        return tutorDao.getTutorByName(lastName, firstName);
+    }
 
 
 }
