@@ -26,6 +26,8 @@ public class NotificationViewModel {
         repository.deleteNotificationForTutor(id);
     }
 
+    public void deleteNotification(int id){repository.deleteNotification(id);}
+
     public List<Notification> getAllNotifications() {
         return allNotifications;
     }
