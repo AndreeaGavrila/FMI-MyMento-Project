@@ -99,6 +99,11 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
                                     btn = new Button(this.getApplicationContext());
                                     btn.setText("SEND REQUEST");
                                     btn.setOnClickListener(t -> {
+
+                                        new Thread(() ->{
+                                            //daca e in baza de date
+
+                                        }).start();
                                         Intent newIntent = new Intent(ViewAvailableCoursesActivity.this, ViewProfileActivity.class);
                                         newIntent.putExtra("studentName", student.getUsername());
                                         Toast.makeText(getApplicationContext(), "REQUEST SENT", Toast.LENGTH_SHORT).show();
@@ -117,6 +122,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
                                         if (tutor != null) {
                                             System.out.println("in if tutor" + tutor.getFirstName());
                                             this.runOnUiThread(() -> {
+
                                                 tutorWithNotifications = new TutorWithNotifications(tutor, notificationList);
                                                 tutorViewModel.insertTutorWithNotifications(tutorWithNotifications);
                                             });
