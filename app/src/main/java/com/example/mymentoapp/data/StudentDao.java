@@ -6,8 +6,10 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.mymentoapp.model.Notification;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentNotification;
 import com.example.mymentoapp.model.TaughtCourse;
 
 import java.util.List;
@@ -23,6 +25,9 @@ public interface StudentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTaughtCourses(List<TaughtCourse> taughtCourses);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertNotifications(List<StudentNotification> notifications);
 
     //@Delete
 //    @Query("DELETE FROM specific_course WHERE id_FkStudent = :idFkInput")

@@ -26,6 +26,10 @@ public class StudentViewModel extends AndroidViewModel {
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }
+    public void insertStudentWithNotifications(StudentWithNotifications studentWithNotifications){
+        repository.insertStudentWithNotifications(studentWithNotifications);
+    }
+
     public void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
         System.out.println("aici a ajuns");
         System.out.println(studentWithTaughtCourses.getStudent());

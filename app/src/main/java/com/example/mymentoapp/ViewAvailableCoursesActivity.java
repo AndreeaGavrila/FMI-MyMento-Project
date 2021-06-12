@@ -78,6 +78,8 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             courseToTeachList = courseToTeachViewModel.getAllCoursesWithout(student.getIdStudent());
             taughtCoursesList = taughtCourseViewModel.getAllTaughtCourses();
             notificationList = notificationViewModel.getAllNotificationsSentByStudent(student.getIdStudent());
+            int length = taughtCoursesList.size();
+            System.out.println("LUNGIME CURSURI" + length);
 
             courseToTeachList2 = new ArrayList<>();
 

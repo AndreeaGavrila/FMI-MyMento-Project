@@ -5,12 +5,16 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.mymentoapp.model.Notification;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentNotification;
 import com.example.mymentoapp.model.StudentWithCourse;
+import com.example.mymentoapp.model.StudentWithNotifications;
 import com.example.mymentoapp.model.StudentWithTaughtCourses;
 import com.example.mymentoapp.model.TaughtCourse;
 import com.example.mymentoapp.model.Tutor;
+import com.example.mymentoapp.model.TutorWithNotifications;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
@@ -117,6 +121,30 @@ public class StudentRepository {
                taughtCourse.setId_FkStudent(identifier);
             }
             studentDaoAsync2.insertTaughtCourses(studentWithTaughtCourses[0].getTaughtCourses());
+            return null;
+        }
+    }
+
+
+    public void insertStudentWithNotifications(StudentWithNotifications studentWithNotifications) {
+        new StudentRepository.insertAsync3(studentDao).execute(studentWithNotifications);
+    }
+
+
+    private static class insertAsync3 extends AsyncTask<StudentWithNotifications, Void, Void> {
+        private final StudentDao studentDaoAsync;
+
+        insertAsync3(StudentDao studentDao){ studentDaoAsync = studentDao;}
+        @Override
+        protected Void doInBackground(StudentWithNotifications... studentWithNotifications) {
+
+            long identifier = studentDaoAsync.insertStudent(studentWithNotifications[0].getStudent());
+            System.out.println("In insert notifications for student");
+
+            for (StudentNotification notification : studentWithNotifications[0].getNotifications()) {
+                notification.setId_FkStudent(identifier);
+            }
+            studentDaoAsync.insertNotifications(studentWithNotifications[0].getNotifications());
             return null;
         }
     }

@@ -4,17 +4,27 @@ package com.example.mymentoapp.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "notifications")
-public class Notification {
+@Entity(tableName = "student_notifications")
+public class StudentNotification {
 
     @PrimaryKey(autoGenerate = true)
     private int idNotification;
+
+
+
+    @ForeignKey
+            (entity = Student.class,
+                    parentColumns = "idStudent",
+                    childColumns = "id_FkStudent",
+                    onDelete = CASCADE,
+                    onUpdate = CASCADE
+
+            )
+    private long id_FkStudent;
 
     @ForeignKey
             (entity = Tutor.class,
@@ -28,16 +38,9 @@ public class Notification {
 
     @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "status")
+    private String status;
 
-    @ForeignKey
-            (entity = Student.class,
-                    parentColumns = "idStudent",
-                    childColumns = "id_FkStudent",
-                    onDelete = CASCADE,
-                    onUpdate = CASCADE
-
-            )
-    private long id_FkStudent;
 
     @ForeignKey
             (entity = CourseToTeach.class,
@@ -51,12 +54,11 @@ public class Notification {
     private long id_FkCourseToTeach;
 
 
-    public Notification() {
-        this.description = "You have a new notification from ";
+    public StudentNotification() {
+        this.description = "Your request from ";
     }
 
-    @Ignore
-    public Notification(long id_FkTutor, String description, long id_FkStudent, long id_FkCourseToTeach) {
+    public StudentNotification(long id_FkTutor, String description, long id_FkStudent, long id_FkCourseToTeach) {
         this.id_FkTutor = id_FkTutor;
         this.description = description;
         this.id_FkStudent = id_FkStudent;
@@ -101,5 +103,13 @@ public class Notification {
 
     public void setId_FkCourseToTeach(long id_FkCourseToTeach) {
         this.id_FkCourseToTeach = id_FkCourseToTeach;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
