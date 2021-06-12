@@ -13,10 +13,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
     Button viewProfile, logOut, showRecommend, notification;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
         logOut = findViewById(R.id.logout);
         viewProfile = findViewById(R.id.btn_viewProfile);
         showRecommend = findViewById(R.id.btn_recommend);
@@ -25,6 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
 
@@ -33,12 +36,13 @@ public class WelcomeActivity extends AppCompatActivity {
             intent.putExtra("studentName", studentName);
             startActivity(intent);
         });
+
         showRecommend.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, RecommendActivity.class);
             intent.putExtra("studentName", studentName);
-
             startActivity(intent);
         });
+
         logOut.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(WelcomeActivity.this);
             builder.setTitle("Log Out")

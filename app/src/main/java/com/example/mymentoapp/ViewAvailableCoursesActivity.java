@@ -40,6 +40,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     private Tutor tutor;
     private final ArrayList<Integer> tutorIds = new ArrayList<>();
     private final ArrayList<Map<Integer, String>> tutorAndCourses = new ArrayList<>();
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +60,13 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             student = studentViewModel.getStudentByUsername(studentName);
             courseToTeachList = courseToTeachViewModel.getAllCoursesWithout(student.getIdStudent());
             courseToTeachList2 = new ArrayList<>();
+
             for(CourseToTeach c : courseToTeachList){
                 if(c.getCourseName().equals(courseName)){
                     courseToTeachList2.add(c);
                 }
             }
+
             for(CourseToTeach c : courseToTeachList2) {
                 text = c.getCourseName() + "\n" + tutorViewModel.getTutorById((int) c.getId_FkTutor()).getFirstName()
                         + " " + tutorViewModel.getTutorById((int) c.getId_FkTutor()).getLastName() + "\n";
@@ -91,6 +94,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
                                     linearLayout.setPadding(10, 10, 10, 10);
                                     linearLayout.removeAllViews();
                                     linearLayout.addView(textView);
+
                                     new Thread(() -> {
                                         tutor = tutorViewModel.getTutorById(k);
                                     }).start();
@@ -132,7 +136,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
 
             }
             else {
-                System.out.println("Nu sunt cursuri");
+                System.out.println("No courses!");
 
             }
 
