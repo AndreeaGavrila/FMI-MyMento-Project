@@ -3,6 +3,7 @@ package com.example.mymentoapp;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,7 +69,7 @@ public class ViewNotificationActivity extends AppCompatActivity {
             }
             for(Notification n : notificationArrayList){
 
-                textView = new TextView(this.getApplicationContext());
+
                 Student student1 = studentViewModel.getStudent((int) n.getId_FkStudent());
                 String text = n.getDescription()  + student1.getFirstName() + " " + student1.getLastName() + " \n" ;
 
@@ -77,6 +78,25 @@ public class ViewNotificationActivity extends AppCompatActivity {
                 btn.setText("ACCEPT REQUEST");
 
                 this.runOnUiThread(() ->{
+                    textView = new TextView(this.getApplicationContext());
+                    textView.setText(text);
+                    linearLayout1 = new LinearLayout(this.getApplicationContext());
+
+                    linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
+                    linearLayout1.setBackgroundColor(Color.rgb(25, 55, 106));
+                    linearLayout1.setPadding(10, 10, 10, 10);
+
+
+//                    if(textView.getParent()!=null){
+//                        ((ViewGroup)textView.getParent()).removeView(textView);
+//                    }
+                    if(btn.getParent() !=null){
+                        ((ViewGroup)btn.getParent()).removeView(btn);
+                    }
+
+                    linearLayout1.addView(textView);
+                    linearLayout1.addView(btn);
+                    linearLayout.addView(linearLayout1);
 
                     btn.setOnClickListener(v ->{
                         if(tutor!=null){
@@ -91,38 +111,19 @@ public class ViewNotificationActivity extends AppCompatActivity {
                                 StudentWithTaughtCourses studentWithTaughtCourses = new StudentWithTaughtCourses(student, taughtCourseList);
                                 studentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
                                 System.out.println("s-a inserat");
-                                this.runOnUiThread(() ->{
-                                    if(linearLayout.getChildCount() >= 0 ){
-                                        linearLayout.removeViewAt(notificationArrayList.indexOf(n));
-                                    }
-
-                                });
                                 notificationViewModel.deleteNotification(n.getIdNotification());
+
+                                finish();
+                                startActivity(getIntent());
 
                             }).start();
                         }
                     });
 
 
-                    textView.setText(text);
-                    linearLayout1 = new LinearLayout(this.getApplicationContext());
-
-                    linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
-                    linearLayout1.setBackgroundColor(Color.rgb(25, 55, 106));
-                    linearLayout1.setPadding(10, 10, 10, 10);
-
-
-//                    linearLayout1.removeView(textView);
-//                    linearLayout1.removeView(btn);
-//                    linearLayout1.removeAllViews();
-                    linearLayout1.addView(textView);
-                    linearLayout1.addView(btn);
-                    linearLayout.addView(linearLayout1);
-
 
 
                 });
-
 
 
                 System.out.println(n.toString());

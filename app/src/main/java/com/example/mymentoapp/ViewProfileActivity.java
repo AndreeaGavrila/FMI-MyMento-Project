@@ -45,6 +45,9 @@ public class ViewProfileActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     Button downloadButton;
 
+    Tutor tutor;
+    Student student;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +82,15 @@ public class ViewProfileActivity extends AppCompatActivity {
             tutorViewModel = new TutorViewModel(this.getApplication());
             courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
-            Student student = studentViewModel.getStudentByUsername(studentName);
+
+            student = studentViewModel.getStudentByUsername(studentName);
 
             ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
-            Tutor tutor = tutorViewModel.getTutor(student.getUsername());
+            tutor = tutorViewModel.getTutor(student.getUsername());
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
 
             if(tutor != null){
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
-                downloadButton.setVisibility(View.VISIBLE);
             }
 
             ArrayList<CourseToTeach> finalCourseToTeachArrayList = courseToTeachArrayList;
@@ -134,12 +137,14 @@ public class ViewProfileActivity extends AppCompatActivity {
         //createPDF();
 
         downloadButton.setOnClickListener(v -> {
-            int nr_hours = 7;
+            int nr_hours = 700;
             if (nr_hours < 85) {
                 Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show();
             }
             else {
                 createPDF();
+                Toast.makeText(getApplicationContext(), "Download finished!", Toast.LENGTH_SHORT).show();
+
 //                Intent newIntent = new Intent(ViewProfileActivity.this, DownloadActivity.class);
 //                newIntent.putExtra("studentName", studentName);
 //                startActivity(newIntent);

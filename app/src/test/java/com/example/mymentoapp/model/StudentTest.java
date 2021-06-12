@@ -9,6 +9,7 @@ class StudentTest {
     void getFirstName() {
         Student student = new Student("Test", "Testtt", "I", "Mathematics", "+40712345678", "test@gmail.com", "test", "1234");
         assertEquals("Test", student.getFirstName());
+//        fail();
     }
 
     @Test
