@@ -34,6 +34,11 @@ public class NotificationRepository {
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(notificationDao::deleteAll);
     }
+    public void deleteNotification(int id){
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            notificationDao.deleteNotification(id);
+        });
+    }
 
     public List<Notification> getAllNotificationsForTutor(int id){
         return notificationDao.getAllNotificationsForTutor(id);
