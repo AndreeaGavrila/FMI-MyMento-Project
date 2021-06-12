@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class ViewProfileActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
     private CourseToTeachViewModel courseToTeachViewModel;
@@ -44,6 +45,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     Button downloadButton;
 
+    Tutor tutor;
+    Student student;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -64,11 +67,14 @@ public class ViewProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.email_view);
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
+
         editProfile = findViewById(R.id.edit_btn);
         downloadButton = findViewById(R.id.download_btn);
+
         linearLayout = findViewById(R.id.layout_recommended);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
+        downloadButton.setVisibility(View.INVISIBLE);
 
         new Thread(() -> {
 
@@ -76,11 +82,13 @@ public class ViewProfileActivity extends AppCompatActivity {
             tutorViewModel = new TutorViewModel(this.getApplication());
             courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
-            Student student = studentViewModel.getStudentByUsername(studentName);
+
+            student = studentViewModel.getStudentByUsername(studentName);
 
             ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
-            Tutor tutor = tutorViewModel.getTutor(student.getUsername());
+            tutor = tutorViewModel.getTutor(student.getUsername());
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
+
             if(tutor != null){
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
             }
@@ -94,6 +102,7 @@ public class ViewProfileActivity extends AppCompatActivity {
                         textViewToTeachCourse.append(courseToTeach.getCourseName());
                         textViewToTeachCourse.append("\n");
                     }
+                    downloadButton.setVisibility(View.VISIBLE);
                 }
 
                 for(SpecificCourse course : courses){
@@ -128,10 +137,18 @@ public class ViewProfileActivity extends AppCompatActivity {
         //createPDF();
 
         downloadButton.setOnClickListener(v -> {
-            createPDF();
-//            Intent newIntent = new Intent (ViewProfileActivity.this, DownloadActivity.class);
-//            newIntent.putExtra("studentName", studentName);
-//            startActivity(newIntent);
+            int nr_hours = 700;
+            if (nr_hours < 85) {
+                Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                createPDF();
+                Toast.makeText(getApplicationContext(), "Download finished!", Toast.LENGTH_SHORT).show();
+
+//                Intent newIntent = new Intent(ViewProfileActivity.this, DownloadActivity.class);
+//                newIntent.putExtra("studentName", studentName);
+//                startActivity(newIntent);
+            }
         });
 
     }
@@ -154,6 +171,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         }
 
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private  void createPDF(){
@@ -196,4 +214,4 @@ public class ViewProfileActivity extends AppCompatActivity {
         pdfDocument.close();
     }
 
-}
+    }

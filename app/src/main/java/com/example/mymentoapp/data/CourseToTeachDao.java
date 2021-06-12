@@ -22,6 +22,9 @@ public interface CourseToTeachDao {
     @Query("DELETE FROM course_to_teach")
     void deleteAll();
 
+    @Query("SELECT * FROM course_to_teach WHERE idCourseToTeach=:idCourse")
+    CourseToTeach getCourseById(int idCourse);
+
     @Query("SELECT * FROM course_to_teach")
     List<CourseToTeach> getAllToTeachCourses();
 
