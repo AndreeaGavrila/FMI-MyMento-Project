@@ -32,11 +32,6 @@ public class WelcomeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
 
-//        System.out.println("id student welcome: " + idStudent);;
-//        ArrayList<String> extras_courses = new ArrayList<>();
-//        extras_courses = (ArrayList<String>) bundle.get("lista_cursuri");
-
-       // ArrayList<String> finalExtras_courses = extras_courses;
         viewProfile.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
             intent.putExtra("studentName", studentName);

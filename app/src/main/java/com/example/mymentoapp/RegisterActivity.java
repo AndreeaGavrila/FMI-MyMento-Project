@@ -28,13 +28,13 @@ public class RegisterActivity extends AppCompatActivity {
     EditText et_username, et_password, et_cpassword;
 
 
-    private RegisterViewModel registerViewModel;
-
-    private StudentViewModel studentViewModel;
-    private StudentDao studentDao;
-
-    private TutorViewModel tutorViewModel;
-    private TutorDao tutorDao;
+//    private RegisterViewModel registerViewModel;
+//
+//    private StudentViewModel studentViewModel;
+//    private StudentDao studentDao;
+//
+//    private TutorViewModel tutorViewModel;
+//    private TutorDao tutorDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         et_cpassword = findViewById(R.id.et_cpassword);
 
-        login = (Button) findViewById(R.id.btn_login);
-        register = (Button) findViewById(R.id.btn_register);
+        login = findViewById(R.id.btn_login);
+        register = findViewById(R.id.btn_register);
 
 
         register.setOnClickListener(v -> {
