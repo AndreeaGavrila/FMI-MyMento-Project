@@ -1,21 +1,12 @@
 package com.example.mymentoapp;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.model.CourseToTeach;
@@ -27,9 +18,6 @@ import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ViewProfileActivity extends AppCompatActivity {
@@ -44,8 +32,6 @@ public class ViewProfileActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     Button downloadButton;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +40,9 @@ public class ViewProfileActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
 
-        textViewSpecificCourse = findViewById(R.id.text_view_course);
-        textViewToTeachCourse = findViewById(R.id.teach_courses);
-        textView = findViewById(R.id.text_view_course2);
+        textViewSpecificCourse = (TextView) findViewById(R.id.text_view_course);
+        textViewToTeachCourse = (TextView) findViewById(R.id.teach_courses);
+        textView = (TextView) findViewById(R.id.text_view_course2);
 
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
@@ -80,7 +66,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
             ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             Tutor tutor = tutorViewModel.getTutor(student.getUsername());
-            ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
+            ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<CourseToTeach>();
             if(tutor != null){
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
             }
@@ -124,76 +110,11 @@ public class ViewProfileActivity extends AppCompatActivity {
             startActivity(newIntent);
         });
 
-        //createDoc();
-        //createPDF();
-
         downloadButton.setOnClickListener(v -> {
-            createPDF();
-//            Intent newIntent = new Intent (ViewProfileActivity.this, DownloadActivity.class);
-//            newIntent.putExtra("studentName", studentName);
-//            startActivity(newIntent);
+            Intent newIntent = new Intent (ViewProfileActivity.this, DownloadActivity.class);
+            newIntent.putExtra("studentName", studentName);
+            startActivity(newIntent);
         });
 
     }
-
-    private void createDoc() {
-
-        String root = this.getApplicationContext().getExternalFilesDir(null).toString();
-        File myDir = new File(root + "/saved");
-        if (!myDir.exists()) {
-            myDir.mkdirs();
-        }
-        File file = new File(myDir, "ex1.txt");
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write("ceva".getBytes());
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private  void createPDF(){
-        PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300,600,1).create();
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-
-        Paint myPaint = new Paint();
-        String myString = "First paragraph\nSecond paragraph\n";
-        int x = 10, y=25;
-
-        for (String line:myString.split("\n")){
-            page.getCanvas().drawText(line, x, y, myPaint);
-            y+=myPaint.descent()-myPaint.ascent();
-        }
-
-//        Canvas canvas = myPage.getCanvas();
-//        Paint paint = new Paint();
-//        paint.setColor(Color.RED);
-//        canvas.drawCircle(50, 50, 30, paint);
-//        paint.setColor(Color.BLACK);
-//        canvas.drawText("ceva in pdf", 80, 50, paint);
-        //canvas.drawt
-
-        pdfDocument.finishPage(page);
-
-        String myFilePath = this.getApplicationContext().getExternalFilesDir(null).toString();
-        File directory = new File(myFilePath + "/saved");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-        File myFile = new File(directory, "ex1.pdf");
-        try {
-            pdfDocument.writeTo(new FileOutputStream(myFile));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        pdfDocument.close();
-    }
-
 }

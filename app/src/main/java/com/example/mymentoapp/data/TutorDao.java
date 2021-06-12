@@ -1,5 +1,7 @@
 package com.example.mymentoapp.data;
 
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -7,9 +9,12 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.Notification;
+import com.example.mymentoapp.model.SpecificCourse;
+import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.Tutor;
-
 import java.util.List;
+
 
 
 @Dao
@@ -19,6 +24,9 @@ public interface TutorDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertToTeachCourses(List<CourseToTeach> courseToTeaches);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertNotifications(List<Notification> notifications);
 
     @Query("DELETE FROM tutor_table")
     void deleteAll();
