@@ -41,59 +41,57 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        et_username = (EditText) findViewById(R.id.et_username);
-        et_password = (EditText) findViewById(R.id.et_password);
-        et_cpassword = (EditText) findViewById(R.id.et_cpassword);
+        et_username = findViewById(R.id.et_username);
+        et_password = findViewById(R.id.et_password);
+        et_cpassword = findViewById(R.id.et_cpassword);
 
         login = (Button) findViewById(R.id.btn_login);
         register = (Button) findViewById(R.id.btn_register);
 
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        register.setOnClickListener(v -> {
 
-                // Creating Student entity
-                Student student = new Student();
-                student.setUsername(et_username.getText().toString());
-                student.setPassword(et_password.getText().toString());
+            // Creating Student entity
+            Student student = new Student();
+            student.setUsername(et_username.getText().toString());
+            student.setPassword(et_password.getText().toString());
 
-                String username = et_username.getText().toString();
-                String password = et_password.getText().toString();
-                String confirm_password = et_cpassword.getText().toString();
+            String username = et_username.getText().toString();
+            String password = et_password.getText().toString();
+            String confirm_password = et_cpassword.getText().toString();
 
 
-                if( !validateInput(student))
-                {
-                    Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
-                }else if(!password.equals(confirm_password)){
-                    Toast.makeText(getApplicationContext(), "Password and confirm password must be the same!", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                    StudentDao studentDao = roomDatabase.studentDao();
+            if( !validateInput(student))
+            {
+                Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
+            }else if(!password.equals(confirm_password)){
+                Toast.makeText(getApplicationContext(), "Password and confirm password must be the same!", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                StudentDao studentDao = roomDatabase.studentDao();
 
+                new Thread(() -> {
+                    Student student1 = studentDao.getStudentByUsername(username);
                     new Thread(() -> {
-                        Student student1 = studentDao.getStudentByUsername(username);
-                        new Thread(() -> {
-                            if(student1 != null){
-                                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Username already used!", Toast.LENGTH_SHORT).show());
-                            }
-                            else{
-                                studentDao.registerStudent(student);
-                                runOnUiThread(() -> {
-                                    Toast.makeText(getApplicationContext(), "Student Registred!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RegisterActivity.this, ChooseStatusActivity.class);
-                                    intent.putExtra("username", username);
-                                    intent.putExtra("password", password);
-                                    startActivity(intent);
-                                });
-                            }
-                        }).start();
-
+                        if(student1 != null){
+                            runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Username already used!", Toast.LENGTH_SHORT).show());
+                        }
+                        else{
+                            studentDao.registerStudent(student);
+                            runOnUiThread(() -> {
+                                Toast.makeText(getApplicationContext(), "Student Registred!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, ChooseStatusActivity.class);
+                                intent.putExtra("username", username);
+                                intent.putExtra("password", password);
+                                startActivity(intent);
+                            });
+                        }
                     }).start();
-                }
+
+                }).start();
+            }
 
 
 //-------------------------------------------------------------------------------------------------
@@ -144,7 +142,6 @@ public class RegisterActivity extends AppCompatActivity {
 //                    }
 //-------------------------------------------------------------------------------------------------
 
-            }
         });
     }
 

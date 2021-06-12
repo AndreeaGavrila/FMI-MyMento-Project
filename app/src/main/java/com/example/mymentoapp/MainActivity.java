@@ -68,33 +68,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        new Thread(() -> {
-
-            studentViewModel = new StudentViewModel(this.getApplication());
-            courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
-            Student student = studentViewModel.getStudent(1);
-            taughtCourseViewModel = new TaughtCourseViewModel(this.getApplication());
-            List<Student> students = studentViewModel.getAllStudents();
-            assert students != null;
-            System.out.println(students.toString());
-
-            List<CourseToTeach> courseToTeach = courseToTeachViewModel.getAllToTeachCourse();
-
-            List<TaughtCourse> taughtCourseList = new ArrayList<>();
-
-            for(CourseToTeach c : courseToTeach){
-                TaughtCourse taughtCourse = new TaughtCourse(c.getCourseName(), c.getDescription());
-                taughtCourse.setId_FkTutor(c.getId_FkTutor());
-                taughtCourseList.add(taughtCourse);
-
-            }
-
-//            System.out.println("AICI" + taughtCourseList.toString());
-//            StudentWithTaughtCourses studentWithTaughtCourses =  new StudentWithTaughtCourses(student, taughtCourseList);
-//            StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
-        }).start();
+//        new Thread(() -> {
+//
+//            studentViewModel = new StudentViewModel(this.getApplication());
+//            courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+//            Student student = studentViewModel.getStudent(1);
+//            taughtCourseViewModel = new TaughtCourseViewModel(this.getApplication());
+//            List<Student> students = studentViewModel.getAllStudents();
+//            assert students != null;
+//            System.out.println(students.toString());
+//
+//            List<CourseToTeach> courseToTeach = courseToTeachViewModel.getAllToTeachCourse();
+//
+//            List<TaughtCourse> taughtCourseList = new ArrayList<>();
+//
+//            for(CourseToTeach c : courseToTeach){
+//                TaughtCourse taughtCourse = new TaughtCourse(c.getCourseName(), c.getDescription());
+//                taughtCourse.setId_FkTutor(c.getId_FkTutor());
+//                taughtCourseList.add(taughtCourse);
+//
+//            }
+//
+////            System.out.println("AICI" + taughtCourseList.toString());
+////            StudentWithTaughtCourses studentWithTaughtCourses =  new StudentWithTaughtCourses(student, taughtCourseList);
+////            StudentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
+//        }).start();
 
 
 //        TutorViewModel.deleteAll();

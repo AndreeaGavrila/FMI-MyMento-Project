@@ -44,4 +44,8 @@ public class NotificationViewModel {
         return repository.getAllNotificationsForTutor(id);
     }
 
+    public List<Notification> getAllNotificationsSentByStudent(int id) {
+        return repository.getAllNotificationsSentByStudent(id);
+    }
+
 }

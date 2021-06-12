@@ -30,6 +30,9 @@ public interface NotificationDao {
     @Query("SELECT * FROM notifications WHERE id_FkTutor=:idInput")
     List<Notification> getAllNotificationsForTutor(int idInput);
 
+    @Query("SELECT * FROM notifications WHERE id_FkStudent=:idInput")
+    List<Notification> getAllNotificationsSentByStudent(int idInput);
+
     @Query("DELETE FROM notifications WHERE id_FkTutor = :id")
     void deleteNotificationForTutor(int id);
 }
