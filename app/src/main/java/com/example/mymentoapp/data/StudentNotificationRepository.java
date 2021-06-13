@@ -39,13 +39,18 @@ public class StudentNotificationRepository {
         });
     }
 
-    public List<StudentNotification> getAllNotificationsForStudent(int id){
-        return studentNotificationDao.getAllNotificationsForStudent(id);
+    public List<StudentNotification> getAllNotificationsForStudent(String name){
+        return studentNotificationDao.getAllNotificationsForStudent(name);
     }
 
-    public void deleteNotificationForStudent(int id){
+    public void deleteNotificationForStudent(String name){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            studentNotificationDao.deleteStudentNotificationForStudent(id);
+            studentNotificationDao.deleteStudentNotificationForStudent(name);
+        });
+    }
+    public void updateNotification(StudentNotification studentNotification){
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            studentNotificationDao.updateNotification(studentNotification);
         });
     }
 }

@@ -5,8 +5,10 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.example.mymentoapp.model.Notification;
+import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentNotification;
 
 import java.util.List;
@@ -27,9 +29,13 @@ public interface StudentNotificationDao {
     @Query("SELECT * FROM student_notifications")
     List<StudentNotification> getAllStudentNotifications();
 
-    @Query("SELECT * FROM student_notifications WHERE id_FkStudent=:idInput")
-    List<StudentNotification> getAllNotificationsForStudent(int idInput);
+    @Query("SELECT * FROM student_notifications WHERE usernameStudent=:input")
+    List<StudentNotification> getAllNotificationsForStudent(String input);
 
-    @Query("DELETE FROM student_notifications WHERE id_FkStudent = :id")
-    void deleteStudentNotificationForStudent(int id);
+    @Query("DELETE FROM student_notifications WHERE usernameStudent=:input")
+    void deleteStudentNotificationForStudent(String input);
+
+    @Update
+    void updateNotification(StudentNotification studentNotification);
+
 }

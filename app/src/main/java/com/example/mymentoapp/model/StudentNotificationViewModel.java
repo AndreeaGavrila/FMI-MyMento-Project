@@ -21,8 +21,8 @@ public class StudentNotificationViewModel {
 
     }
 
-    public void deleteNotificationsForStudent(int id) {
-        repository.deleteNotificationForStudent(id);
+    public void deleteNotificationsForStudent(String name) {
+        repository.deleteNotificationForStudent(name);
     }
 
     public void deleteNotification(int id){repository.deleteNotification(id);}
@@ -39,8 +39,12 @@ public class StudentNotificationViewModel {
         repository.deleteAll();
     }
 
-    public List<StudentNotification> getAllNotificationsForStudent(int id) {
-        return repository.getAllNotificationsForStudent(id);
+    public List<StudentNotification> getAllNotificationsForStudent(String username) {
+        return repository.getAllNotificationsForStudent(username);
+    }
+
+    public void updateNotification(StudentNotification studentNotification){
+        repository.updateNotification(studentNotification);
     }
 
 }

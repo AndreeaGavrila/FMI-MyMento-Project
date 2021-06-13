@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Comparator;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "student_notifications")
@@ -15,16 +17,15 @@ public class StudentNotification {
     private int idNotification;
 
 
-
     @ForeignKey
             (entity = Student.class,
-                    parentColumns = "idStudent",
-                    childColumns = "id_FkStudent",
+                    parentColumns = "username",
+                    childColumns = "usernameStudent",
                     onDelete = CASCADE,
                     onUpdate = CASCADE
 
             )
-    private long id_FkStudent;
+    private String usernameStudent;
 
     @ForeignKey
             (entity = Tutor.class,
@@ -58,12 +59,6 @@ public class StudentNotification {
         this.description = "Your request from ";
     }
 
-    public StudentNotification(long id_FkTutor, String description, long id_FkStudent, long id_FkCourseToTeach) {
-        this.id_FkTutor = id_FkTutor;
-        this.description = description;
-        this.id_FkStudent = id_FkStudent;
-        this.id_FkCourseToTeach = id_FkCourseToTeach;
-    }
 
     public int getIdNotification() {
         return idNotification;
@@ -89,12 +84,12 @@ public class StudentNotification {
         this.description = description;
     }
 
-    public long getId_FkStudent() {
-        return id_FkStudent;
+    public String getUsernameStudent() {
+        return usernameStudent;
     }
 
-    public void setId_FkStudent(long id_FkStudent) {
-        this.id_FkStudent = id_FkStudent;
+    public void setUsernameStudent(String usernameStudent) {
+        this.usernameStudent = usernameStudent;
     }
 
     public long getId_FkCourseToTeach() {
@@ -112,4 +107,13 @@ public class StudentNotification {
     public void setStatus(String status) {
         this.status = status;
     }
+
+//    @Override
+//    public int compare(StudentNotification a, StudentNotification b) {
+//        return a.getStatus().equals("New") && b.getStatus().equals("Old") ? -1
+//                : a.getStatus().equals("Old") && b.getStatus().equals("New") ? 1
+//                :0;
+//    }
+
+
 }

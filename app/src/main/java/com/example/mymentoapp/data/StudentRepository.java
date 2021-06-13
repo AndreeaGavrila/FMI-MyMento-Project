@@ -142,7 +142,7 @@ public class StudentRepository {
             System.out.println("In insert notifications for student");
 
             for (StudentNotification notification : studentWithNotifications[0].getNotifications()) {
-                notification.setId_FkStudent(identifier);
+                notification.setUsernameStudent(studentWithNotifications[0].getStudent().getUsername());
             }
             studentDaoAsync.insertNotifications(studentWithNotifications[0].getNotifications());
             return null;

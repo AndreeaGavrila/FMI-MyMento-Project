@@ -32,6 +32,8 @@ import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewNotificationActivity extends AppCompatActivity {
@@ -50,8 +52,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
     TextView textView;
 
 
-
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +113,7 @@ public class ViewNotificationActivity extends AppCompatActivity {
                                     t2.setIdCourseToTeach((int) n.getId_FkCourseToTeach());
                                     List<TaughtCourse> taughtCourseList = new ArrayList<>();
                                     taughtCourseList.add(t2);
-                                    StudentWithTaughtCourses studentWithTaughtCourses = new StudentWithTaughtCourses(student, taughtCourseList);
+                                    StudentWithTaughtCourses studentWithTaughtCourses = new StudentWithTaughtCourses(student1, taughtCourseList);
                                     studentViewModel.insertStudentWithTaughtCourses(studentWithTaughtCourses);
 
                                     StudentNotification studentNotification = new StudentNotification();
@@ -126,7 +126,7 @@ public class ViewNotificationActivity extends AppCompatActivity {
                                     List<StudentNotification> studentNotificationsList =  new ArrayList<>();
                                     studentNotificationsList.add(studentNotification);
 
-                                    StudentWithNotifications studentWithNotifications = new StudentWithNotifications(student, studentNotificationsList);
+                                    StudentWithNotifications studentWithNotifications = new StudentWithNotifications(student1, studentNotificationsList);
                                     studentViewModel.insertStudentWithNotifications(studentWithNotifications);
 
                                     notificationViewModel.deleteNotification(n.getIdNotification());
@@ -141,32 +141,57 @@ public class ViewNotificationActivity extends AppCompatActivity {
                 }
             }
             else{
-                studentNotifications = studentNotificationViewModel.getAllNotificationsForStudent(student.getIdStudent());
+                System.out.println("in else");
 
+                System.out.println(student.getIdStudent());
+                studentNotifications = studentNotificationViewModel.getAllNotificationsForStudent(student.getUsername());
+                Collections.sort(studentNotifications, (a, b) -> a.getStatus().equals("New") && b.getStatus().equals("Old") ? -1
+                        : a.getStatus().equals("Old") && b.getStatus().equals("New") ? 1
+                        :0);
+
+                System.out.println(studentNotifications.size());
                     this.runOnUiThread(() ->{
 
                         for(StudentNotification sn : studentNotifications){
                             System.out.println("mptofcatipn " + sn.getStatus());
                             TextView textView1 = new TextView(this.getApplicationContext());
                             textView1.setText(sn.getDescription());
-                            textView1.setBackgroundColor(Color.rgb(193, 145, 161));
-                            textView1.setPadding(20, 10, 20, 10);
-                            textView1.setTextColor(Color.rgb(0,0,0));
-                            textView1.setTypeface(textView1.getTypeface(), Typeface.BOLD);
+                            textView1.setBackgroundColor(Color.rgb(25, 55, 106));
+                            textView1.setPadding(30, 30, 30, 30);
+                            textView1.setTextColor(Color.rgb(255,255,255));
+                            textView1.setTextSize(16);
 
+
+                            if(sn.getStatus().equals("New")){
+                                textView1.setTypeface(textView1.getTypeface(), Typeface.BOLD);
+                            }
+
+                            textView1.setOnClickListener(u ->{
+                                sn.setStatus("Old");
+                                studentNotificationViewModel.updateNotification(sn);
+                                textView1.setTypeface(textView1.getTypeface(), Typeface.NORMAL);
+//                                textView1.setClickable(false);
+                                finish();
+                                startActivity(getIntent());
+                            });
 
                             TextView textView2 = new TextView(this.getApplicationContext());
-                            textView2.setBackgroundColor(Color.rgb(255,255,255));
-                            textView2.setPadding(20, 5, 5, 10);
+                            textView2.setBackgroundColor(Color.rgb(196,201,208));
+                            textView2.setPadding(25, 5, 25, 5);
 
-                            linearLayout.addView(textView2);
+                            TextView textView3 = new TextView(this.getApplicationContext());
+                            textView3.setBackgroundColor(Color.rgb(1,24,71));
+                            textView3.setPadding(25, 1, 25, 0);
+
+                            linearLayout.addView(textView3);
                             linearLayout.addView(textView1);
+                            linearLayout.addView(textView2);
                         }
+
+
                     });
 
-
             }
-
 
         }).start();
 

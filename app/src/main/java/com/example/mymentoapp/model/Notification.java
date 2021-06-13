@@ -55,7 +55,6 @@ public class Notification {
         this.description = "You have a new notification from ";
     }
 
-    @Ignore
     public Notification(long id_FkTutor, String description, long id_FkStudent, long id_FkCourseToTeach) {
         this.id_FkTutor = id_FkTutor;
         this.description = description;
