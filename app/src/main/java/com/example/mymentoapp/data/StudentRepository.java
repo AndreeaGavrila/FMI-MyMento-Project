@@ -3,23 +3,20 @@ package com.example.mymentoapp.data;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.StudentWithTaughtCourses;
 import com.example.mymentoapp.model.TaughtCourse;
-import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
 
 public class StudentRepository {
 
-    private StudentDao studentDao;
-    private TutorDao tutorDao;
-    private List<Student> allStudents;
+    private final StudentDao studentDao;
+    private final TutorDao tutorDao;
+    private final List<Student> allStudents;
 
     public StudentRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -32,9 +29,7 @@ public class StudentRepository {
     }
 
     public void insertStudent(Student student){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            studentDao.insertStudent(student);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> studentDao.insertStudent(student));
     }
 
     public Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput){
@@ -45,9 +40,7 @@ public class StudentRepository {
     }
 
     public void updateStudent(Student student){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            studentDao.updateStudent(student);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> studentDao.updateStudent(student));
     }
 
 
@@ -62,17 +55,16 @@ public class StudentRepository {
 //    }
 
     public void deleteAll(){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            studentDao.deleteAll();
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(studentDao::deleteAll);
     }
+
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
         new insertAsync(studentDao).execute(studentWithCourse);
     }
 
 
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {
-        private StudentDao studentDaoAsync;
+        private final StudentDao studentDaoAsync;
 
 
         insertAsync(StudentDao studentDao) {
@@ -101,7 +93,7 @@ public class StudentRepository {
 
 
     private static class insertAsync2 extends AsyncTask<StudentWithTaughtCourses, Void, Void> {
-        private StudentDao studentDaoAsync2;
+        private final StudentDao studentDaoAsync2;
 
         insertAsync2(StudentDao studentDao) {
             studentDaoAsync2 = studentDao;

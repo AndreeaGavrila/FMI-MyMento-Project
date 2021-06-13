@@ -1,13 +1,11 @@
 package com.example.mymentoapp.data;
 
-
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.Notification;
 
 import java.util.List;

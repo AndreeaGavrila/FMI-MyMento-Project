@@ -2,6 +2,7 @@ package com.example.mymentoapp;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Build;
@@ -40,7 +41,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText firstName, lastName, phoneNumber, email, iban;
     private RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     private RadioButton radioYear1, radioYear2, radioYear3, radioYear4, radioInfo, radioMath, radioCTI;
-    Button edit,  becameTutorBtn;
+    private Button edit,  becameTutorBtn, backToHome;
     private Student student;
     private Tutor tutor;
     private String studyYear1, domain1, specialization1, oldStudyDomain;
@@ -49,6 +50,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView courseToTeach;
     private List<SpecificCourse> specificCourseList;
     private List<CourseToTeach> courseToTeachList;
+    private Toolbar toolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -76,6 +78,11 @@ public class EditProfileActivity extends AppCompatActivity {
         becameTutorBtn = findViewById(R.id.became_tutor_btn);
         edit = findViewById(R.id.btn_edit);
         iban = findViewById(R.id.iban_edit);
+        toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        backToHome = findViewById(R.id.back_home);
+
         new Thread(() -> {
 
             studentViewModel = new StudentViewModel(this.getApplication());
@@ -249,7 +256,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
                 if(radioGroupSpec.getVisibility() == View.VISIBLE){
                     radioGroupSpec.setOnCheckedChangeListener((group, checkedId3) -> {
-                        RadioButton rb3 = (RadioButton)findViewById(checkedId3);
+                        RadioButton rb3 = findViewById(checkedId3);
                         specialization1 = rb3.getText().toString();
                         System.out.println(studyYear1 + domain1);
                         assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
@@ -308,93 +315,97 @@ public class EditProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        edit.setOnClickListener(v -> {
-            new Thread(() -> {
+        edit.setOnClickListener(v ->
+                new Thread(() -> {
 
-                specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
+            specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
 
-                student.setFirstName(firstName.getText().toString());
-                student.setLastName(lastName.getText().toString());
-                student.setEmail(email.getText().toString());
-                student.setPhoneNumber(phoneNumber.getText().toString());
+            student.setFirstName(firstName.getText().toString());
+            student.setLastName(lastName.getText().toString());
+            student.setEmail(email.getText().toString());
+            student.setPhoneNumber(phoneNumber.getText().toString());
 
 
-                if (assignCourse2!= null){
-                    specificCourseList = assignCourse2.getSpecificCourseList();
-                    System.out.println("ASSIGN CURS");
-                }
-                else{
-                    System.out.println("ELSE");
-                    specificCourseList = specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent());
-                }
+            if (assignCourse2!= null){
+                specificCourseList = assignCourse2.getSpecificCourseList();
+                System.out.println("ASSIGN CURS");
+            }
+            else{
+                System.out.println("ELSE");
+                specificCourseList = specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent());
+            }
 
-                if(tutor!=null) {
-                    courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
-                    courseToTeachList.clear();
-                    if (specificCourseList.size() > 0) {
-                        for (int i = 0; i < specificCourseList.size(); i++) {
-                            CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
-                            if (checkBox.isChecked()) {
-                                CourseToTeach courseToTeach = new CourseToTeach(specificCourseList.get(i).getCourseName(), specificCourseList.get(i).getDescription());
-                                courseToTeachList.add(courseToTeach);
-                            }
+            if(tutor!=null) {
+                courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+                courseToTeachList.clear();
+                if (specificCourseList.size() > 0) {
+                    for (int i = 0; i < specificCourseList.size(); i++) {
+                        CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
+                        if (checkBox.isChecked()) {
+                            CourseToTeach courseToTeach = new CourseToTeach(specificCourseList.get(i).getCourseName(), specificCourseList.get(i).getDescription());
+                            courseToTeachList.add(courseToTeach);
                         }
                     }
                 }
+            }
 
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                String phonePattern = "^\\+[0-9]{10,13}$";
-                if (firstName.getText().toString().equals("") || lastName.getText().toString().equals("") || phoneNumber.getText().toString().equals("") || email.getText().toString().equals("") || radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
-                } else if (!(email.getText().toString().matches(emailPattern))) {
-                    Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
-                } else if (!(phoneNumber.getText().toString().matches(phonePattern))) {
-                    Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
-                } else if (!domain1.equals("CTI") && (studyYear1.equals("IV"))) {
-                    Toast.makeText(getApplicationContext(), "ONLY CTI HAS 4 YEARS", Toast.LENGTH_SHORT).show();
+            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+            String phonePattern = "^\\+[0-9]{10,13}$";
+            if (firstName.getText().toString().equals("") || lastName.getText().toString().equals("") || phoneNumber.getText().toString().equals("") || email.getText().toString().equals("") || radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
+            } else if (!(email.getText().toString().matches(emailPattern))) {
+                Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
+            } else if (!(phoneNumber.getText().toString().matches(phonePattern))) {
+                Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
+            } else if (!domain1.equals("CTI") && (studyYear1.equals("IV"))) {
+                Toast.makeText(getApplicationContext(), "ONLY CTI HAS 4 YEARS", Toast.LENGTH_SHORT).show();
+            }
+
+            else{
+
+                int checkedStudyYearId = radioGroupStudyYear.getCheckedRadioButtonId();
+                RadioButton checkedStudyYear = findViewById(checkedStudyYearId);
+                student.setStudyYear(checkedStudyYear.getText().toString());
+
+                int checkedDomainId = radioGroupDomain.getCheckedRadioButtonId();
+                RadioButton checkedDomain = findViewById(checkedDomainId);
+                student.setStudyDomain(checkedDomain.getText().toString());
+
+                assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
+                specificCourseViewModel.deleteSpecificCourse(student.getIdStudent());
+
+                StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
+                studentViewModel.insertStudentWithCourses(studentWithCourse);
+
+                if(tutor != null){
+
+                    tutor.setIban(iban.getText().toString());
+                    tutor.setFirstName(firstName.getText().toString());
+                    tutor.setLastName(lastName.getText().toString());
+                    tutor.setEmail(email.getText().toString());
+                    tutor.setPhoneNumber(phoneNumber.getText().toString());
+                    tutor.setStudyYear(checkedStudyYear.getText().toString());
+                    tutor.setStudyDomain(checkedDomain.getText().toString());
+
+                    StudentWithCourse studentWithCourse1 = new StudentWithCourse(tutor, assignCourse.getSpecificCourseList());
+                    studentViewModel.insertStudentWithCourses(studentWithCourse1);
+                    courseToTeachViewModel.deleteCoursesForTutor(tutor.getIdStudent());
+
+                    TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, courseToTeachList);
+
+                    tutorViewModel.insertTutorWithCourses(tutorWithCourse);
+                    tutorViewModel.updateTutor(tutor);
                 }
+                Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
+                intent.putExtra("studentName", studentName);
+                startActivity(intent);
+            }
+        }).start());
 
-                else{
-
-                    int checkedStudyYearId = radioGroupStudyYear.getCheckedRadioButtonId();
-                    RadioButton checkedStudyYear = findViewById(checkedStudyYearId);
-                    student.setStudyYear(checkedStudyYear.getText().toString());
-
-                    int checkedDomainId = radioGroupDomain.getCheckedRadioButtonId();
-                    RadioButton checkedDomain = findViewById(checkedDomainId);
-                    student.setStudyDomain(checkedDomain.getText().toString());
-
-                    assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
-                    specificCourseViewModel.deleteSpecificCourse(student.getIdStudent());
-
-                    StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
-                    studentViewModel.insertStudentWithCourses(studentWithCourse);
-
-                    if(tutor != null){
-
-                        tutor.setIban(iban.getText().toString());
-                        tutor.setFirstName(firstName.getText().toString());
-                        tutor.setLastName(lastName.getText().toString());
-                        tutor.setEmail(email.getText().toString());
-                        tutor.setPhoneNumber(phoneNumber.getText().toString());
-                        tutor.setStudyYear(checkedStudyYear.getText().toString());
-                        tutor.setStudyDomain(checkedDomain.getText().toString());
-
-                        StudentWithCourse studentWithCourse1 = new StudentWithCourse(tutor, assignCourse.getSpecificCourseList());
-                        studentViewModel.insertStudentWithCourses(studentWithCourse1);
-                        courseToTeachViewModel.deleteCoursesForTutor(tutor.getIdStudent());
-
-                        TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, courseToTeachList);
-
-                        tutorViewModel.insertTutorWithCourses(tutorWithCourse);
-                        tutorViewModel.updateTutor(tutor);
-                    }
-                    Intent intent = new Intent(EditProfileActivity.this, ViewProfileActivity.class);
-                    intent.putExtra("studentName", studentName);
-                    startActivity(intent);
-                }
-            }).start();
-
+        backToHome.setOnClickListener(v -> {
+            Intent intent = new Intent(EditProfileActivity.this, WelcomeActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
         });
     }
 }

@@ -2,8 +2,6 @@ package com.example.mymentoapp.data;
 
 import android.app.Application;
 
-
-import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.Notification;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
@@ -30,10 +28,10 @@ public class NotificationRepository {
         });
     }
 
-
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(notificationDao::deleteAll);
     }
+
     public void deleteNotification(int id){
         MyRoomDatabase.databaseWriteExecutor.execute(()->{
             notificationDao.deleteNotification(id);

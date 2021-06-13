@@ -2,7 +2,6 @@ package com.example.mymentoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,16 +9,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
-
 import com.example.mymentoapp.data.TutorDao;
-
 import com.example.mymentoapp.model.RegisterViewModel;
-
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
-
 import com.example.mymentoapp.model.TutorViewModel;
-
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
