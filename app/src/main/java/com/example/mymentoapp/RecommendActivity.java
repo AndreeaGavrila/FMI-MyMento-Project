@@ -1,7 +1,11 @@
 package com.example.mymentoapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -99,6 +103,10 @@ public class RecommendActivity  extends AppCompatActivity {
 
             runOnUiThread((() -> {
                 for(int i=0;i<finalCoursesList.size();i++){
+                    LinearLayout groupLinear = new LinearLayout(getApplicationContext());
+                    groupLinear.setGravity(Gravity.CENTER);
+                    groupLinear.setOrientation(LinearLayout.VERTICAL);
+                    groupLinear.setPadding(20, 10, 20, 10);
                     Button btn = new Button(getApplicationContext());
                     String course = finalCoursesList.get(i).get(0);
                     btn.setText(course);
@@ -125,8 +133,21 @@ public class RecommendActivity  extends AppCompatActivity {
                         newIntent.putExtra("studentUsername", studentName);
                         startActivity(newIntent);
                     });
-                    linearLayout.addView(btn);
-                    linearLayout.addView(btn_tutor);
+                    btn.setBackgroundColor(Color.parseColor("#fbc304"));
+                    btn.setTextSize(18);
+                    btn.setTypeface(Typeface.DEFAULT_BOLD);
+                    //btn.setPadding(10,10,10,10);
+                    btn_tutor.setBackgroundColor(Color.parseColor("#2850a1"));
+                    btn_tutor.setTextColor(Color.parseColor("#C4C9D0"));
+                    //btn_tutor.setPadding(10,10,10,10);
+                    TextView delimitator = new TextView(getApplicationContext());
+                    groupLinear.addView(btn);
+                    groupLinear.addView(btn_tutor);
+                    groupLinear.addView(delimitator);
+                    linearLayout.addView(groupLinear);
+//                    linearLayout.addView(btn);
+//                    linearLayout.addView(btn_tutor);
+                    // TODO: blue #2850a1 yellow #fbc304
                 }
             }));
 

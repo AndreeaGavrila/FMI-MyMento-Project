@@ -16,10 +16,12 @@
 
             <TextView
                 android:id="@+id/titleRecommend"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="55dp"
                 android:text="My Recommended Courses"
                 android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
                 android:textStyle="bold" />
 
             <LinearLayout
