@@ -86,6 +86,8 @@ So that is why we added
 ## Automation Testing
 To verify the functionality of the application we used automatic testing using JUnit (current version Junit5). This is a simple but very popular tool. It brought additions to the manual tests performed by us and is also very easy to understand and use, from the first sight. We have created automatic tests for all "Get" and "Set" methods, so that we can be sure that the data that the application extracts through those methods are the very data that we expect to be extracted.
 
+![Test-snippet](https://github.com/CojocaruAlexandraFlavia/FMI-MyMento-Project/blob/master/images/test.png)
+
 ## Code Standards
 Our project respects [Java Coding Standards](https://google.github.io/styleguide/javaguide.html): components’ names were written for their purpose, classes’ names are nouns starting with uppercase letters, methods’ names are verbs or verb-noun combinations starting with lowercase letters.
 
