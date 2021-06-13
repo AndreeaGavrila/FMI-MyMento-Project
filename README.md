@@ -40,6 +40,12 @@ Our project was written in Java and developed in Android Studio. The build tool 
 
 ## Bug Reporting
 
+* In order to keep the integrity of our database, we had to constrain some of columns from the "taught_courses" table.
+We fixed that by making "idCourseToTeach", "id_FkStudent", "id_FkTutor" unique values.
+This led us to another bug, referring to changing the database structure. When we updated the database structure, we needed
+to either update its version by simply increasing the current version number or to wipe data from
+our emulator and run again.
+
 * The application logo was added to the files, but was not visible on the desired page. Solution: We added the specific attribute
   ```android
   tools: srcCompat =" @ drawable / mymentologo " 
