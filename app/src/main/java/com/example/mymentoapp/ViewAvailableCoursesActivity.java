@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -120,15 +122,21 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
                                 this.runOnUiThread(() -> {
 
                                     TextView textView = new TextView(this.getApplicationContext());
-
                                     textView.setText(v);
                                     textView.setBackgroundColor(Color.rgb(214, 215, 215));
+                                    textView.setPadding(10, 0, 10, 0);
+
+                                    TextView textView1 = new TextView(this.getApplicationContext());
+                                    textView1.setBackgroundColor(Color.rgb(25, 55, 106));
+                                    textView1.setPadding(20, 0, 20, 0);
+
                                     linearLayout = new LinearLayout(this.getApplicationContext());
                                     linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                                     linearLayout.setBackgroundColor(Color.rgb(25, 55, 106));
-                                    linearLayout.setPadding(10, 10, 10, 10);
+                                    linearLayout.setPadding(10, 10, 10, 20);
                                     linearLayout.removeAllViews();
                                     linearLayout.addView(textView);
+                                    linearLayout.addView(textView1);
 
                                     new Thread(() -> {
                                         tutor = tutorViewModel.getTutorById(k);
@@ -136,6 +144,9 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
 
                                     btn = new Button(this.getApplicationContext());
                                     btn.setText("SEND REQUEST");
+                                    btn.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+
 
                                     btn.setOnClickListener(t -> {
                                             Toast.makeText(getApplicationContext(), "REQUEST SENT", Toast.LENGTH_SHORT).show();

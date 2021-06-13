@@ -128,7 +128,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
 
                                     StudentWithNotifications studentWithNotifications = new StudentWithNotifications(student1, studentNotificationsList);
                                     studentViewModel.insertStudentWithNotifications(studentWithNotifications);
-
                                     notificationViewModel.deleteNotification(n.getIdNotification());
 
                                     finish();
@@ -160,7 +159,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
                             textView1.setPadding(30, 30, 30, 30);
                             textView1.setTextColor(Color.rgb(255,255,255));
                             textView1.setTextSize(16);
-
 
                             if(sn.getStatus().equals("New")){
                                 textView1.setTypeface(textView1.getTypeface(), Typeface.BOLD);
