@@ -34,7 +34,8 @@
                 android:id="@+id/button_add_courses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add courses" />
+                android:text="Add courses"
+                app:backgroundTint="#2850a1" />
         </LinearLayout>
     </ScrollView>
 

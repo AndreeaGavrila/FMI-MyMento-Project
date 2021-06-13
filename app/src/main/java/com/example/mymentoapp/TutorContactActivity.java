@@ -11,22 +11,29 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mymentoapp.data.StudentDao;
+import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.RatingStudent;
 import com.example.mymentoapp.model.RatingStudentViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorViewModel;
+import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TutorContactActivity extends AppCompatActivity {
+
 //    StudentDao studentDao;
 //    TutorDao tutorDao;
+
     TutorViewModel tutorViewModel;
     StudentViewModel studentViewModel;
     RatingStudentViewModel ratingStudentViewModel;
+
     //MyRoomDatabase roomDatabase;
     TextView title;
     Button mail, phone, giveStars, backHome;
@@ -38,6 +45,7 @@ public class TutorContactActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutor_contact);
+
         toolbar = findViewById(R.id.toolbar_home);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -90,6 +98,7 @@ public class TutorContactActivity extends AppCompatActivity {
             });
 
             giveStars.setOnClickListener(v -> {
+
                 new Thread(()->{
                     List<String> tutorWithRating = ratingStudentViewModel.getStudentsWithRatingForTutor(currentTutor.getUsername());
                     if(!tutorWithRating.contains(student.getUsername())){
@@ -102,10 +111,12 @@ public class TutorContactActivity extends AppCompatActivity {
                             ratingStudentViewModel.insertStudentForTutor(new RatingStudent(studentUsername, currentTutor.getUsername()));
                             tutorViewModel.updateTutor(currentTutor);
                             runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Your review has been added.", Toast.LENGTH_SHORT).show());
-                        }else{
+                        }
+                        else{
                             runOnUiThread(() -> Toast.makeText(getApplicationContext(), "You should give at least one star.", Toast.LENGTH_SHORT).show());
                         }
-                    }else{
+                    }
+                    else{
                         runOnUiThread(() -> Toast.makeText(getApplicationContext(), "You've already given stars to this tutor.", Toast.LENGTH_SHORT).show());
                     }
                 }).start();
@@ -116,6 +127,7 @@ public class TutorContactActivity extends AppCompatActivity {
                 intent.putExtra("studentName", studentUsername);
                 startActivity(intent);
             });
+
         }).start();
     }
 }

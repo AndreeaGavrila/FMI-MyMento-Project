@@ -1,5 +1,6 @@
 package com.example.mymentoapp.model;
 
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -43,5 +44,6 @@ public class TaughtCourse extends CourseToTeach {
     public void setId_FkStudent(long id_FkStudent) {
         this.id_FkStudent = id_FkStudent;
     }
+
 
 }

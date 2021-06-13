@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:text="@string/home"
+        app:backgroundTint="#2850a1"
         app:cornerRadius="10dp"
         app:iconTint="#00BCD4"
         app:iconTintMode="src_in" />

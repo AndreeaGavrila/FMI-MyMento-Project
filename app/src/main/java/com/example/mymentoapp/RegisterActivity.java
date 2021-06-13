@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
+import com.example.mymentoapp.model.Login;
 import com.example.mymentoapp.model.RegisterViewModel;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
@@ -86,68 +87,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                 }).start();
             }
-
-
-//-------------------------------------------------------------------------------------------------
-//------------------------------------ OLD VERSION  -----------------------------------------------
-//-------------------------------------------------------------------------------------------------
-
-//                    if(password.equals(confirm_password))
-//                        {
-//
-//                        Boolean checkusername = databaseHelper.CheckStudentUsername(username);
-//                        System.out.println(checkusername);
-//
-//                        if(checkusername == true)
-//                            {
-//                            Student s = new Student(username, "", "", password, "", "", "", "");
-//
-////                            Intent intent2 = new Intent(Register.this, ProfileTutorActivity.class);
-////                            intent2.putExtra("registeredUsername", s.getUserName());
-//                            // startActivity(intent2);
-//
-//                            insert = databaseHelper.InsertStudent(s);
-//
-//                            if(insert == true)
-//                                {
-//                                Toast.makeText(getApplicationContext(), "Registered", Toast.LENGTH_SHORT).show();
-//
-//                                et_username.setText("");
-//                                et_password.setText("");
-//                                et_cpassword.setText("");
-//
-//                                Intent intent = new Intent(RegisterActivity.this, ChooseStatusActivity.class);
-//
-//                                intent.putExtra("registeredUsername", s.getUsername());
-//                                intent.putExtra("registeredPassword", s.getPassword());
-//
-//                                startActivity(intent);
-//                                }
-//                            }
-//                        else
-//                            {
-//                            Toast.makeText(getApplicationContext(), "Username already taken", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    else
-//                        {
-//                        Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//-------------------------------------------------------------------------------------------------
-
         });
+
+        login.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, Login.class)));
     }
 
 
     private Boolean validateInput(Student student) {
-        if (student.getUsername().isEmpty() ||
-                student.getPassword().isEmpty() ||
-                et_cpassword.equals(""))
-        {
-            return false;
-        }
-        return true;
+        return !student.getUsername().isEmpty() &&
+                !student.getPassword().isEmpty() &&
+                !et_cpassword.getText().toString().equals("");
     }
 
 

@@ -2,8 +2,10 @@ package com.example.mymentoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,6 +30,7 @@ public class RecommendActivity  extends AppCompatActivity {
     MyRoomDatabase roomDatabase;
 //    TextView textViewToTeachCourse;
     LinearLayout linearLayout;
+
     Button backHome;
     Toolbar toolbar;
 
@@ -36,6 +39,7 @@ public class RecommendActivity  extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
+
         toolbar = findViewById(R.id.toolbar_home);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -46,12 +50,15 @@ public class RecommendActivity  extends AppCompatActivity {
         //textViewToTeachCourse = (TextView) findViewById(R.id.recommended_courses);
         linearLayout = findViewById(R.id.layout_recommended);
         backHome = findViewById(R.id.back_home);
+
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
         studentDao = roomDatabase.studentDao();
         tutorDao = roomDatabase.tutorDao();
+
         SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
         CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
 //        textViewToTeachCourse.setVisibility(View.VISIBLE);
+
         List<String> textTeach = new ArrayList<>();
         List<List<String>> coursesList = new ArrayList<>();
         System.out.println("in recommend");
@@ -71,9 +78,12 @@ public class RecommendActivity  extends AppCompatActivity {
                     Tutor tutor = tutorDao.getTutor(tutorId);
                     textTeach.add(tutor.getLastName());
                     textTeach.add(tutor.getFirstName());
-                    double tutorRating = tutor.getRating();
-                    textTeach.add(Double.toString(tutorRating));
+
+                    Double tutorRating = tutor.getRating();
+                    textTeach.add(tutorRating.toString());
+
                     System.out.println(textTeach);
+
                     String tutorUsername = tutor.getUsername();
                     if (!tutorUsername.equals(studentName)) {
                         coursesList.add(new ArrayList<>(textTeach));
@@ -88,6 +98,7 @@ public class RecommendActivity  extends AppCompatActivity {
                     //System.out.println(jj.toString());
                     //System.out.println(coursesList.size());
                     //System.out.println(coursesList);
+
                     if((coursesList.get(j)).get(3).compareTo((coursesList.get(i)).get(3))>0){
                         Collections.swap(coursesList,i,j);
                     }
@@ -144,5 +155,6 @@ public class RecommendActivity  extends AppCompatActivity {
             intent.putExtra("studentName", studentName);
             startActivity(intent);
         });
+
     }
 }

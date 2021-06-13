@@ -57,6 +57,7 @@ public class StudentRepository {
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(studentDao::deleteAll);
     }
+
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
         new insertAsync(studentDao).execute(studentWithCourse);
     }

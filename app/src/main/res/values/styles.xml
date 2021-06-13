@@ -23,4 +23,5 @@
     <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/mymentologo</item>
     </style>
+
 </resources>

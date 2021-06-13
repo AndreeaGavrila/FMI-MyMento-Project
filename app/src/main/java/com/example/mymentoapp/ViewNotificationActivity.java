@@ -3,14 +3,20 @@ package com.example.mymentoapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
@@ -25,6 +31,8 @@ import com.example.mymentoapp.model.TutorViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ViewNotificationActivity extends AppCompatActivity {
 
@@ -41,7 +49,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
     private Student student;
     private Tutor tutor;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +73,9 @@ public class ViewNotificationActivity extends AppCompatActivity {
             tutorViewModel = new TutorViewModel(this.getApplication());
             notificationViewModel = new NotificationViewModel(this.getApplication());
             courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+
             student = studentViewModel.getStudentByUsername(studentName);
+            tutor = tutorViewModel.getTutor(studentName);
 
             if(tutorViewModel.getTutor(studentName) != null){
                 int idTutor = tutorViewModel.getTutor(studentName).getIdStudent();

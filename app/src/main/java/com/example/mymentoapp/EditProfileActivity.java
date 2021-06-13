@@ -82,6 +82,7 @@ public class EditProfileActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         backToHome = findViewById(R.id.back_home);
+
         new Thread(() -> {
 
             studentViewModel = new StudentViewModel(this.getApplication());
@@ -314,7 +315,8 @@ public class EditProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        edit.setOnClickListener(v -> new Thread(() -> {
+        edit.setOnClickListener(v ->
+                new Thread(() -> {
 
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
 

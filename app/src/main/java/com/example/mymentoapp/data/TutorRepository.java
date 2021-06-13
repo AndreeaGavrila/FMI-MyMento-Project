@@ -16,8 +16,8 @@ import java.util.List;
 public class TutorRepository {
     private final TutorDao tutorDao;
     private final List<Tutor> allTutors;
-    private StudentDao studentDao;
-    private List<Student> allStudents;
+    private final StudentDao studentDao;
+    private final List<Student> allStudents;
 
     public TutorRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -33,7 +33,6 @@ public class TutorRepository {
 
     public void insertTutor(Tutor tutor){
         MyRoomDatabase.databaseWriteExecutor.execute(()-> tutorDao.insertTutor(tutor));
-
     }
 
     public void insertTutorWithCourses(TutorWithCourse tutorWithCourse) {

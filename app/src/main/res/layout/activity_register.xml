@@ -45,20 +45,22 @@
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/et_cpassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
         android:ems="10"
         android:text="Register"
-        android:layout_below="@+id/et_cpassword" />
+        app:backgroundTint="#2850a1" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:text="Login"
-        android:layout_alignParentBottom="true"/>
+        app:backgroundTint="#2850a1" />
 
 
 </RelativeLayout>

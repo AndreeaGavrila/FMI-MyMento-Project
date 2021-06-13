@@ -22,7 +22,6 @@ import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.ArrayList;
 
-
 public class ProfileStudentActivity extends AppCompatActivity {
 
     EditText lastName, firstName, phoneNumber, email;

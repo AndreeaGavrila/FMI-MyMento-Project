@@ -431,7 +431,7 @@ public class AssignCourse {
                 break;
         }
 
-}
+    }
 
 
     public String getStudyYear() {

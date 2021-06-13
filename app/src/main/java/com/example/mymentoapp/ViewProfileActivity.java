@@ -1,10 +1,13 @@
 package com.example.mymentoapp;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -191,15 +194,19 @@ public class ViewProfileActivity extends AppCompatActivity {
                 ", domeniul " + domain + " a acumulat un numar de " + nrOfHours + " de ore de activitate în cadrul aplicației FMI MyMento.\n\n";
         String secondParagraph = " A ocupat funcția de tutore pentru " + nrOfStudents + " studenți, predând materiile:\n";
         String paragraph = firstParagraph + secondParagraph;
-
+        String receivedMoney = "În urma activității sale, studentul a primit suma: " + nrOfStudents * 10 + " lei.\n";
         String date = "Data: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         StringBuilder text = new StringBuilder(title + "\n" + paragraph + "\n");
+
         for(TaughtCourse taughtCourse : taughtCoursesList){
             text.append(taughtCourse.getCourseName());
             text.append("\n");
         }
-        text.append("\n");
-        text.append(date);
+
+        text.append("\n").append(receivedMoney).append("\n").append(date);
+//        text.append(receivedMoney);
+//        text.append("\n");
+//        text.append(date);
 
         Canvas canvas = page.getCanvas();
         TextPaint textPaint = new TextPaint();
@@ -229,4 +236,4 @@ public class ViewProfileActivity extends AppCompatActivity {
         pdfDocument.close();
     }
 
-    }
+}

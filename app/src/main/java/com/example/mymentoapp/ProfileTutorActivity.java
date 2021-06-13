@@ -222,7 +222,7 @@ public class ProfileTutorActivity extends AppCompatActivity {
                 StudentDao studentDao = roomDatabase.studentDao();
 
                 ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
-                ArrayList<SpecificCourse> specificCourses = assignCourse2.getSpecificCourseList();
+                ArrayList<SpecificCourse> specificCourses = (ArrayList<SpecificCourse>) assignCourse2.getSpecificCourseList();
 
                 for (int i = 0; i < specificCourses.size(); i++) {
                     CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
@@ -247,6 +247,7 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         student.setLastName(lastname);
                         student.setFirstName(firstname);
                         System.out.println("specialization" + specialization1);
+                        ;
                         System.out.println("domain" + domain1);
                         System.out.println("year" + studyYear1);
 //                        assignCourse = new AssignCourse(studyYear1, domain1, specialization1);

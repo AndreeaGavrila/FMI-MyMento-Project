@@ -92,14 +92,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/edit_profile" />
+                android:text="@string/edit_profile"
+                app:backgroundTint="#2850a1" />
 
             <Button
                 android:id="@+id/download_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/activity" />
+                android:text="@string/activity"
+                app:backgroundTint="#2850a1" />
 
         </LinearLayout>
     </ScrollView>

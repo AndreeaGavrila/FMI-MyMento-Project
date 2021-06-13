@@ -30,6 +30,10 @@ public class TaughtCourseRepository {
         return taughtCourseDao.getAllTaughtCoursesForStudent(idInput);
     }
 
+    public List<TaughtCourse> getAllTaughtCoursesForTutor(int idInput){
+        return taughtCourseDao.getAllTaughtCoursesForTutor(idInput);
+    }
+
     public void insert(TaughtCourse taughtCourse){
         MyRoomDatabase.databaseWriteExecutor.execute(()-> taughtCourseDao.insertTaughtCourse(taughtCourse));
     }
@@ -42,9 +46,5 @@ public class TaughtCourseRepository {
 
     public void deleteSpecificCourse(int id){
         MyRoomDatabase.databaseWriteExecutor.execute(()-> taughtCourseDao.deleteTaughtCourses(id));
-    }
-
-    public List<TaughtCourse> getAllTaughtCoursesForTutor(int idInput){
-        return taughtCourseDao.getAllTaughtCoursesForTutor(idInput);
     }
 }

@@ -25,26 +25,33 @@ public class CourseToTeachRepository {
     }
 
     public void insert(CourseToTeach courseToTeach){
-        MyRoomDatabase.databaseWriteExecutor.execute(()-> courseToTeachDao.insertCourseToTeach(courseToTeach));
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            courseToTeachDao.insertCourseToTeach(courseToTeach);
+        });
     }
 
     public CourseToTeach getCourseById(int id){
         return courseToTeachDao.getCourseById(id);
     }
+
 //    public void update(){
 //        MyRoomDatabase.databaseWriteExecutor.execute(()->{
 //            courseToTeachDao.updateSpecificCourses();
 //        });
 //    }
     public void deleteAll(){
-        MyRoomDatabase.databaseWriteExecutor.execute(courseToTeachDao::deleteAll);
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            courseToTeachDao.deleteAll();
+        });
     }
 
     public List<CourseToTeach> getAllCourseToTeach(int id){
         return courseToTeachDao.getAllSpecificCoursesForTutor(id);
     }
     public void deleteCoursesForTutor(int id){
-        MyRoomDatabase.databaseWriteExecutor.execute(()-> courseToTeachDao.deleteCourseToTeach(id));
+        MyRoomDatabase.databaseWriteExecutor.execute(()->{
+            courseToTeachDao.deleteCourseToTeach(id);
+        });
     }
     public List<CourseToTeach> getAllCoursesForSpecificCourse(String courseName){
         return courseToTeachDao.getAllCoursesForSpecificCourse(courseName);

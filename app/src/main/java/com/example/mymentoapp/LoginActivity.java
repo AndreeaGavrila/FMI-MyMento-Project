@@ -14,21 +14,21 @@ import com.example.mymentoapp.util.MyRoomDatabase;
 public class LoginActivity extends AppCompatActivity {
 
     Button register, login;
-    EditText et_lusername, et_lpassword;
+    EditText editUsername, editPassword;
     private StudentDao studentDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        et_lusername = findViewById(R.id.username_input);
-        et_lpassword = findViewById(R.id.password_input);
+        editUsername = findViewById(R.id.username_input);
+        editPassword = findViewById(R.id.password_input);
         login = findViewById(R.id.btnl_login);
         register = findViewById(R.id.btnl_register);
 
         login.setOnClickListener(v -> {
-            String username = et_lusername.getText().toString();
-            String password = et_lpassword.getText().toString();
+            String username = editUsername.getText().toString();
+            String password = editPassword.getText().toString();
             if(username.isEmpty() || password.isEmpty()){
                 Toast.makeText(getApplicationContext(),"Enter both username and password for login",Toast.LENGTH_SHORT).show();
             }

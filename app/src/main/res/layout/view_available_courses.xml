@@ -23,18 +23,18 @@
                 android:id="@+id/layout_available_courses"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="423dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center|center_horizontal"
-                    android:paddingTop="50dp"
-                    android:paddingBottom="25dp"
-                    android:text="AVAILABLE COURSES TO TAKE..."
-                    android:textSize="18sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="423dp"
+                android:layout_height="match_parent"
+                android:gravity="center|center_horizontal"
+                android:paddingTop="50dp"
+                android:paddingBottom="25dp"
+                android:text="AVAILABLE COURSES TO TAKE..."
+                android:textSize="18sp" />
+
         </LinearLayout>
     </ScrollView>
 
