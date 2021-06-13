@@ -33,7 +33,7 @@
                 android:gravity="center"
                 android:paddingTop="40dp"
                 android:scrollbarSize="40dp"
-                android:text="New notifications"
+                android:text="Notifications"
                 android:textColor="#060000"
                 android:textSize="24dp"
                 android:textStyle="bold" />

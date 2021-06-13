@@ -54,6 +54,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     private LinearLayout layout, linearLayout;
     private Button btn, backHome;
     Toolbar toolbar;
+    TextView textViewCourses;
 
 
     @SuppressLint("SetTextI18n")
@@ -68,6 +69,7 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         layout = findViewById(R.id.layout_available_courses);
         backHome = findViewById(R.id.back_home);
+        textViewCourses =findViewById(R.id.available_courses);
 
         Bundle bundle = getIntent().getExtras();
         String courseName = bundle.getString("courseName");
@@ -124,34 +126,42 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
 
             if(courseToTeachList2.size() > 0) {
                 new Thread(() -> {
+
                     tutorAndCourses.forEach(item ->
                             item.forEach((k, v) -> {
                                 this.runOnUiThread(() -> {
+                                    textViewCourses.setVisibility(View.VISIBLE);
+
 
                                     TextView textView = new TextView(this.getApplicationContext());
                                     textView.setText(v);
-                                    textView.setBackgroundColor(Color.rgb(214, 215, 215));
-                                    textView.setPadding(10, 0, 10, 0);
 
-                                    TextView textView1 = new TextView(this.getApplicationContext());
-                                    textView1.setBackgroundColor(Color.rgb(25, 55, 106));
-                                    textView1.setPadding(20, 0, 20, 0);
+                                    textView.setPadding(10, 10, 5, 5);
+                                    textView.setTextColor(Color.rgb(255, 255, 255));
+                                    textView.setGravity(Gravity.CENTER);
+                                    textView.setTextSize(18);;
+
+                                    TextView textView1 =  new TextView(this.getApplicationContext());
+                                    textView1.setBackgroundColor(Color.rgb(196, 201, 208));
+                                    TextView textView3 = new TextView(this.getApplicationContext());
+                                    textView3.setBackgroundColor(Color.rgb(1,24,71));
 
                                     linearLayout = new LinearLayout(this.getApplicationContext());
-                                    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                    linearLayout.setOrientation(LinearLayout.VERTICAL);
                                     linearLayout.setBackgroundColor(Color.rgb(25, 55, 106));
-                                    linearLayout.setPadding(10, 10, 10, 20);
-                                    linearLayout.removeAllViews();
-                                    linearLayout.addView(textView);
-                                    linearLayout.addView(textView1);
+
+                                    btn = new Button(this.getApplicationContext());
+
+                                    btn.setText("SEND REQUEST");
+                                    btn.setTextColor(Color.rgb(0,0,0));
+                                    btn.setTextSize(18);
+
 
                                     new Thread(() -> {
                                         tutor = tutorViewModel.getTutorById(k);
                                     }).start();
 
-                                    btn = new Button(this.getApplicationContext());
-                                    btn.setText("SEND REQUEST");
-                                    btn.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
 
 
 
@@ -183,7 +193,10 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
 
                                         });
 
+                                    linearLayout.addView(textView3);
+                                    linearLayout.addView(textView);
                                     linearLayout.addView(btn);
+                                    linearLayout.addView(textView1);
                                     layout.addView(linearLayout);
 
                                 });
@@ -192,7 +205,20 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
 
             }
             else {
-                System.out.println("No courses!");
+                this.runOnUiThread(() ->{
+                    TextView txt = findViewById(R.id.available_courses);
+                    txt.setVisibility(View.INVISIBLE);
+                    TextView textView = new TextView(this.getApplicationContext());
+                    textView.setPadding(10, 10, 5, 5);
+                    textView.setTextColor(Color.rgb(0, 0, 0));
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setTextSize(18);;
+                    textView.setBackgroundColor(Color.rgb(196, 201, 208));
+                    textView.setText("There are no courses here yet :(");
+
+                    layout.addView(textView);
+                });
+
 
             }
 

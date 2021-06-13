@@ -4,14 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -56,6 +60,8 @@ public class ViewNotificationActivity extends AppCompatActivity {
     TextView textView;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @SuppressLint({"RtlHardcoded", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,31 +91,50 @@ public class ViewNotificationActivity extends AppCompatActivity {
             tutor = tutorViewModel.getTutor(studentName);
 
             if(tutor != null){
-                System.out.println("il vede tutuor");
-                notificationArrayList = notificationViewModel.getAllNotificationsForTutor(tutor.getIdStudent());
-                for(Notification n : notificationArrayList){
-                    Student student1 = studentViewModel.getStudent((int) n.getId_FkStudent());
-                    String text = n.getDescription()  + student1.getFirstName() + " " + student1.getLastName() + " \n" ;
+                studentNotifications = studentNotificationViewModel.getAllNotificationsForStudent(tutor.getUsername());
+                Collections.sort(studentNotifications, (a, b) -> a.getStatus().equals("New") && b.getStatus().equals("Old") ? -1
+                        : a.getStatus().equals("Old") && b.getStatus().equals("New") ? 1
+                        :0);
 
+                notificationArrayList = notificationViewModel.getAllNotificationsForTutor(tutor.getIdStudent());
+
+                for(Notification n : notificationArrayList){
+                    CourseToTeach c = courseToTeachViewModel.getCourseById((int) n.getId_FkCourseToTeach());
+                    Student student1 = studentViewModel.getStudent((int) n.getId_FkStudent());
+                    String text = n.getDescription()  + student1.getFirstName() + " " + student1.getLastName() + " for "+
+                            c.getCourseName() + " course \n" ;
                     Button btn = new Button(this.getApplicationContext());
 
                     btn.setText("ACCEPT REQUEST");
+                    btn.setTextColor(Color.rgb(0,0,0));
+                    btn.setTextSize(18);
 
                     this.runOnUiThread(() ->{
                         textView = new TextView(this.getApplicationContext());
                         textView.setText(text);
+                        textView.setPadding(10, 10, 5, 5);
+                        textView.setTextColor(Color.rgb(255, 255, 255));
+                        textView.setGravity(Gravity.CENTER);
+                        textView.setTextSize(18);
+
                         linearLayout1 = new LinearLayout(this.getApplicationContext());
 
-                        linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
+                        linearLayout1.setOrientation(LinearLayout.VERTICAL);
                         linearLayout1.setBackgroundColor(Color.rgb(25, 55, 106));
-                        linearLayout1.setPadding(10, 10, 10, 10);
+                        TextView textView1 =  new TextView(this.getApplicationContext());
+                        textView1.setBackgroundColor(Color.rgb(196, 201, 208));
 
                         if(btn.getParent() !=null){
                             ((ViewGroup)btn.getParent()).removeView(btn);
                         }
 
+                        TextView textView3 = new TextView(this.getApplicationContext());
+                        textView3.setBackgroundColor(Color.rgb(1,24,71));
+
+                        linearLayout1.addView(textView3);
                         linearLayout1.addView(textView);
                         linearLayout1.addView(btn);
+                        linearLayout1.addView(textView1);
                         linearLayout.addView(linearLayout1);
 
                         btn.setOnClickListener(v ->{
@@ -146,27 +171,57 @@ public class ViewNotificationActivity extends AppCompatActivity {
                     });
 
                 }
+
+                this.runOnUiThread(() ->{
+                    for(StudentNotification sn : studentNotifications){
+                        TextView textView1 = new TextView(this.getApplicationContext());
+                        textView1.setText(sn.getDescription());
+                        textView1.setBackgroundColor(Color.rgb(25, 55, 106));
+                        textView1.setPadding(30, 30, 30, 30);
+                        textView1.setTextColor(Color.rgb(255,255,255));
+                        textView1.setTextSize(18);
+
+                        if(sn.getStatus().equals("New")){
+                            textView1.setTypeface(textView1.getTypeface(), Typeface.BOLD);
+                        }
+
+                        textView1.setOnClickListener(u ->{
+                            sn.setStatus("Old");
+                            studentNotificationViewModel.updateNotification(sn);
+                            textView1.setTypeface(textView1.getTypeface(), Typeface.NORMAL);
+                            finish();
+                            startActivity(getIntent());
+                        });
+
+                        TextView textView2 = new TextView(this.getApplicationContext());
+                        textView2.setBackgroundColor(Color.rgb(196,201,208));
+                        textView2.setPadding(25, 5, 25, 5);
+
+                        TextView textView3 = new TextView(this.getApplicationContext());
+                        textView3.setBackgroundColor(Color.rgb(1,24,71));
+                        textView3.setPadding(25, 1, 25, 0);
+
+                        linearLayout.addView(textView3);
+                        linearLayout.addView(textView1);
+                        linearLayout.addView(textView2);
+                    }
+                });
             }
             else{
-                System.out.println("in else");
 
-                System.out.println(student.getIdStudent());
                 studentNotifications = studentNotificationViewModel.getAllNotificationsForStudent(student.getUsername());
                 Collections.sort(studentNotifications, (a, b) -> a.getStatus().equals("New") && b.getStatus().equals("Old") ? -1
                         : a.getStatus().equals("Old") && b.getStatus().equals("New") ? 1
                         :0);
-
-                System.out.println(studentNotifications.size());
                     this.runOnUiThread(() ->{
 
                         for(StudentNotification sn : studentNotifications){
-                            System.out.println("mptofcatipn " + sn.getStatus());
                             TextView textView1 = new TextView(this.getApplicationContext());
                             textView1.setText(sn.getDescription());
                             textView1.setBackgroundColor(Color.rgb(25, 55, 106));
                             textView1.setPadding(30, 30, 30, 30);
                             textView1.setTextColor(Color.rgb(255,255,255));
-                            textView1.setTextSize(16);
+                            textView1.setTextSize(18);
 
                             if(sn.getStatus().equals("New")){
                                 textView1.setTypeface(textView1.getTypeface(), Typeface.BOLD);

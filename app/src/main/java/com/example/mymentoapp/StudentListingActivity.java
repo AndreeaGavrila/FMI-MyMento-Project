@@ -55,110 +55,120 @@ public class StudentListingActivity extends AppCompatActivity {
             Tutor tutor=tutorDao.getTutorByUserName(tutorName);
             studentList = taughtCourseDao.getStudentAndCourseByTutorId(tutor.getIdStudent());
 
-            if(orderCriteria.equals("alphabetic")){
-
-                System.out.println(studentList);
-                List<String> alphaList = new ArrayList<>();
-                for(String st : studentList){
-                    String studentName;
-                    studentName=st.split(",")[0];
-                    System.out.println(studentName);
-                    alphaList.add(studentName);
-                }
-
-                for(int i=0;i<alphaList.size()-1;i++)
-                    for(int j=i+1;j<alphaList.size();j++){
-                        if((alphaList.get(j)).compareTo((alphaList.get(i)))<0){
-                            Collections.swap(alphaList,i,j);
-                        }
-                    }
-                for(int i=0;i<alphaList.size()-1;i++)       //remove duplicates
-                    if((alphaList.get(i+1)).compareTo((alphaList.get(i)))==0){
-                        alphaList.remove(i+1);
-                        i--;
-                    }
-                for(int i=0;i<alphaList.size();i++){
-                    TextView studentView = new TextView(getApplicationContext());
-                    studentView.setText(alphaList.get(i).concat("\n"));
-
-                    linearLayout.addView(studentView);
-                }
-            }
-            else if(orderCriteria.equals("course_order")) {
-                System.out.println(studentList);
-                List<List<String>> orderCourse = new ArrayList<>();
-                List<String> item = new ArrayList<>();
-                for (String st : studentList) {
-                    String studentName, courseName;
-                    studentName = st.split(",")[0];
-                    System.out.println(st);
-                    courseName = st.split(",")[1];
-                    item.add(studentName);
-                    item.add(courseName);
-                    orderCourse.add(new ArrayList<>(item));
-                    System.out.println(item);
-                    item.clear();
-                }
-                System.out.println(orderCourse);
-                for (int i = 0; i < orderCourse.size() - 1; i++) //order by courses
-                    for (int j = i + 1; j < orderCourse.size(); j++) {
-                        if ((orderCourse.get(j).get(1)).compareTo((orderCourse.get(i).get(1))) < 0) {
-                            Collections.swap(orderCourse, i, j);
-                        } else if ((orderCourse.get(j)).get(1).compareTo((orderCourse.get(i)).get(1)) == 0 && (orderCourse.get(j)).get(0).compareTo((orderCourse.get(i)).get(0)) < 0) {
-                            Collections.swap(orderCourse, i, j);
-                        }
-                    }
-                System.out.println(orderCourse);
-                String title = orderCourse.get(0).get(1);
-                TextView subjectTitle = new TextView(getApplicationContext());
-                subjectTitle.setText(title);
-                subjectTitle.setTypeface(Typeface.DEFAULT_BOLD);
-                linearLayout.addView(subjectTitle);
-                TextView stName = new TextView(getApplicationContext());
-                stName.setText(orderCourse.get(0).get(0));
-                linearLayout.addView(stName);
-                for (int i = 1; i < orderCourse.size(); i++) {
-                    if (orderCourse.get(i).get(1).compareTo(title) != 0) {
-                        title = orderCourse.get(i).get(1);
-                        subjectTitle = new TextView(getApplicationContext());
-                        subjectTitle.setText(title);
-                        subjectTitle.setTypeface(Typeface.DEFAULT_BOLD);
-                        linearLayout.addView(subjectTitle);
-                        stName = new TextView(getApplicationContext());
-                        stName.setText(orderCourse.get(i).get(0));
-                        linearLayout.addView(stName);
-
-                    } else if (orderCourse.get(i).get(1).compareTo(title) == 0) {
-                        stName = new TextView(getApplicationContext());
-                        stName.setText(orderCourse.get(i).get(0));
-                        linearLayout.addView(stName);
-                    }
-
-                }
+            if (studentList.size() == 0) {
+                TextView mesaj = new TextView(getApplicationContext());
+                mesaj.setText("You don't have any students yet");
+                linearLayout.addView(mesaj);
             }
             else{
-                studentList = taughtCourseDao.getStudentAndAttendace(tutor.getIdStudent());
-                System.out.println(studentList);
+                if(orderCriteria.equals("alphabetic")){
 
-                List<String> attendanceList = new ArrayList<>();
-                for(String st : studentList){
-                    String studentName;
-                    studentName=st.split(",")[0];
-                    System.out.println(studentName);
-                    attendanceList.add(studentName);
-                }
-                for(int i=0;i<attendanceList.size()-1;i++)       //remove duplicates
-                    if((attendanceList.get(i+1)).compareTo((attendanceList.get(i)))==0){
-                        attendanceList.remove(i+1);
-                        i--;
+                    System.out.println(studentList);
+                    List<String> alphaList = new ArrayList<>();
+                    for(String st : studentList){
+                        String studentName;
+                        studentName=st.split(",")[0];
+                        System.out.println(studentName);
+                        alphaList.add(studentName);
                     }
-                for(int i=0;i<attendanceList.size();i++){
-                    TextView studentView = new TextView(getApplicationContext());
-                    studentView.setText(attendanceList.get(i).concat("\n"));
 
-                    linearLayout.addView(studentView);
+                    for(int i=0;i<alphaList.size()-1;i++)
+                        for(int j=i+1;j<alphaList.size();j++){
+                            if((alphaList.get(j)).compareTo((alphaList.get(i)))<0){
+                                Collections.swap(alphaList,i,j);
+                            }
+                        }
+                    for(int i=0;i<alphaList.size()-1;i++)       //remove duplicates
+                        if((alphaList.get(i+1)).compareTo((alphaList.get(i)))==0){
+                            alphaList.remove(i+1);
+                            i--;
+                        }
+                    for(int i=0;i<alphaList.size();i++){
+                        TextView studentView = new TextView(getApplicationContext());
+                        studentView.setText(alphaList.get(i).concat("\n"));
+
+                        linearLayout.addView(studentView);
+                    }
+                }
+                else if(orderCriteria.equals("course_order")) {
+                    System.out.println(studentList);
+                    List<List<String>> orderCourse = new ArrayList<>();
+                    List<String> item = new ArrayList<>();
+                    for (String st : studentList) {
+                        String studentName, courseName;
+                        studentName = st.split(",")[0];
+                        System.out.println(st);
+                        courseName = st.split(",")[1];
+                        item.add(studentName);
+                        item.add(courseName);
+                        orderCourse.add(new ArrayList<>(item));
+                        System.out.println(item);
+                        item.clear();
+                    }
+                    System.out.println(orderCourse);
+                    for (int i = 0; i < orderCourse.size() - 1; i++) //order by courses
+                        for (int j = i + 1; j < orderCourse.size(); j++) {
+                            if ((orderCourse.get(j).get(1)).compareTo((orderCourse.get(i).get(1))) < 0) {
+                                Collections.swap(orderCourse, i, j);
+                            } else if ((orderCourse.get(j)).get(1).compareTo((orderCourse.get(i)).get(1)) == 0 && (orderCourse.get(j)).get(0).compareTo((orderCourse.get(i)).get(0)) < 0) {
+                                Collections.swap(orderCourse, i, j);
+                            }
+                        }
+                    System.out.println(orderCourse);
+                    String title = orderCourse.get(0).get(1);
+                    TextView subjectTitle = new TextView(getApplicationContext());
+                    subjectTitle.setText(title);
+                    subjectTitle.setTypeface(Typeface.DEFAULT_BOLD);
+                    linearLayout.addView(subjectTitle);
+                    TextView stName = new TextView(getApplicationContext());
+                    stName.setText(orderCourse.get(0).get(0));
+                    linearLayout.addView(stName);
+                    for (int i = 1; i < orderCourse.size(); i++) {
+                        if (orderCourse.get(i).get(1).compareTo(title) != 0) {
+                            title = orderCourse.get(i).get(1);
+                            subjectTitle = new TextView(getApplicationContext());
+                            subjectTitle.setText(title);
+                            subjectTitle.setTypeface(Typeface.DEFAULT_BOLD);
+                            linearLayout.addView(subjectTitle);
+                            stName = new TextView(getApplicationContext());
+                            stName.setText(orderCourse.get(i).get(0));
+                            linearLayout.addView(stName);
+
+                        } else if (orderCourse.get(i).get(1).compareTo(title) == 0) {
+                            stName = new TextView(getApplicationContext());
+                            stName.setText(orderCourse.get(i).get(0));
+                            linearLayout.addView(stName);
+                        }
+
+                    }
+                }
+                else{
+                    studentList = taughtCourseDao.getStudentAndAttendace(tutor.getIdStudent());
+                    System.out.println(studentList);
+
+                    List<String> attendanceList = new ArrayList<>();
+                    for(String st : studentList){
+                        String studentName;
+                        studentName=st.split(",")[0];
+                        System.out.println(studentName);
+                        attendanceList.add(studentName);
+                    }
+                    for(int i=0;i<attendanceList.size()-1;i++)       //remove duplicates
+                        if((attendanceList.get(i+1)).compareTo((attendanceList.get(i)))==0){
+                            attendanceList.remove(i+1);
+                            i--;
+                        }
+                    for(int i=0;i<attendanceList.size();i++){
+                        TextView studentView = new TextView(getApplicationContext());
+                        studentView.setText(attendanceList.get(i).concat("\n"));
+
+                        linearLayout.addView(studentView);
+                    }
                 }
             }
+
+
+
         }).start();
     }
 

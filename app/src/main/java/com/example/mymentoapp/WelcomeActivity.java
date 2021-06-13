@@ -76,12 +76,16 @@ public class WelcomeActivity extends AppCompatActivity {
         new Thread(() -> {
             tutor = tutorDao.getTutorByUserName(studentName);
             if(tutor!=null){
-                manageButton.setVisibility(View.VISIBLE);
-                manageButton.setOnClickListener(v->{
-                    Intent intent = new Intent(WelcomeActivity.this, ManageStudentsActivity.class);
-                    intent.putExtra("studentName", studentName);
-                    startActivity(intent);
+                this.runOnUiThread(() ->{
+                    manageButton.setVisibility(View.VISIBLE);
+                    manageButton.setOnClickListener(v->{
+                        Intent intent = new Intent(WelcomeActivity.this, ManageStudentsActivity.class);
+                        intent.putExtra("studentName", studentName);
+                        startActivity(intent);
+                    });
                 });
+
+
             }
         }).start();
     }
