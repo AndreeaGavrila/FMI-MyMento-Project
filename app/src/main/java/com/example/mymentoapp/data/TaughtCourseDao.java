@@ -34,6 +34,19 @@ public interface TaughtCourseDao {
     @Query("DELETE FROM taught_course WHERE id_FkStudent = :id")
     void deleteTaughtCourses(int id);
 
+    @Query("SELECT lastName || ' ' || firstName || ',' || c.courseName from " +
+            "student_table s join taught_course t on s.idStudent=t.id_FkStudent " +
+            "join course_to_teach c on t.idCourseToTeach=c.idCourseToTeach " +
+            "where c.id_FkTutor=:idTutore")
+    List<String> getStudentAndCourseByTutorId(Integer idTutore);
+
+    @Query("SELECT lastName || ' ' || firstName || ',' || " +
+            "(select count(*) from taught_course where id_FkStudent=s.idStudent) as no_attendance " +
+            "from student_table s join taught_course t on s.idStudent=t.id_FkStudent " +
+            "where t.id_FkTutor=:idTutore " +
+            "order by no_attendance asc")
+    List<String> getStudentAndAttendace(Integer idTutore);
+
     @Update
     void updateTaughtCourses(TaughtCourse... taughtCourses);
 
