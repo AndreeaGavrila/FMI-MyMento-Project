@@ -1,6 +1,7 @@
 package com.example.mymentoapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +50,8 @@ public class ViewNotificationActivity extends AppCompatActivity {
     private Student student;
     private Tutor tutor;
 
+    Toolbar toolbar;
+    Button backHome;
     LinearLayout linearLayout, linearLayout1;
     TextView textView;
 
@@ -58,6 +62,10 @@ public class ViewNotificationActivity extends AppCompatActivity {
         setContentView(R.layout.view_notifications);
 
         linearLayout = findViewById(R.id.layout_notifications);
+        toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        backHome = findViewById(R.id.back_home);
 
 
         //username
@@ -192,6 +200,11 @@ public class ViewNotificationActivity extends AppCompatActivity {
             }
 
         }).start();
+        backHome.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewNotificationActivity.this, WelcomeActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
+        });
 
 
     }

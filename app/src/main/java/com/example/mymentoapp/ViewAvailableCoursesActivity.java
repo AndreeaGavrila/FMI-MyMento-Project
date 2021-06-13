@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
@@ -38,7 +39,6 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     private List<CourseToTeach> courseToTeachList2;
     private List<TaughtCourse> taughtCoursesList;
     private List<Notification> notificationList;
-    private final List<CourseToTeach> unavailableCourseList = new ArrayList<>();
     private final ArrayList<Map<Integer, String>> tutorAndCourses = new ArrayList<>();
 
     private CourseToTeachViewModel courseToTeachViewModel;
@@ -52,7 +52,8 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     private Tutor tutor;
 
     private LinearLayout layout, linearLayout;
-    private Button btn;
+    private Button btn, backHome;
+    Toolbar toolbar;
 
 
     @SuppressLint("SetTextI18n")
@@ -62,7 +63,11 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_available_courses);
 
+        toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
         layout = findViewById(R.id.layout_available_courses);
+        backHome = findViewById(R.id.back_home);
 
         Bundle bundle = getIntent().getExtras();
         String courseName = bundle.getString("courseName");
@@ -94,15 +99,17 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             for(CourseToTeach c : courseToTeachList2) {
                 int gasit = 0;
                 for(TaughtCourse t : taughtCoursesList){
-                    if(c.getIdCourseToTeach() == t.getIdCourseToTeach() && c.getId_FkTutor() == t.getId_FkTutor()
-                    && t.getId_FkStudent() == student.getIdStudent()){
+                    if (c.getIdCourseToTeach() == t.getIdCourseToTeach() && c.getId_FkTutor() == t.getId_FkTutor()
+                            && t.getId_FkStudent() == student.getIdStudent()) {
                         gasit = 1;
+                        break;
                     }
                 }
                 for(Notification n : notificationList){
-                    if(c.getId_FkTutor() == n.getId_FkTutor() && c.getIdCourseToTeach() == n.getId_FkCourseToTeach() &&
-                    student.getIdStudent() == n.getId_FkStudent()){
-                       gasit = 1;
+                    if (c.getId_FkTutor() == n.getId_FkTutor() && c.getIdCourseToTeach() == n.getId_FkCourseToTeach() &&
+                            student.getIdStudent() == n.getId_FkStudent()) {
+                        gasit = 1;
+                        break;
                     }
                 }
 
@@ -190,6 +197,12 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             }
 
         }).start();
+
+        backHome.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewAvailableCoursesActivity.this, WelcomeActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
+        });
 
     }
 }

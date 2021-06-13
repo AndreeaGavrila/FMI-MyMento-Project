@@ -21,9 +21,9 @@ import java.util.List;
 
 public class StudentRepository {
 
-    private StudentDao studentDao;
-    private TutorDao tutorDao;
-    private List<Student> allStudents;
+    private final StudentDao studentDao;
+    private final TutorDao tutorDao;
+    private final List<Student> allStudents;
 
     public StudentRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
@@ -66,9 +66,7 @@ public class StudentRepository {
 //    }
 
     public void deleteAll(){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            studentDao.deleteAll();
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(studentDao::deleteAll);
     }
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse) {
         new insertAsync(studentDao).execute(studentWithCourse);
@@ -76,7 +74,7 @@ public class StudentRepository {
 
 
     private static class insertAsync extends AsyncTask<StudentWithCourse, Void, Void> {
-        private StudentDao studentDaoAsync;
+        private final StudentDao studentDaoAsync;
 
 
         insertAsync(StudentDao studentDao) {
@@ -105,7 +103,7 @@ public class StudentRepository {
 
 
     private static class insertAsync2 extends AsyncTask<StudentWithTaughtCourses, Void, Void> {
-        private StudentDao studentDaoAsync2;
+        private final StudentDao studentDaoAsync2;
 
         insertAsync2(StudentDao studentDao) {
             studentDaoAsync2 = studentDao;

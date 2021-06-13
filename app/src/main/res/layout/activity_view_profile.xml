@@ -7,20 +7,14 @@
     tools:context=".ViewProfileActivity">
 
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,103 +22,60 @@
             android:layout_marginTop="0dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="First name" />
+            <include
+                android:id="@+id/toolbar_home"
+                layout="@layout/toolbar_home" />
 
             <TextView
-                android:id="@+id/firstName"
+                android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Last name" />
-
-            <TextView
-                android:id="@+id/lastName"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Phone number" />
+                android:layout_height="50dp" />
 
             <TextView
                 android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Email" />
+                android:layout_height="55dp" />
 
             <TextView
                 android:id="@+id/email_view"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Study year" />
+                android:layout_height="55dp" />
 
             <TextView
                 android:id="@+id/studyYear"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="Domain" />
+                android:layout_height="55dp" />
 
             <TextView
                 android:id="@+id/domain"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="TextView" />
+                android:layout_height="55dp" />
 
             <TextView
                 android:id="@+id/course_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="My courses"
+                android:text="@string/my_courses"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
 
             <LinearLayout
                 android:id="@+id/layout_recommended"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/text_view_course"
                 style="@style/text_view_style"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
             <TextView
                 android:id="@+id/text_view_course2"
                 style="@style/course_style"
-                android:text="Courses I teach"
+                android:text="@string/courses_i_teach"
                 android:visibility="gone" />
 
             <TextView
@@ -133,22 +84,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="invisible" />
-
             <Button
                 android:id="@+id/edit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Edit profile" />
+                android:text="@string/edit_profile" />
 
             <Button
                 android:id="@+id/download_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Activity" />
+                android:text="@string/activity" />
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

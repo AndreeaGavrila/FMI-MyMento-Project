@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
@@ -25,20 +26,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TutorContactActivity extends AppCompatActivity {
-//    StudentDao studentDao;
-//    TutorDao tutorDao;
+
     TutorViewModel tutorViewModel;
     StudentViewModel studentViewModel;
     RatingStudentViewModel ratingStudentViewModel;
-    //MyRoomDatabase roomDatabase;
+
     TextView title;
-    Button mail, phone, giveStars;
+    Button mail, phone, giveStars, backHome;
     RatingBar ratingBar;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutor_contact);
+
+        toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
         Bundle bundle = getIntent().getExtras();
         String tutorLastName = bundle.getString("tutorLastName");
         String tutorFirstName = bundle.getString("tutorFirstName");
@@ -49,6 +55,7 @@ public class TutorContactActivity extends AppCompatActivity {
         phone = findViewById(R.id.id_tutor_phone);
         giveStars = findViewById(R.id.give_rating);
         ratingBar = findViewById(R.id.rating_bar);
+        backHome = findViewById(R.id.back_home);
 
         System.out.println(tutorLastName.concat(" ".concat(tutorFirstName)));
 
@@ -104,6 +111,13 @@ public class TutorContactActivity extends AppCompatActivity {
                         runOnUiThread(() -> Toast.makeText(getApplicationContext(), "You've already given stars to this tutor.", Toast.LENGTH_SHORT).show());
                     }
                 }).start();
+            });
+
+
+            backHome.setOnClickListener(v -> {
+                Intent intent = new Intent(TutorContactActivity.this, WelcomeActivity.class);
+                intent.putExtra("studentName", studentUsername);
+                startActivity(intent);
             });
         }).start();
     }

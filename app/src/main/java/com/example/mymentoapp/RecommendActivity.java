@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.mymentoapp.data.CourseToTeachDao;
 import com.example.mymentoapp.data.SpecificCourseDao;
@@ -27,24 +28,31 @@ public class RecommendActivity  extends AppCompatActivity {
     StudentDao studentDao;
     TutorDao tutorDao;
     MyRoomDatabase roomDatabase;
-//    TextView textViewToTeachCourse;
+    Button backHome;
+    Toolbar toolbar;
     LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
+
+        toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
 
-        //textViewToTeachCourse = (TextView) findViewById(R.id.recommended_courses);
         linearLayout = findViewById(R.id.layout_recommended);
+        backHome = findViewById(R.id.back_home);
         roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
         studentDao = roomDatabase.studentDao();
         tutorDao = roomDatabase.tutorDao();
         SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
         CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
-//        textViewToTeachCourse.setVisibility(View.VISIBLE);
+
         List<String> textTeach = new ArrayList<>();
         List<List<String>> coursesList = new ArrayList<>();
         System.out.println("in recommend");
@@ -131,5 +139,10 @@ public class RecommendActivity  extends AppCompatActivity {
             }));
 
         }).start();
+        backHome.setOnClickListener(v -> {
+            Intent intent = new Intent(RecommendActivity.this, WelcomeActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
+        });
     }
 }

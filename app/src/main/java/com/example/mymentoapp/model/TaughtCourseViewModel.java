@@ -32,4 +32,7 @@ public class TaughtCourseViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
+    public List<TaughtCourse> getAllTaughtCoursesForTutor(int idStudent) {
+        return repository.getAllTaughtCoursesForTutor(idStudent);
+    }
 }

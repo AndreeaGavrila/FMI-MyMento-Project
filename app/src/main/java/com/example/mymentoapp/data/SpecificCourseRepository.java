@@ -12,18 +12,16 @@ import java.util.List;
 
 public class SpecificCourseRepository {
 
-    private SpecificCourseDao specificCourseDao;
-    private StudentDao studentDao;
-    private List<Student> allStudents;
-    private List<SpecificCourse> allSpecificCourses;
+    private final SpecificCourseDao specificCourseDao;
+    private final List<SpecificCourse> allSpecificCourses;
 
     public SpecificCourseRepository(Application application){
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
         specificCourseDao = db.specificCourseDao();
         allSpecificCourses =  specificCourseDao.getAllSpecificCourses();
 
-        studentDao = db.studentDao();
-        allStudents = studentDao.getAllStudents();
+        StudentDao studentDao = db.studentDao();
+        List<Student> allStudents = studentDao.getAllStudents();
     }
     public List<SpecificCourse> getAllData(){
         return allSpecificCourses;
@@ -37,14 +35,10 @@ public class SpecificCourseRepository {
         });
     }
     public void update(){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            specificCourseDao.updateSpecificCourses();
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(specificCourseDao::updateSpecificCourses);
     }
     public void deleteAll(){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            specificCourseDao.deleteAll();
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(specificCourseDao::deleteAll);
     }
 
     public void deleteSpecificCourse(int id){

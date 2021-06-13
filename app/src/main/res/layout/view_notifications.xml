@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar_home"
+        layout="@layout/toolbar_home" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,6 +31,7 @@
                 android:background="#FDC500"
                 android:ellipsize="start"
                 android:gravity="center"
+                android:paddingTop="40dp"
                 android:scrollbarSize="40dp"
                 android:text="New notifications"
                 android:textColor="#060000"
