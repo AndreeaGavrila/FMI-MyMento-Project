@@ -75,21 +75,15 @@ public class ViewProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         backHome = findViewById(R.id.back_home);
         name = findViewById(R.id.name);
-
         textViewSpecificCourse = findViewById(R.id.text_view_course);
         textViewToTeachCourse = findViewById(R.id.teach_courses);
         textView = findViewById(R.id.text_view_course2);
-//
-//        firstName = findViewById(R.id.firstName);
-//        lastName = findViewById(R.id.lastName);
         phoneNumber = findViewById(R.id.phoneNumber);
         email = findViewById(R.id.email_view);
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
-
         editProfile = findViewById(R.id.edit_btn);
         downloadButton = findViewById(R.id.download_btn);
-
         linearLayout = findViewById(R.id.layout_recommended);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
@@ -103,9 +97,9 @@ public class ViewProfileActivity extends AppCompatActivity {
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
 
             student = studentViewModel.getStudentByUsername(studentName);
+            tutor = tutorViewModel.getTutor(student.getUsername());
 
             ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
-            tutor = tutorViewModel.getTutor(student.getUsername());
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
 
             if (tutor != null) {
@@ -117,9 +111,10 @@ public class ViewProfileActivity extends AppCompatActivity {
 
                 if (tutor != null) {
                     textView.setVisibility(View.VISIBLE);
+                    textViewToTeachCourse.setTextColor(Color.rgb(225, 225, 225));
                     for (CourseToTeach courseToTeach : finalCourseToTeachArrayList) {
-                        textViewToTeachCourse.append(courseToTeach.getCourseName());
-                        textViewToTeachCourse.append("\n");
+                        textViewToTeachCourse.append(" -> "  + courseToTeach.getCourseName());
+                        textViewToTeachCourse.append("\n\n");
                     }
                     downloadButton.setVisibility(View.VISIBLE);
                 }

@@ -36,7 +36,8 @@
                 android:text="Notifications"
                 android:textColor="#060000"
                 android:textSize="24dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
         </LinearLayout>
     </ScrollView>

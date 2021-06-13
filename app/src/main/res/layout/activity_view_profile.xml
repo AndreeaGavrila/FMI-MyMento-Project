@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ViewProfileActivity">
 
+    <include
+        android:id="@+id/toolbar_home"
+        layout="@layout/toolbar_home"
+        tools:layout_editor_absoluteX="20dp" />
+
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
@@ -20,43 +25,91 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:orientation="vertical">
+            android:background="#19376A"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="80dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="40dp">
 
-            <include
-                android:id="@+id/toolbar_home"
-                layout="@layout/toolbar_home" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="#011847"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="My profile"
+                android:textColor="#E1E1E1"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:background="#C4C9D0"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:textColor="#090808"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
-                android:layout_height="55dp" />
+                android:layout_height="55dp"
+                android:background="#C4C9D0"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:textColor="#090808"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/email_view"
                 android:layout_width="match_parent"
-                android:layout_height="55dp" />
+                android:layout_height="55dp"
+                android:background="#C4C9D0"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:textColor="#090808"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/studyYear"
                 android:layout_width="match_parent"
-                android:layout_height="55dp" />
+                android:layout_height="55dp"
+                android:background="#C4C9D0"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:textColor="#090808"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/domain"
                 android:layout_width="match_parent"
-                android:layout_height="55dp" />
+                android:layout_height="55dp"
+                android:background="#C4C9D0"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:textColor="#090808"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/course_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:background="#011847"
+                android:gravity="center"
+                android:paddingTop="5dp"
                 android:text="@string/my_courses"
-                android:textSize="18sp"
+                android:textColor="#E1E1E1"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -71,11 +124,16 @@
                 android:id="@+id/text_view_course"
                 style="@style/text_view_style"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="#010101" />
+
             <TextView
                 android:id="@+id/text_view_course2"
                 style="@style/course_style"
+                android:background="#011847"
+                android:gravity="center"
                 android:text="@string/courses_i_teach"
+                android:textColor="#E1E1E1"
                 android:visibility="gone" />
 
             <TextView
@@ -83,7 +141,11 @@
                 style="@style/text_view_style"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:textColor="#010101"
                 android:visibility="invisible" />
+
             <Button
                 android:id="@+id/edit_btn"
                 android:layout_width="match_parent"
