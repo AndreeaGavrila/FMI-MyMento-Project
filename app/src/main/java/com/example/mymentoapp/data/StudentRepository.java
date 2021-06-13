@@ -53,6 +53,9 @@ public class StudentRepository {
             studentDao.updateStudent(student);
         });
     }
+//    public void registerStudent (Student student){
+//        MyRoomDatabase.databaseWriteExecutor.execute(()-> studentDao.registerStudent(student));
+//    }
 
 
     public Student getStudent(int id){
@@ -127,6 +130,7 @@ public class StudentRepository {
     public void insertStudentWithNotifications(StudentWithNotifications studentWithNotifications) {
         new StudentRepository.insertAsync3(studentDao).execute(studentWithNotifications);
     }
+
 
 
     private static class insertAsync3 extends AsyncTask<StudentWithNotifications, Void, Void> {

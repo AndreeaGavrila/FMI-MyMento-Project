@@ -1,7 +1,10 @@
 package com.example.mymentoapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,9 +18,13 @@ import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
+import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.Tutor;
+import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.ArrayList;
@@ -25,12 +32,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecommendActivity  extends AppCompatActivity {
-    StudentDao studentDao;
-    TutorDao tutorDao;
-    MyRoomDatabase roomDatabase;
+
     Button backHome;
     Toolbar toolbar;
     LinearLayout linearLayout;
+
+    StudentViewModel studentViewModel;
+    TutorViewModel tutorViewModel;
+    SpecificCourseViewModel specificCourseViewModel;
+    CourseToTeachViewModel courseToTeachViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,34 +58,32 @@ public class RecommendActivity  extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.layout_recommended);
         backHome = findViewById(R.id.back_home);
-        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-        studentDao = roomDatabase.studentDao();
-        tutorDao = roomDatabase.tutorDao();
-        SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
-        CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
 
         List<String> textTeach = new ArrayList<>();
         List<List<String>> coursesList = new ArrayList<>();
-        System.out.println("in recommend");
 
         new Thread(() -> {
-            Student student = studentDao.getStudentByUsername(studentName);
-            System.out.println("in thread");
-            ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
+            studentViewModel = new StudentViewModel(this.getApplication());
+            tutorViewModel = new TutorViewModel(this.getApplication());
+            specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
+            courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+            Student student = studentViewModel.getStudentByUsername(studentName);
+
+            ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             for (int i = 0; i < courses.size(); i++) {
-                System.out.println(courses.get(i).getCourseName());
-                ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachDao.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
-                System.out.println(courseToTeach);
+
+                ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachViewModel.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
+
                 for (int j = 0; j < courseToTeach.size(); j++) {
-                    System.out.println(courseToTeach.get(j).getId_FkTutor());
+
                     int tutorId=(int)courseToTeach.get(j).getId_FkTutor();
                     textTeach.add(courseToTeach.get(j).getCourseName());
-                    Tutor tutor = tutorDao.getTutor(tutorId);
+                    Tutor tutor = tutorViewModel.getTutorById(tutorId);
                     textTeach.add(tutor.getLastName());
                     textTeach.add(tutor.getFirstName());
                     Double tutorRating = tutor.getRating();
                     textTeach.add(tutorRating.toString());
-                    System.out.println(textTeach);
+
                     String tutorUsername = tutor.getUsername();
                     if (!tutorUsername.equals(studentName)) {
                         coursesList.add(new ArrayList<>(textTeach));
@@ -84,11 +93,6 @@ public class RecommendActivity  extends AppCompatActivity {
             }
             for(int i=0;i<coursesList.size()-1;i++)
                 for(int j=i+1;j<coursesList.size();j++){
-                    //Integer ii =i, jj=j;
-                    //System.out.println(ii.toString());
-                    //System.out.println(jj.toString());
-                    //System.out.println(coursesList.size());
-                    //System.out.println(coursesList);
                     if((coursesList.get(j)).get(3).compareTo((coursesList.get(i)).get(3))>0){
                         Collections.swap(coursesList,i,j);
                     }
@@ -107,7 +111,11 @@ public class RecommendActivity  extends AppCompatActivity {
 
             runOnUiThread((() -> {
                 for(int i=0;i<finalCoursesList.size();i++){
-                    Button btn = new Button(getApplicationContext());
+                    LinearLayout groupLinear = new LinearLayout(this.getApplicationContext());
+                    groupLinear.setGravity(Gravity.CENTER);
+                    groupLinear.setOrientation(LinearLayout.VERTICAL);
+                    groupLinear.setPadding(20, 10, 20, 10);
+                    Button btn = new Button(this.getApplicationContext());
                     String course = finalCoursesList.get(i).get(0);
                     btn.setText(course);
                     btn.setOnClickListener(v->{
@@ -127,14 +135,22 @@ public class RecommendActivity  extends AppCompatActivity {
                     btn_tutor.setText(tutor_name);
                     btn_tutor.setOnClickListener(v->{
                         Intent newIntent = new Intent (RecommendActivity.this, TutorContactActivity.class);
-                        //newIntent.putExtra("courseName", course);
                         newIntent.putExtra("tutorLastName", last_name);
                         newIntent.putExtra("tutorFirstName", first_name);
                         newIntent.putExtra("studentUsername", studentName);
                         startActivity(newIntent);
                     });
-                    linearLayout.addView(btn);
-                    linearLayout.addView(btn_tutor);
+                    btn.setBackgroundColor(Color.parseColor("#fbc304"));
+                    btn.setTextSize(18);
+                    btn.setTypeface(Typeface.DEFAULT_BOLD);
+                    btn_tutor.setBackgroundColor(Color.parseColor("#2850a1"));
+                    btn_tutor.setTextColor(Color.parseColor("#C4C9D0"));
+
+                    TextView delimitator = new TextView(getApplicationContext());
+                    groupLinear.addView(btn);
+                    groupLinear.addView(btn_tutor);
+                    groupLinear.addView(delimitator);
+                    linearLayout.addView(groupLinear);
                 }
             }));
 

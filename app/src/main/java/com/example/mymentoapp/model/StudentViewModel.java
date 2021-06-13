@@ -23,6 +23,10 @@ public class StudentViewModel extends AndroidViewModel {
 
     }
 
+//    public void registerStudent (Student student){
+//        repository.registerStudent(student);
+//    }
+
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }

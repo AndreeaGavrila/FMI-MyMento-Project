@@ -64,8 +64,6 @@ public interface StudentDao {
     @Update
     void updateStudent(Student student);
 
-    @Insert
-    void registerStudent(Student student);
 
     @Query("SELECT * FROM student_table where username=:usernameInput")
     Student getStudentByUsername(String usernameInput);

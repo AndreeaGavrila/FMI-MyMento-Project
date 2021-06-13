@@ -162,7 +162,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             int numberOfStudents = taughtCoursesList.size();
 
             int numberOfHours = numberOfStudents * 10;
-            if (numberOfHours < 10) {
+            if (numberOfHours < 30) {
                 this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show());
 
             } else {

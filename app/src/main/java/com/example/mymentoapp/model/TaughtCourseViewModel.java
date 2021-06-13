@@ -35,4 +35,11 @@ public class TaughtCourseViewModel extends AndroidViewModel {
     public List<TaughtCourse> getAllTaughtCoursesForTutor(int idStudent) {
         return repository.getAllTaughtCoursesForTutor(idStudent);
     }
+    public List<String> getStudentAndCourseByTutorId(Integer idTutore){
+        return  repository.getStudentAndCourseByTutorId(idTutore);
+    }
+
+    public List<String> getStudentAndAttendance(Integer idTutore){
+        return  repository.getStudentAndAttendance(idTutore);
+    }
 }

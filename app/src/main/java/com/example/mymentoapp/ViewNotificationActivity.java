@@ -54,8 +54,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
     private Student student;
     private Tutor tutor;
 
-    Toolbar toolbar;
-    Button backHome;
     LinearLayout linearLayout, linearLayout1;
     TextView textView;
 
@@ -68,11 +66,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
         setContentView(R.layout.view_notifications);
 
         linearLayout = findViewById(R.id.layout_notifications);
-        toolbar = findViewById(R.id.toolbar_home);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        backHome = findViewById(R.id.back_home);
-
 
         //username
         Bundle bundle = getIntent().getExtras();
@@ -287,11 +280,7 @@ public class ViewNotificationActivity extends AppCompatActivity {
             }
 
         }).start();
-        backHome.setOnClickListener(v -> {
-            Intent intent = new Intent(ViewNotificationActivity.this, WelcomeActivity.class);
-            intent.putExtra("studentName", studentName);
-            startActivity(intent);
-        });
+
 
 
     }

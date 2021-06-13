@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar_home"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/toolbar_home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/design_default_color_on_primary"
     android:elevation="4dp"
     android:paddingBottom="5dp"
     tools:targetApi="lollipop">
@@ -16,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:text="@string/home"
+        app:backgroundTint="#2850a1"
         app:cornerRadius="10dp"
         app:iconTint="#00BCD4"
         app:iconTintMode="src_in" />
-
 </androidx.appcompat.widget.Toolbar>

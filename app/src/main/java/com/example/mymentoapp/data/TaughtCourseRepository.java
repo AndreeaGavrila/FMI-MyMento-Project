@@ -33,6 +33,16 @@ public class TaughtCourseRepository {
         return taughtCourseDao.getAllTaughtCoursesForStudent(idInput);
     }
 
+    public List<String> getStudentAndCourseByTutorId(Integer idTutore){
+        return taughtCourseDao.getStudentAndCourseByTutorId(idTutore);
+    }
+
+    public List<String> getStudentAndAttendance(Integer idTutore){
+        return  taughtCourseDao.getStudentAndAttendance(idTutore);
+    }
+
+
+
     public List<TaughtCourse> getAllTaughtCoursesForTutor(int idInput){
         return taughtCourseDao.getAllTaughtCoursesForTutor(idInput);
     }

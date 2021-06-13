@@ -26,15 +26,16 @@ import java.util.ArrayList;
 
 public class ProfileStudentActivity extends AppCompatActivity {
 
+
+    private AssignCourse assignCourse;
+    private StudentViewModel studentViewModel;
+
     EditText lastName, firstName, phoneNumber, email;
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     Button btn_submit_student;
     RadioButton radioCTI, radioMath, radioInfo;
-    MyRoomDatabase roomDatabase;
     String studyYear1, domain1, specialization1;
-    AssignCourse assignCourse;
-    private ArrayList<String> courseNameList;
-    private StudentViewModel studentViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +52,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
         radioCTI = findViewById(R.id.radio_cti);
         radioInfo = findViewById(R.id.radio_info);
         radioMath = findViewById(R.id.radio_math);
-
-        courseNameList = new ArrayList<>();
 
         specialization1 = "" ;
         studyYear1 = "";
@@ -75,7 +74,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
 
         radioGroupDomain.setOnCheckedChangeListener((group, checkedId) -> {
 
-            // checkedId is the RadioButton selected
             RadioButton rb = findViewById(checkedId);
             domain1 = rb.getText().toString();
             System.out.println("study+year" +rb.getText());
@@ -142,8 +140,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
             String lastname = lastName.getText().toString();
             String number = phoneNumber.getText().toString();
             String email1 = email.getText().toString();
-
-            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
             String phonePattern = "^\\+[0-9]{10,13}$";
 
 
@@ -157,10 +153,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                 if (!Patterns.EMAIL_ADDRESS.matcher(email1).matches()){
                     Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
                 }
-//                if (!(email1.matches(emailPattern))) {
-//
-//                    Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
-//                }
 
                 if (!(number.matches(phonePattern))) {
 
@@ -171,13 +163,11 @@ public class ProfileStudentActivity extends AppCompatActivity {
                     Bundle bundle = getIntent().getExtras();
                     String username  = bundle.getString("username");
                     System.out.println("username student: " + username);
-                    roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                    StudentDao studentDao = roomDatabase.studentDao();
 
                     new Thread(() -> {
                         studentViewModel = new StudentViewModel(ProfileStudentActivity.this.getApplication());
                         System.out.println("in thread");
-                        Student student = studentDao.getStudentByUsername(username);
+                        Student student = studentViewModel.getStudentByUsername(username);
                         student.setStudyDomain(domain1);
                         student.setStudyYear(studyYear1);
                         student.setPhoneNumber(number);
@@ -192,18 +182,9 @@ public class ProfileStudentActivity extends AppCompatActivity {
                         System.out.println("year" + studyYear1);
                         assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
 
-                        courseNameList.clear();
-                        for(SpecificCourse specificCourse: assignCourse.getSpecificCourseList()) {
-                            courseNameList.add(specificCourse.getCourseName());
-                        }
-                        System.out.println("CURSURILE");
-                        for(SpecificCourse specificCourse: assignCourse.getSpecificCourseList()) {
-                            System.out.println((specificCourse.getCourseName()));
-                        }
-
                         StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
                         studentViewModel.insertStudentWithCourses(studentWithCourse);
-                        studentDao.updateStudent(student);
+                        studentViewModel.updateStudent(student);
                         Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }).start();

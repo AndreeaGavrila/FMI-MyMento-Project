@@ -9,17 +9,19 @@
     <include
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView4"
         tools:layout_editor_absoluteX="20dp" />
 
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        app:layout_constraintStart_toStartOf="parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,9 +30,10 @@
             android:background="#19376A"
             android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:paddingTop="80dp"
+            android:paddingTop="30dp"
             android:paddingRight="20dp"
             android:paddingBottom="40dp">
+
 
             <TextView
                 android:id="@+id/textView4"
@@ -38,7 +41,7 @@
                 android:layout_height="55dp"
                 android:background="#011847"
                 android:gravity="center"
-                android:paddingTop="10dp"
+                android:paddingTop="15dp"
                 android:paddingBottom="10dp"
                 android:text="My profile"
                 android:textColor="#E1E1E1"

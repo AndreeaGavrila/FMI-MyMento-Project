@@ -8,13 +8,16 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <include
                 android:id="@+id/toolbar_home"
                 layout="@layout/toolbar_home"
@@ -170,8 +173,9 @@
                 android:id="@+id/became_tutor_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="BECAME A TUTOR!"
-                android:visibility="visible" />
+                android:text="BECOME A TUTOR"
+                android:visibility="visible"
+                app:backgroundTint="#2850a1" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -194,11 +198,12 @@
 
             <Button
                 android:id="@+id/btn_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
+                android:layout_marginStart="0dp"
                 android:layout_marginLeft="150dp"
-                android:text="Edit" />
+                android:text="Edit"
+                app:backgroundTint="#2850a1" />
 
         </LinearLayout>
     </ScrollView>
