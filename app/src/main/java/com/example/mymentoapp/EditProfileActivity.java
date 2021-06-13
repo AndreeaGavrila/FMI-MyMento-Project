@@ -2,6 +2,7 @@ package com.example.mymentoapp;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Build;
@@ -40,7 +41,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText firstName, lastName, phoneNumber, email, iban;
     private RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     private RadioButton radioYear1, radioYear2, radioYear3, radioYear4, radioInfo, radioMath, radioCTI;
-    Button edit,  becameTutorBtn;
+    private Button edit,  becameTutorBtn, backToHome;
     private Student student;
     private Tutor tutor;
     private String studyYear1, domain1, specialization1, oldStudyDomain;
@@ -49,6 +50,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView courseToTeach;
     private List<SpecificCourse> specificCourseList;
     private List<CourseToTeach> courseToTeachList;
+    private Toolbar toolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -76,6 +78,10 @@ public class EditProfileActivity extends AppCompatActivity {
         becameTutorBtn = findViewById(R.id.became_tutor_btn);
         edit = findViewById(R.id.btn_edit);
         iban = findViewById(R.id.iban_edit);
+        toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        backToHome = findViewById(R.id.back_home);
         new Thread(() -> {
 
             studentViewModel = new StudentViewModel(this.getApplication());
@@ -393,5 +399,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }).start());
+
+        backToHome.setOnClickListener(v -> {
+            Intent intent = new Intent(EditProfileActivity.this, WelcomeActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
+        });
     }
 }

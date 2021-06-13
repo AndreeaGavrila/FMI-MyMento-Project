@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface RatingStudentDao {
 
-    @Query("SELECT studentUsername FROM students_rating_tutors WHERE tutorUsername=:tutorUsername")
+    @Query("select studentUsername from students_rating_tutors where tutorUsername=:tutorUsername")
     List<String> getStudentsWithRatingForTutor(String tutorUsername);
 
     @Query("DELETE FROM students_rating_tutors")

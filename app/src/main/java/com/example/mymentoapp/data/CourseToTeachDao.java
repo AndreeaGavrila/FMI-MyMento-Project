@@ -1,15 +1,12 @@
 package com.example.mymentoapp.data;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
 import com.example.mymentoapp.model.CourseToTeach;
-import com.example.mymentoapp.model.SpecificCourse;
 
 import java.util.List;
 
@@ -21,6 +18,9 @@ public interface CourseToTeachDao {
 
     @Query("DELETE FROM course_to_teach")
     void deleteAll();
+
+    @Query("SELECT * FROM course_to_teach WHERE idCourseToTeach=:idCourse")
+    CourseToTeach getCourseById(int idCourse);
 
     @Query("SELECT * FROM course_to_teach")
     List<CourseToTeach> getAllToTeachCourses();

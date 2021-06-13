@@ -4,9 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
-import com.example.mymentoapp.data.SpecificCourseRepository;
 import com.example.mymentoapp.data.TaughtCourseRepository;
 
 import java.util.List;
@@ -25,6 +23,10 @@ public class TaughtCourseViewModel extends AndroidViewModel {
     public  List<TaughtCourse> getAllTaughtCourses(){
         return allTaughtCourses;
     }
+    public  List<TaughtCourse> getAllTaughtCoursesForTutor(int idInput){
+        return repository.getAllTaughtCoursesForTutor(idInput);
+    }
+
     public static void insert(TaughtCourse taughtCourse){
         repository.insert(taughtCourse);
     }

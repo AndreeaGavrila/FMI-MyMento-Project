@@ -1,7 +1,6 @@
 package com.example.mymentoapp.model;
 
 import androidx.room.Embedded;
-import androidx.room.Junction;
 import androidx.room.Relation;
 
 import java.util.List;

@@ -29,5 +29,11 @@
     <string name="create_tutor_profile">Create Tutor Profile</string>
     <string name="view_profile">View Profile</string>
     <string name="became_tutor_cond">If you want to become a tutor you have to choose at least one course to teach.</string>
+    <string name="home">Back to home</string>
+    <string name="log_out">Log Out</string>
+    <string name="my_courses">My courses</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="activity">Activity</string>
+    <string name="courses_i_teach">Courses I teach</string>
 
 </resources>

@@ -41,7 +41,7 @@ public class ProfileTutorActivity extends AppCompatActivity {
     TextView courseToTeach;
     private ArrayList<String> courseNameList;
     private StudentViewModel studentViewModel;
-    //private CourseToTeachViewModel courseToTeachViewModel;
+    private CourseToTeachViewModel courseToTeachViewModel;
     private  TutorViewModel tutorViewModel;
 
     @Override
@@ -247,7 +247,6 @@ public class ProfileTutorActivity extends AppCompatActivity {
                         student.setLastName(lastname);
                         student.setFirstName(firstname);
                         System.out.println("specialization" + specialization1);
-
                         System.out.println("domain" + domain1);
                         System.out.println("year" + studyYear1);
 //                        assignCourse = new AssignCourse(studyYear1, domain1, specialization1);

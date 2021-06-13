@@ -8,13 +8,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mymentoapp.model.Login;
-
 public class WelcomeActivity extends AppCompatActivity {
 
-    Button viewProfile;
-    Button showRecommend;
-    Button logOut;
+    Button viewProfile, logOut, showRecommend, notification;
     Toolbar toolbar;
 
     @Override
@@ -25,6 +21,8 @@ public class WelcomeActivity extends AppCompatActivity {
         logOut = findViewById(R.id.logout);
         viewProfile = findViewById(R.id.btn_viewProfile);
         showRecommend = findViewById(R.id.btn_recommend);
+        notification = findViewById(R.id.notification_btn);
+
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -35,14 +33,12 @@ public class WelcomeActivity extends AppCompatActivity {
         viewProfile.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, ViewProfileActivity.class);
             intent.putExtra("studentName", studentName);
-           // intent.putExtra("lista_cursuri", finalExtras_courses);
             startActivity(intent);
         });
 
         showRecommend.setOnClickListener(v -> {
             Intent intent = new Intent(WelcomeActivity.this, RecommendActivity.class);
             intent.putExtra("studentName", studentName);
-            // intent.putExtra("lista_cursuri", finalExtras_courses);
             startActivity(intent);
         });
 
@@ -51,7 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
             builder.setTitle("Log Out")
                     .setMessage("Are you sure you want to logout?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        Intent intent = new Intent(WelcomeActivity.this, Login.class);
+                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                         startActivity(intent);
                     })
                     .setNegativeButton("No", null )
@@ -59,7 +55,12 @@ public class WelcomeActivity extends AppCompatActivity {
                     .show();
         });
 
+        notification.setOnClickListener(v ->{
+            Intent intent = new Intent(WelcomeActivity.this, ViewNotificationActivity.class);
+            intent.putExtra("studentName", studentName);
+            startActivity(intent);
+        });
     }
-
-
 }
+
+

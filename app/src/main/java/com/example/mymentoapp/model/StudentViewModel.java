@@ -4,10 +4,8 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.example.mymentoapp.data.StudentRepository;
-
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class StudentViewModel extends AndroidViewModel {
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }
-    public static void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
+    public void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
         System.out.println("aici a ajuns");
         System.out.println(studentWithTaughtCourses.getStudent());
         repository.insertStudentWithTaughtCourses(studentWithTaughtCourses);

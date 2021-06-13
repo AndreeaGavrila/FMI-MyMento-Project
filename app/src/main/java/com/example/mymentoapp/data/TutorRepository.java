@@ -3,21 +3,19 @@ package com.example.mymentoapp.data;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.mymentoapp.model.CourseToTeach;
-import com.example.mymentoapp.model.SpecificCourse;
+import com.example.mymentoapp.model.Notification;
 import com.example.mymentoapp.model.Student;
-import com.example.mymentoapp.model.StudentWithCourse;
 import com.example.mymentoapp.model.Tutor;
 import com.example.mymentoapp.model.TutorWithCourse;
+import com.example.mymentoapp.model.TutorWithNotifications;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
 
 public class TutorRepository {
-    private TutorDao tutorDao;
-    private List<Tutor> allTutors;
+    private final TutorDao tutorDao;
+    private final List<Tutor> allTutors;
     private StudentDao studentDao;
     private List<Student> allStudents;
 
@@ -32,10 +30,9 @@ public class TutorRepository {
         return allTutors;
     }
 
+
     public void insertTutor(Tutor tutor){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            tutorDao.insertTutor(tutor);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> tutorDao.insertTutor(tutor));
 
     }
 
@@ -64,10 +61,33 @@ public class TutorRepository {
         }
     }
 
+
+    public void insertTutorWithNotifications(TutorWithNotifications tutorWithNotification) {
+        new TutorRepository.insertAsync2(tutorDao).execute(tutorWithNotification);
+    }
+
+
+    private static class insertAsync2 extends AsyncTask<TutorWithNotifications, Void, Void> {
+        private final TutorDao tutorDaoAsync;
+
+        insertAsync2(TutorDao tutorDao){ tutorDaoAsync = tutorDao;}
+        @Override
+        protected Void doInBackground(TutorWithNotifications... tutorWithNotifications) {
+
+            long identifier = tutorDaoAsync.insertTutor(tutorWithNotifications[0].getTutor());
+            System.out.println("In insert notifications");
+
+            for (Notification notification : tutorWithNotifications[0].getNotifications()) {
+                notification.setId_FkTutor(identifier);
+            }
+            tutorDaoAsync.insertNotifications(tutorWithNotifications[0].getNotifications());
+            return null;
+        }
+    }
+
+
     public void deleteAll(){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            tutorDao.deleteAll();
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(tutorDao::deleteAll);
     }
 
     public Tutor getTutorByUsername(String inputUsername){
@@ -78,9 +98,7 @@ public class TutorRepository {
     }
 
     public void updateTutor(Tutor tutor){
-        MyRoomDatabase.databaseWriteExecutor.execute(() -> {
-            tutorDao.updateTutor(tutor);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(() -> tutorDao.updateTutor(tutor));
     }
 
     public Tutor getTutorByName(String lastName, String firstName){

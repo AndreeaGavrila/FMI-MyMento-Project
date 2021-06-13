@@ -22,6 +22,10 @@ public class TutorViewModel extends AndroidViewModel {
     public void insertTutorWithCourses(TutorWithCourse tutorWithCourse){
         repository.insertTutorWithCourses(tutorWithCourse);
     }
+    public void insertTutorWithNotifications(TutorWithNotifications tutorWithNotifications){
+        repository.insertTutorWithNotifications(tutorWithNotifications);
+    }
+
 
     public List<Tutor> getAllTutors(){
         return allTutors;
@@ -42,5 +46,7 @@ public class TutorViewModel extends AndroidViewModel {
         return  repository.getTutor(id);
     }
 
-    public Tutor getTutorByName(String lastName, String firstName){return repository.getTutorByName(lastName, firstName);}
+    public Tutor getTutorByName(String lastName, String firstName){
+        return repository.getTutorByName(lastName, firstName);
+    }
 }
