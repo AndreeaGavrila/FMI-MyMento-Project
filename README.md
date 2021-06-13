@@ -2,6 +2,8 @@
 
 Android application developed with [@AndreeaGavrila](https://github.com/AndreeaGavrila), [@AlexandraBuruiana](https://github.com/alexandraburu23) and [@MariaFlorea](https://github.com/FloreaMaria)
 
+![Logo](https://github.com/CojocaruAlexandraFlavia/FMI-MyMento-Project/blob/master/images/mymentologo.png)
+
 ## Description of the Application and Motivation 
 Android application for students from Faculty of Mathematics and Informatics from University of Bucharest, in order to connect with each other. 
 
@@ -34,6 +36,7 @@ Guided by our own experience, we’ve come up with short descriptions of the fea
 11. As an user, I would like to manage my students into groups.
 
 ## UML Use Case Diagram
+![UML](https://github.com/CojocaruAlexandraFlavia/FMI-MyMento-Project/blob/master/images/UML.png)
 
 ## Build Tools
 Our project was written in Java and developed in Android Studio. The build tool used by us was [Gradle](https://gradle.org/), an open-source build automation tool, designed for multi-project builds and distributed under the Apache License 2.0.
