@@ -43,8 +43,6 @@ public class BecomeTutorActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("idTutor");
 
-
-
         new Thread(()->{
             tutorViewModel = new TutorViewModel(this.getApplication());
             courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());

@@ -48,8 +48,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     private TaughtCourseViewModel taughtCourseViewModel;
     private List<TaughtCourse> taughtCoursesList;
 
-    TextView name, phoneNumber, email, studyYear, domain, textViewToTeachCourse,
-            textViewSpecificCourse, textView;
+    TextView name, phoneNumber, email, studyYear, domain, textViewToTeachCourse, textViewSpecificCourse, textView;
     Button editProfile;
     LinearLayout linearLayout;
     Button downloadButton, backHome;
@@ -157,7 +156,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
             int numberOfStudents = taughtCoursesList.size();
 
-            int numberOfHours = numberOfStudents * 10;
+            int numberOfHours = numberOfStudents * 30;
             if (numberOfHours < 10) {
                 this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show());
 
@@ -204,9 +203,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         }
 
         text.append("\n").append(receivedMoney).append("\n").append(date);
-//        text.append(receivedMoney);
-//        text.append("\n");
-//        text.append(date);
 
         Canvas canvas = page.getCanvas();
         TextPaint textPaint = new TextPaint();

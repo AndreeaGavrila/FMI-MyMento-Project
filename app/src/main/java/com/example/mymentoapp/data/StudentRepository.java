@@ -113,5 +113,9 @@ public class StudentRepository {
         }
     }
 
+    public void registerStudent (Student student){
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> studentDao.registerStudent(student));
+    }
+
 
 }

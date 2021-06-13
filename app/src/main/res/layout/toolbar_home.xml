@@ -5,10 +5,10 @@
     android:id="@+id/toolbar_home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/design_default_color_on_primary"
     android:elevation="4dp"
     android:paddingBottom="5dp"
-    tools:targetApi="lollipop">
+    tools:targetApi="lollipop"
+    android:background="#C4C9D0">
 
     <Button
         android:id="@+id/back_home"

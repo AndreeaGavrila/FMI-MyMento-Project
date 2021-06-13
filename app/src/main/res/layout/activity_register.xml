@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C4C9D0"
     tools:context=".MainActivity">
 
     <EditText
@@ -41,26 +42,55 @@
         android:inputType="textPassword"
         android:hint="Confirm Password"/>
 
-    <Button
-        android:id="@+id/btn_register"
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_cpassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:ems="10"
-        android:text="Register"
-        app:backgroundTint="#2850a1" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:text="What type of profile do you want to create?" />
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:text="Login"
         app:backgroundTint="#2850a1" />
+
+    <Button
+        android:id="@+id/btn_create_student_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="78dp"
+        android:layout_marginLeft="78dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginRight="75dp"
+        android:layout_toStartOf="@+id/btn_create_tutor_profile"
+        android:layout_toLeftOf="@+id/btn_create_tutor_profile"
+        android:text="Student" />
+
+    <Button
+        android:id="@+id/btn_create_tutor_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:text="Tutor" />
 
 
 </RelativeLayout>

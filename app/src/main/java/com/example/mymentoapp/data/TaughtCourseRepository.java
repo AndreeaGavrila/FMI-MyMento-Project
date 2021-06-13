@@ -47,4 +47,12 @@ public class TaughtCourseRepository {
     public void deleteSpecificCourse(int id){
         MyRoomDatabase.databaseWriteExecutor.execute(()-> taughtCourseDao.deleteTaughtCourses(id));
     }
+
+    public List<String> getStudentAndCourseByTutorId(Integer idTutore){
+        return taughtCourseDao.getStudentAndCourseByTutorId(idTutore);
+    }
+
+    public List<String> getStudentAndAttendance(Integer idTutore){
+        return  taughtCourseDao.getStudentAndAttendance(idTutore);
+    }
 }

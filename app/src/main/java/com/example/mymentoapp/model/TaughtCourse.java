@@ -21,7 +21,6 @@ public class TaughtCourse extends CourseToTeach {
                     childColumns = "id_FkStudent",
                     onDelete = CASCADE,
                     onUpdate = CASCADE
-
             )
     private long id_FkStudent;
 

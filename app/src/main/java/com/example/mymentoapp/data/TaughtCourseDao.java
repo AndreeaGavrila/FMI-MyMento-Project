@@ -42,7 +42,7 @@ public interface TaughtCourseDao {
             "from student_table s join taught_course t on s.idStudent=t.id_FkStudent " +
             "where t.id_FkTutor=:idTutore " +
             "order by no_attendance asc")
-    List<String> getStudentAndAttendace(Integer idTutore);
+    List<String> getStudentAndAttendance(Integer idTutore);
 
     @Update
     void updateTaughtCourses(TaughtCourse... taughtCourses);

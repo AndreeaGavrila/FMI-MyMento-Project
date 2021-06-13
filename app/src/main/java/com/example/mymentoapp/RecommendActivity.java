@@ -15,9 +15,13 @@ import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
+import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
+import com.example.mymentoapp.model.SpecificCourseViewModel;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.Tutor;
+import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.ArrayList;
@@ -25,9 +29,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecommendActivity  extends AppCompatActivity {
-    StudentDao studentDao;
-    TutorDao tutorDao;
-    MyRoomDatabase roomDatabase;
+//    StudentDao studentDao;
+//    TutorDao tutorDao;
+    StudentViewModel studentViewModel;
+    TutorViewModel tutorViewModel;
+    SpecificCourseViewModel specificCourseViewModel;
+    CourseToTeachViewModel courseToTeachViewModel;
+    //MyRoomDatabase roomDatabase;
 //    TextView textViewToTeachCourse;
     LinearLayout linearLayout;
 
@@ -51,12 +59,12 @@ public class RecommendActivity  extends AppCompatActivity {
         linearLayout = findViewById(R.id.layout_recommended);
         backHome = findViewById(R.id.back_home);
 
-        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-        studentDao = roomDatabase.studentDao();
-        tutorDao = roomDatabase.tutorDao();
+//        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+//        studentDao = roomDatabase.studentDao();
+//        tutorDao = roomDatabase.tutorDao();
 
-        SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
-        CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
+//        SpecificCourseDao specificCourseDao = roomDatabase.specificCourseDao();
+//        CourseToTeachDao courseToTeachDao = roomDatabase.courseToTeachDao();
 //        textViewToTeachCourse.setVisibility(View.VISIBLE);
 
         List<String> textTeach = new ArrayList<>();
@@ -64,23 +72,27 @@ public class RecommendActivity  extends AppCompatActivity {
         System.out.println("in recommend");
 
         new Thread(() -> {
-            Student student = studentDao.getStudentByUsername(studentName);
+            studentViewModel = new StudentViewModel(this.getApplication());
+            tutorViewModel = new TutorViewModel(this.getApplication());
+            specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
+            courseToTeachViewModel = new CourseToTeachViewModel(this.getApplication());
+            Student student = studentViewModel.getStudentByUsername(studentName);
             System.out.println("in thread");
-            ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseDao.getAllSpecificCoursesForStudent(student.getIdStudent()));
+            ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             for (int i = 0; i < courses.size(); i++) {
                 System.out.println(courses.get(i).getCourseName());
-                ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachDao.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
+                ArrayList<CourseToTeach> courseToTeach = (ArrayList<CourseToTeach>) (courseToTeachViewModel.getAllCoursesForSpecificCourse(courses.get(i).getCourseName()));
                 System.out.println(courseToTeach);
                 for (int j = 0; j < courseToTeach.size(); j++) {
                     System.out.println(courseToTeach.get(j).getId_FkTutor());
                     int tutorId=(int)courseToTeach.get(j).getId_FkTutor();
                     textTeach.add(courseToTeach.get(j).getCourseName());
-                    Tutor tutor = tutorDao.getTutor(tutorId);
+                    Tutor tutor = tutorViewModel.getTutorById(tutorId);
                     textTeach.add(tutor.getLastName());
                     textTeach.add(tutor.getFirstName());
 
-                    Double tutorRating = tutor.getRating();
-                    textTeach.add(tutorRating.toString());
+                    double tutorRating = tutor.getRating();
+                    textTeach.add(Double.toString(tutorRating));
 
                     System.out.println(textTeach);
 

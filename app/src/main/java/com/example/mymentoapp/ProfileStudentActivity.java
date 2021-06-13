@@ -28,7 +28,7 @@ public class ProfileStudentActivity extends AppCompatActivity {
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     Button btn_submit_student;
     RadioButton radioCTI, radioMath, radioInfo;
-    MyRoomDatabase roomDatabase;
+    //MyRoomDatabase roomDatabase;
     String studyYear1, domain1, specialization1;
     AssignCourse assignCourse;
     private ArrayList<String> courseNameList;
@@ -152,15 +152,11 @@ public class ProfileStudentActivity extends AppCompatActivity {
             }
             else
             {
-                if (!Patterns.EMAIL_ADDRESS.matcher(email1).matches()){
+                if (!(email1.matches(emailPattern))) {
+
                     Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
                 }
-//                if (!(email1.matches(emailPattern))) {
-//
-//                    Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
-//                }
-
-                if (!(number.matches(phonePattern))) {
+                else if (!(number.matches(phonePattern))) {
 
                     Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
                 }
@@ -169,21 +165,19 @@ public class ProfileStudentActivity extends AppCompatActivity {
                     Bundle bundle = getIntent().getExtras();
                     String username  = bundle.getString("username");
                     System.out.println("username student: " + username);
-                    roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                    StudentDao studentDao = roomDatabase.studentDao();
+                    //roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                    //StudentDao studentDao = roomDatabase.studentDao();
 
                     new Thread(() -> {
                         studentViewModel = new StudentViewModel(ProfileStudentActivity.this.getApplication());
                         System.out.println("in thread");
-                        Student student = studentDao.getStudentByUsername(username);
+                        Student student = studentViewModel.getStudentByUsername(username);
                         student.setStudyDomain(domain1);
                         student.setStudyYear(studyYear1);
                         student.setPhoneNumber(number);
                         student.setEmail(email1);
                         student.setLastName(lastname);
                         student.setFirstName(firstname);
-
-
 
                         System.out.println("specialization" + specialization1);
                         System.out.println("domain" + domain1);
@@ -201,7 +195,7 @@ public class ProfileStudentActivity extends AppCompatActivity {
 
                         StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
                         studentViewModel.insertStudentWithCourses(studentWithCourse);
-                        studentDao.updateStudent(student);
+                        studentViewModel.updateStudent(student);
                         Intent intent = new Intent (ProfileStudentActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }).start();

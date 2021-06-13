@@ -8,14 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.data.TutorDao;
+import com.example.mymentoapp.model.StudentViewModel;
+import com.example.mymentoapp.model.TutorViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 public class ManageStudentsActivity extends AppCompatActivity {
     Button btn_alphabetic, btn_course, btn_attendance;
 
-    StudentDao studentDao;
-    TutorDao tutorDao;
-    MyRoomDatabase roomDatabase;
+        StudentDao studentDao;
+        TutorDao tutorDao;
+        MyRoomDatabase roomDatabase;
+//
+//    StudentViewModel studentViewModel;
+//    TutorViewModel tutorViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +33,9 @@ public class ManageStudentsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String tutorName = bundle.getString("studentName");
 
-        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-        studentDao = roomDatabase.studentDao();
-        tutorDao = roomDatabase.tutorDao();
+//        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+//        studentDao = roomDatabase.studentDao();
+//        tutorDao = roomDatabase.tutorDao();
 
 
         btn_alphabetic.setOnClickListener(v->{

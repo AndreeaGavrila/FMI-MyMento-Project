@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.util.MyRoomDatabase;
 
 
@@ -15,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button register, login;
     EditText editUsername, editPassword;
-    private StudentDao studentDao;
+    StudentViewModel studentViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +35,9 @@ public class LoginActivity extends AppCompatActivity {
             }
             else
             {
-                MyRoomDatabase roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                studentDao = roomDatabase.studentDao();
-
                 new Thread(() -> {
-                    Student student = studentDao.getStudentByUsernameAndPassword2(username,password);
-
+                    studentViewModel = new StudentViewModel(this.getApplication());
+                    Student student = studentViewModel.getStudentByUsernameAndPassword(username, password);
                     if( student == null)
                     {
                         runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show());
@@ -54,12 +52,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        register.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 }

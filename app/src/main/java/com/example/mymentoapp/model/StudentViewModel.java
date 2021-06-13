@@ -62,4 +62,8 @@ public class StudentViewModel extends AndroidViewModel {
     public Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput){
         return repository.getStudentByUsernameAndPassword(usernameInput, passwordInput);
     }
+
+    public void registerStudent (Student student){
+        repository.registerStudent(student);
+    }
 }
