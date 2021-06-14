@@ -1,13 +1,11 @@
-package com.example.mymentoapp;
+package com.example.mymentoapp.activity;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -21,6 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mymentoapp.R;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
@@ -39,7 +38,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ViewProfileActivity extends AppCompatActivity {
     private StudentViewModel studentViewModel;
     private CourseToTeachViewModel courseToTeachViewModel;
@@ -48,15 +46,16 @@ public class ViewProfileActivity extends AppCompatActivity {
     private TaughtCourseViewModel taughtCourseViewModel;
     private List<TaughtCourse> taughtCoursesList;
 
-    TextView name, phoneNumber, email, studyYear, domain, textViewToTeachCourse, textViewSpecificCourse, textView;
+    private Tutor tutor;
+    private Student student;
+
+    TextView phoneNumber, email, studyYear, domain, textViewToTeachCourse, textViewSpecificCourse, textView, name;
     Button editProfile;
     LinearLayout linearLayout;
     Button downloadButton, backHome;
-    Tutor tutor;
-    Student student;
     Toolbar toolbar;
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,21 +67,17 @@ public class ViewProfileActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_home);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
+        backHome = findViewById(R.id.back_home);
+        name = findViewById(R.id.name);
         textViewSpecificCourse = findViewById(R.id.text_view_course);
         textViewToTeachCourse = findViewById(R.id.teach_courses);
         textView = findViewById(R.id.text_view_course2);
-        backHome = findViewById(R.id.back_home);
-
-        name = findViewById(R.id.name);
         phoneNumber = findViewById(R.id.phoneNumber);
         email = findViewById(R.id.email_view);
         studyYear = findViewById(R.id.studyYear);
         domain = findViewById(R.id.domain);
-
         editProfile = findViewById(R.id.edit_btn);
         downloadButton = findViewById(R.id.download_btn);
-
         linearLayout = findViewById(R.id.layout_recommended);
 
         textViewToTeachCourse.setVisibility(View.VISIBLE);
@@ -96,33 +91,34 @@ public class ViewProfileActivity extends AppCompatActivity {
             specificCourseViewModel = new SpecificCourseViewModel(this.getApplication());
 
             student = studentViewModel.getStudentByUsername(studentName);
-
-            ArrayList<SpecificCourse> courses =(ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             tutor = tutorViewModel.getTutor(student.getUsername());
+
+            ArrayList<SpecificCourse> courses = (ArrayList<SpecificCourse>) (specificCourseViewModel.getAllSpecificCoursesForStudent(student.getIdStudent()));
             ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
 
-            if(tutor != null){
+            if (tutor != null) {
                 courseToTeachArrayList = (ArrayList<CourseToTeach>) courseToTeachViewModel.getAllToTeachCourses(tutor.getIdStudent());
             }
 
             ArrayList<CourseToTeach> finalCourseToTeachArrayList = courseToTeachArrayList;
             this.runOnUiThread(() -> {
 
-                if(tutor != null){
+                if (tutor != null) {
                     textView.setVisibility(View.VISIBLE);
-                    for(CourseToTeach courseToTeach : finalCourseToTeachArrayList){
-                        textViewToTeachCourse.append(courseToTeach.getCourseName());
-                        textViewToTeachCourse.append("\n");
+                    textViewToTeachCourse.setTextColor(Color.rgb(225, 225, 225));
+                    for (CourseToTeach courseToTeach : finalCourseToTeachArrayList) {
+                        textViewToTeachCourse.append(" -> "  + courseToTeach.getCourseName());
+                        textViewToTeachCourse.append("\n\n");
                     }
                     downloadButton.setVisibility(View.VISIBLE);
                 }
 
-                for(SpecificCourse course : courses){
+                for (SpecificCourse course : courses) {
 
                     Button btn = new Button(this.getApplicationContext());
                     btn.setText(course.getCourseName());
-                    btn.setOnClickListener(v->{
-                        Intent newIntent = new Intent (ViewProfileActivity.this, ViewAvailableCoursesActivity.class);
+                    btn.setOnClickListener(v -> {
+                        Intent newIntent = new Intent(ViewProfileActivity.this, ViewAvailableCoursesActivity.class);
                         newIntent.putExtra("courseName", course.getCourseName());
                         newIntent.putExtra("studentName", student.getUsername());
                         startActivity(newIntent);
@@ -144,7 +140,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         }).start();
 
         editProfile.setOnClickListener(v -> {
-            Intent newIntent = new Intent (ViewProfileActivity.this, EditProfileActivity.class);
+            Intent newIntent = new Intent(ViewProfileActivity.this, EditProfileActivity.class);
             newIntent.putExtra("studentName", studentName);
             startActivity(newIntent);
         });
@@ -152,17 +148,17 @@ public class ViewProfileActivity extends AppCompatActivity {
         downloadButton.setOnClickListener(v -> new Thread(() -> {
             taughtCourseViewModel = new TaughtCourseViewModel(this.getApplication());
             taughtCoursesList = taughtCourseViewModel.getAllTaughtCoursesForTutor(tutor.getIdStudent());
-            //System.out.println("size " +  taughtCoursesList.size());
 
             int numberOfStudents = taughtCoursesList.size();
 
-            int numberOfHours = numberOfStudents * 30;
+            int numberOfHours = numberOfStudents * 10;
             if (numberOfHours < 10) {
                 this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "No. of Hours not reached!", Toast.LENGTH_SHORT).show());
 
-            }
-            else {
-                createPDF(tutor, numberOfHours, numberOfStudents, taughtCoursesList);
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    createPDF(tutor, numberOfHours, numberOfStudents, taughtCoursesList);
+                }
                 this.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Download finished!", Toast.LENGTH_SHORT).show());
             }
         }).start());
@@ -193,16 +189,19 @@ public class ViewProfileActivity extends AppCompatActivity {
                 ", domeniul " + domain + " a acumulat un numar de " + nrOfHours + " de ore de activitate în cadrul aplicației FMI MyMento.\n\n";
         String secondParagraph = " A ocupat funcția de tutore pentru " + nrOfStudents + " studenți, predând materiile:\n";
         String paragraph = firstParagraph + secondParagraph;
-        String receivedMoney = "În urma activității sale, studentul a primit suma: " + nrOfStudents * 10 + " lei.\n";
+        String receivedMoney = "In urma activitatii sale, studentul a obtinut suma: " + nrOfHours * 50 + " lei\n";
         String date = "Data: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        StringBuilder text = new StringBuilder(title + "\n" + paragraph + "\n");
 
+        StringBuilder text = new StringBuilder(title + "\n" + paragraph + "\n");
         for(TaughtCourse taughtCourse : taughtCoursesList){
             text.append(taughtCourse.getCourseName());
             text.append("\n");
         }
 
-        text.append("\n").append(receivedMoney).append("\n").append(date);
+        text.append("\n");
+        text.append(receivedMoney);
+        text.append("\n");
+        text.append(date);
 
         Canvas canvas = page.getCanvas();
         TextPaint textPaint = new TextPaint();
@@ -228,8 +227,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
-
         pdfDocument.close();
     }
-
 }

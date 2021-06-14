@@ -1,4 +1,4 @@
-package com.example.mymentoapp;
+package com.example.mymentoapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,27 +12,24 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mymentoapp.data.StudentDao;
+import com.example.mymentoapp.R;
 import com.example.mymentoapp.model.AssignCourse;
-import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
 import com.example.mymentoapp.model.StudentWithCourse;
-import com.example.mymentoapp.util.MyRoomDatabase;
 
-import java.util.ArrayList;
 
 public class ProfileStudentActivity extends AppCompatActivity {
+
+    private AssignCourse assignCourse;
+    private StudentViewModel studentViewModel;
 
     EditText lastName, firstName, phoneNumber, email;
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     Button btn_submit_student;
     RadioButton radioCTI, radioMath, radioInfo;
-    //MyRoomDatabase roomDatabase;
     String studyYear1, domain1, specialization1;
-    AssignCourse assignCourse;
-    private ArrayList<String> courseNameList;
-    private StudentViewModel studentViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +46,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
         radioCTI = findViewById(R.id.radio_cti);
         radioInfo = findViewById(R.id.radio_info);
         radioMath = findViewById(R.id.radio_math);
-
-        courseNameList = new ArrayList<>();
 
         specialization1 = "" ;
         studyYear1 = "";
@@ -73,10 +68,8 @@ public class ProfileStudentActivity extends AppCompatActivity {
 
         radioGroupDomain.setOnCheckedChangeListener((group, checkedId) -> {
 
-            // checkedId is the RadioButton selected
             RadioButton rb = findViewById(checkedId);
             domain1 = rb.getText().toString();
-            System.out.println("study+year" +rb.getText());
 
             radioGroupStudyYear.setOnCheckedChangeListener((group1, checkedId2) -> {
                 RadioButton rb2 = findViewById(checkedId2);
@@ -112,7 +105,6 @@ public class ProfileStudentActivity extends AppCompatActivity {
                 });
             }
 
-
             if(radioGroupSpec.getVisibility() == View.VISIBLE){
                 radioGroupSpec.setOnCheckedChangeListener((group13, checkedId3) -> {
                     RadioButton rb3 = findViewById(checkedId3);
@@ -139,60 +131,36 @@ public class ProfileStudentActivity extends AppCompatActivity {
             String firstname = firstName.getText().toString();
             String lastname = lastName.getText().toString();
             String number = phoneNumber.getText().toString();
-            String email1 = email.getText().toString();
-
-            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+            String emailAddress = email.getText().toString();
             String phonePattern = "^\\+[0-9]{10,13}$";
 
-
-            if (firstname.equals("") || lastname.equals("") || number.equals("") || email1.equals("")  ||
+            if (firstname.equals("") || lastname.equals("") || number.equals("") || emailAddress.equals("")  ||
                     radioGroupDomain.getCheckedRadioButtonId() == -1 || radioGroupStudyYear.getCheckedRadioButtonId() == -1) {
-
                 Toast.makeText(getApplicationContext(), "Fields Required", Toast.LENGTH_SHORT).show();
             }
             else
             {
-                if (!(email1.matches(emailPattern))) {
-
+                if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
                     Toast.makeText(getApplicationContext(), "INVALID MAIL", Toast.LENGTH_SHORT).show();
                 }
                 else if (!(number.matches(phonePattern))) {
-
                     Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     Bundle bundle = getIntent().getExtras();
                     String username  = bundle.getString("username");
-                    System.out.println("username student: " + username);
-                    //roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                    //StudentDao studentDao = roomDatabase.studentDao();
 
                     new Thread(() -> {
                         studentViewModel = new StudentViewModel(ProfileStudentActivity.this.getApplication());
-                        System.out.println("in thread");
                         Student student = studentViewModel.getStudentByUsername(username);
                         student.setStudyDomain(domain1);
                         student.setStudyYear(studyYear1);
                         student.setPhoneNumber(number);
-                        student.setEmail(email1);
+                        student.setEmail(emailAddress);
                         student.setLastName(lastname);
                         student.setFirstName(firstname);
-
-                        System.out.println("specialization" + specialization1);
-                        System.out.println("domain" + domain1);
-                        System.out.println("year" + studyYear1);
                         assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
-
-                        courseNameList.clear();
-                        for(SpecificCourse specificCourse: assignCourse.getSpecificCourseList()) {
-                            courseNameList.add(specificCourse.getCourseName());
-                        }
-                        System.out.println("CURSURILE");
-                        for(SpecificCourse specificCourse: assignCourse.getSpecificCourseList()) {
-                            System.out.println((specificCourse.getCourseName()));
-                        }
-
                         StudentWithCourse studentWithCourse = new StudentWithCourse(student, assignCourse.getSpecificCourseList());
                         studentViewModel.insertStudentWithCourses(studentWithCourse);
                         studentViewModel.updateStudent(student);
