@@ -16,7 +16,7 @@ FMI MyMento is an interactive platform where any student from the faculty can re
 We all have benefitted from the group tutoring hours in the past and we appreciate their importance, especially in times like the current global pandemic. Our application is meant to connect the students and find a quicker way to provide and get the help you need.
 
 ## Demo
-Our app functionalities are presented in this [demo]().
+Our app functionalities are presented in this [demo](https://drive.google.com/file/d/1fDCVYM80pdGuc5NRgZ0eGq9Z8IiIMg_M/view?usp=sharing).
 
 ## Trello:
 Our team has used [Trello](https://trello.com/b/oPfsRaeX) to manage, organize tasks and for backlog planning.
