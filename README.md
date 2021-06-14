@@ -93,6 +93,7 @@ Our project respects [Java Coding Standards](https://google.github.io/styleguide
 
 ## Design Patterns
 As a good practice, we used a singleton approach for database handling, developed with [Room Persistence Library](https://developer.android.com/jetpack/androidx/releases/room), which is an abstraction layer over SQLite to guarantee access to the database and to maintain SQLite’s performance.
+We also used the Builder pattern which simplifies the creation of objects. The same construction process can create objects of the same class with different properties. More precisely, we used AlertDialog.Builder. This builder proceeds step-by-step and lets you specify only the parts of AlertDialog that you need to work with.
 
 ## Resources
 
