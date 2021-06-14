@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#C4C9D0">
+    android:layout_height="match_parent">
     <include
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home" />
@@ -13,6 +12,7 @@
         android:id="@+id/id_tutor_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -24,25 +24,23 @@
         android:id="@+id/id_tutor_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="#2850a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/id_tutor_name"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintVertical_bias="0.193" />
 
     <Button
         android:id="@+id/id_tutor_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="#2850a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_tutor_mail"
-        app:layout_constraintVertical_bias="0.094" />
+        app:layout_constraintVertical_bias="0.047" />
 
     <RatingBar
         android:id="@+id/rating_bar"
@@ -50,20 +48,30 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547" />
 
     <Button
         android:id="@+id/give_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Give rating"
-        app:backgroundTint="#2850a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_bar"
-        app:layout_constraintVertical_bias="0.079" />
+        app:layout_constraintVertical_bias="0.062" />
 
+    <TextView
+        android:id="@+id/id_rating_tutor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/id_tutor_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

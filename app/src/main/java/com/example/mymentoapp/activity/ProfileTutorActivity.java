@@ -1,4 +1,4 @@
-package com.example.mymentoapp;
+package com.example.mymentoapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.RoomDatabase;
 
+import com.example.mymentoapp.R;
 import com.example.mymentoapp.data.StudentDao;
 import com.example.mymentoapp.model.AssignCourse;
 import com.example.mymentoapp.model.CourseToTeach;
-import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
 import com.example.mymentoapp.model.StudentViewModel;
@@ -34,15 +35,16 @@ public class ProfileTutorActivity extends AppCompatActivity {
     RadioGroup radioGroupStudyYear, radioGroupDomain, radioGroupSpec;
     RadioButton radioCTI, radioInfo, radioMath;
     Button btn_submit_tutor;
-    MyRoomDatabase roomDatabase;
     String studyYear1, domain1, specialization1;
     AssignCourse assignCourse, assignCourse2;
     LinearLayout linearLayout;
     TextView courseToTeach;
     private ArrayList<String> courseNameList;
     private StudentViewModel studentViewModel;
-    private CourseToTeachViewModel courseToTeachViewModel;
     private  TutorViewModel tutorViewModel;
+
+    MyRoomDatabase roomDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +90,8 @@ public class ProfileTutorActivity extends AppCompatActivity {
 
             linearLayout.removeAllViews();
             courseToTeach.setVisibility(View.VISIBLE);
-            // checkedId is the RadioButton selected
             RadioButton rb = findViewById(checkedId);
             domain1 = rb.getText().toString();
-            System.out.println("study+year" +rb.getText());
 
             radioGroupStudyYear.setOnCheckedChangeListener((group1, checkedId2) -> {
                 linearLayout.removeAllViews();
@@ -181,7 +181,6 @@ public class ProfileTutorActivity extends AppCompatActivity {
             radioGroupSpec.setOnCheckedChangeListener((group, checkedId3) -> {
                 RadioButton rb3 = findViewById(checkedId3);
                 specialization1 = rb3.getText().toString();
-                System.out.println(studyYear1 + domain1);
                 assignCourse2 = new AssignCourse(studyYear1, domain1, specialization1);
                 linearLayout.removeAllViews();
                 for(SpecificCourse specificCourse: assignCourse2.getSpecificCourseList()) {
@@ -192,7 +191,6 @@ public class ProfileTutorActivity extends AppCompatActivity {
                 }
             });
         }
-
 
         btn_submit_tutor.setOnClickListener(v -> {
             String firstname = firstName.getText().toString();
@@ -211,87 +209,69 @@ public class ProfileTutorActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "INVALID PHONE NUMBER", Toast.LENGTH_SHORT).show();
             } else if (!domain1.equals("CTI") && (studyYear1.equals("IV"))) {
                 Toast.makeText(getApplicationContext(), "ONLY CTI HAS 4 YEARS", Toast.LENGTH_SHORT).show();
+//            }else if (iban != null && (!(iban1.startsWith("RO")) || !(iban1.substring(2).matches("[0-9]+")) || iban1.length() != 24)) {
+//                    Toast.makeText(getApplicationContext(), "INVALID IBAN", Toast.LENGTH_SHORT).show();
             }
+                else {
 
-//                    if (!(iban1.substring(0, 2).equals("RO")) || !(iban1.substring(2, iban1.length()).matches("[0-9]+")) || iban1.length() != 24) {//                        Toast.makeText(getApplicationContext(), "INVALID IBAN", Toast.LENGTH_SHORT).show();//                    }                    else                    {
-            else {
-                Bundle bundle = getIntent().getExtras();
-                String username = bundle.getString("username");
-                System.out.println("username student: " + username);
-                roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-                StudentDao studentDao = roomDatabase.studentDao();
+                    roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
+                    StudentDao studentDao = roomDatabase.studentDao();
 
-                ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
-                ArrayList<SpecificCourse> specificCourses = (ArrayList<SpecificCourse>) assignCourse2.getSpecificCourseList();
+                    Bundle bundle = getIntent().getExtras();
+                    String username = bundle.getString("username");
 
-                for (int i = 0; i < specificCourses.size(); i++) {
-                    CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
-                    if (checkBox.isChecked()) {
-                        System.out.println("is checked" + i);
-                        CourseToTeach courseToTeach = new CourseToTeach(specificCourses.get(i).getCourseName(), specificCourses.get(i).getDescription());
-                        courseToTeachArrayList.add(courseToTeach);
+                    ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
+                    ArrayList<SpecificCourse> specificCourses = (ArrayList<SpecificCourse>) assignCourse2.getSpecificCourseList();
+
+                    for (int i = 0; i < specificCourses.size(); i++) {
+                        CheckBox checkBox = (CheckBox) linearLayout.getChildAt(i);
+                        if (checkBox.isChecked()) {
+                            CourseToTeach courseToTeach = new CourseToTeach(specificCourses.get(i).getCourseName(), specificCourses.get(i).getDescription());
+                            courseToTeachArrayList.add(courseToTeach);
+                        }
+                    }
+                    if (courseToTeachArrayList.size() == 0) {
+                        Toast.makeText(getApplicationContext(), "You have to choose at least one course", Toast.LENGTH_SHORT).show();
+                    } else {
+                        new Thread(() -> {
+                            studentViewModel = new StudentViewModel(this.getApplication());
+                            tutorViewModel = new TutorViewModel(this.getApplication());
+                            Student student = studentDao.getStudentByUsername(username);
+                            student.setStudyDomain(domain1);
+                            student.setStudyYear(studyYear1);
+                            student.setPhoneNumber(number);
+                            student.setEmail(email1);
+                            student.setLastName(lastname);
+                            student.setFirstName(firstname);
+                            assignCourse2.setCourseToTeachList(courseToTeachArrayList);
+
+                            courseNameList.clear();
+                            for (SpecificCourse specificCourse : assignCourse2.getSpecificCourseList()) {
+                                courseNameList.add(specificCourse.getCourseName());
+                            }
+
+                            //studentViewModel.updateStudent(student);
+                            studentDao.updateStudent(student);
+
+                            Tutor tutor = new Tutor(firstname, lastname, studyYear1, domain1, number, email1, student.getUsername(), student.getPassword(), 0, iban1);
+                            tutorViewModel.repository.insertTutor(tutor);
+
+                            ArrayList<SpecificCourse> specificCourseArrayList = assignCourse2.getSpecificCourseList();
+
+                            ArrayList<CourseToTeach> toTeachArrayList = assignCourse2.getCourseToTeachList();
+
+                            StudentWithCourse studentWithCourse = new StudentWithCourse(tutor, specificCourseArrayList);
+                            studentViewModel.insertStudentWithCourses(studentWithCourse);
+
+                            TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, toTeachArrayList);
+                            tutorViewModel.insertTutorWithCourses(tutorWithCourse);
+
+                            Intent intent = new Intent(ProfileTutorActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }).start();
                     }
                 }
-                if (courseToTeachArrayList.size() == 0) {
-                    Toast.makeText(getApplicationContext(), "You have to choose at least one course", Toast.LENGTH_SHORT).show();
-                } else {
-                    new Thread(() -> {
-                        studentViewModel = new StudentViewModel(this.getApplication());
-                        tutorViewModel = new TutorViewModel(this.getApplication());
-                        System.out.println("in thread");
-                        Student student = studentDao.getStudentByUsername(username);
-                        student.setStudyDomain(domain1);
-                        student.setStudyYear(studyYear1);
-                        student.setPhoneNumber(number);
-                        student.setEmail(email1);
-                        student.setLastName(lastname);
-                        student.setFirstName(firstname);
-                        System.out.println("specialization" + specialization1);
-                        ;
-                        System.out.println("domain" + domain1);
-                        System.out.println("year" + studyYear1);
-//                        assignCourse = new AssignCourse(studyYear1, domain1, specialization1);
-                        assignCourse2.setCourseToTeachList(courseToTeachArrayList);
 
-
-                        courseNameList.clear();
-                        for (SpecificCourse specificCourse : assignCourse2.getSpecificCourseList()) {
-                            courseNameList.add(specificCourse.getCourseName());
-                        }
-
-                        studentDao.updateStudent(student);
-                        Tutor tutor = new Tutor(firstname, lastname, studyYear1, domain1, number, email1, student.getUsername(), student.getPassword(), 0, iban1);
-                        TutorViewModel.repository.insertTutor(tutor);
-                        System.out.println("ASTEA AR TREBUI INVATATE");
-
-                        for(SpecificCourse c : assignCourse2.getSpecificCourseList()){
-                            System.out.println(c.getCourseName());
-                        }
-
-
-                        ArrayList<SpecificCourse> specificCourseArrayList = assignCourse2.getSpecificCourseList();
-
-                        ArrayList<CourseToTeach> toTeachArrayList = assignCourse2.getCourseToTeachList();
-
-
-                        StudentWithCourse studentWithCourse = new StudentWithCourse(tutor, specificCourseArrayList);
-                        studentViewModel.insertStudentWithCourses(studentWithCourse);
-
-
-                        System.out.println("ASTEA AR TREBUI PREDATE");
-
-                        for(CourseToTeach c : toTeachArrayList){
-                            System.out.println(c.getCourseName());
-                        }
-
-                        TutorWithCourse tutorWithCourse = new TutorWithCourse(tutor, toTeachArrayList);
-                        tutorViewModel.insertTutorWithCourses(tutorWithCourse);
-
-                        Intent intent = new Intent(ProfileTutorActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    }).start();
-                }
-            }
         });
     }
 }

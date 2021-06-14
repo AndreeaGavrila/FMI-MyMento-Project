@@ -9,43 +9,37 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mymentoapp.data.CourseToTeachDao;
-import com.example.mymentoapp.data.LoginDao;
 import com.example.mymentoapp.data.RatingStudentDao;
 import com.example.mymentoapp.data.NotificationDao;
-import com.example.mymentoapp.data.RegisterDao;
 import com.example.mymentoapp.data.SpecificCourseDao;
 import com.example.mymentoapp.data.StudentDao;
+import com.example.mymentoapp.data.StudentNotificationDao;
 import com.example.mymentoapp.data.TaughtCourseDao;
 import com.example.mymentoapp.data.TutorDao;
 import com.example.mymentoapp.model.CourseToTeach;
-import com.example.mymentoapp.model.Login;
 import com.example.mymentoapp.model.RatingStudent;
 import com.example.mymentoapp.model.Notification;
-import com.example.mymentoapp.model.Register;
 import com.example.mymentoapp.model.SpecificCourse;
 import com.example.mymentoapp.model.Student;
-import com.example.mymentoapp.model.StudentWithCourse;
+import com.example.mymentoapp.model.StudentNotification;
 import com.example.mymentoapp.model.TaughtCourse;
 import com.example.mymentoapp.model.Tutor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class,
-        Register.class, Login.class, TaughtCourse.class, RatingStudent.class, Notification.class
-
-}, version = 1, exportSchema = false)
+@Database(entities = {Student.class, Tutor.class, SpecificCourse.class, CourseToTeach.class, TaughtCourse.class, RatingStudent.class,
+        Notification.class, StudentNotification.class}, version = 1, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
 
     public abstract StudentDao studentDao();
     public abstract TutorDao tutorDao();
     public abstract SpecificCourseDao specificCourseDao();
     public abstract CourseToTeachDao courseToTeachDao();
-    public abstract RegisterDao registerDao();
-    public abstract LoginDao loginDao();
     public abstract TaughtCourseDao taughtCourseDao();
     public abstract RatingStudentDao ratingStudentDao();
     public abstract NotificationDao notificationDao();
+    public abstract StudentNotificationDao studentNotificationDao();
 
     public static final int NUMBER_OF_THREADS = 10;
 
@@ -65,7 +59,6 @@ public abstract class MyRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-
     private static final RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback(){
                 @Override
@@ -74,8 +67,6 @@ public abstract class MyRoomDatabase extends RoomDatabase {
                     databaseWriteExecutor.execute(() ->{
                         StudentDao studentDao = INSTANCE.studentDao();
                         studentDao.deleteAll();
-
-
 
                         TutorDao tutorDao = INSTANCE.tutorDao();
                         tutorDao.deleteAll();
@@ -86,12 +77,6 @@ public abstract class MyRoomDatabase extends RoomDatabase {
                         CourseToTeachDao courseToTeachDao = INSTANCE.courseToTeachDao();
                         courseToTeachDao.deleteAll();
 
-                        RegisterDao registerDao = INSTANCE.registerDao();
-                        registerDao.deleteAll();
-
-                        LoginDao loginDao = INSTANCE.loginDao();
-                        loginDao.deleteAll();
-
                         TaughtCourseDao taughtCourseDao = INSTANCE.taughtCourseDao();
                         taughtCourseDao.deleteAll();
 
@@ -101,7 +86,8 @@ public abstract class MyRoomDatabase extends RoomDatabase {
                         NotificationDao notificationDao = INSTANCE.notificationDao();
                         notificationDao.deleteAll();
 
-
+                        StudentNotificationDao studentNotificationDao = INSTANCE.studentNotificationDao();
+                        studentNotificationDao.deleteAll();
 
                     });
                 }

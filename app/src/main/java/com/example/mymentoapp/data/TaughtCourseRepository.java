@@ -18,7 +18,6 @@ public class TaughtCourseRepository {
         MyRoomDatabase db = MyRoomDatabase.getDatabase(application);
         taughtCourseDao = db.taughtCourseDao();
         allTaughtCourses =  taughtCourseDao.getAllTaughtCourses();
-
         studentDao = db.studentDao();
         allStudents = studentDao.getAllStudents();
     }
@@ -29,6 +28,16 @@ public class TaughtCourseRepository {
     public List<TaughtCourse> getAllTaughtCoursesForStudent(int idInput){
         return taughtCourseDao.getAllTaughtCoursesForStudent(idInput);
     }
+
+    public List<String> getStudentAndCourseByTutorId(Integer idTutore){
+        return taughtCourseDao.getStudentAndCourseByTutorId(idTutore);
+    }
+
+    public List<String> getStudentAndAttendance(Integer idTutore){
+        return  taughtCourseDao.getStudentAndAttendance(idTutore);
+    }
+
+
 
     public List<TaughtCourse> getAllTaughtCoursesForTutor(int idInput){
         return taughtCourseDao.getAllTaughtCoursesForTutor(idInput);
@@ -46,13 +55,5 @@ public class TaughtCourseRepository {
 
     public void deleteSpecificCourse(int id){
         MyRoomDatabase.databaseWriteExecutor.execute(()-> taughtCourseDao.deleteTaughtCourses(id));
-    }
-
-    public List<String> getStudentAndCourseByTutorId(Integer idTutore){
-        return taughtCourseDao.getStudentAndCourseByTutorId(idTutore);
-    }
-
-    public List<String> getStudentAndAttendance(Integer idTutore){
-        return  taughtCourseDao.getStudentAndAttendance(idTutore);
     }
 }

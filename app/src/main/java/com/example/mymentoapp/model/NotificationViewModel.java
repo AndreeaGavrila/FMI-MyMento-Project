@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.example.mymentoapp.data.CourseToTeachRepository;
 import com.example.mymentoapp.data.NotificationRepository;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class NotificationViewModel {
         super();
         repository = new NotificationRepository(application);
         allNotifications = repository.getAllNotifications();
-
     }
 
     public void deleteNotificationsForTutor(int id) {

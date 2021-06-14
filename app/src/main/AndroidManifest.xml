@@ -23,7 +23,7 @@
         android:theme="@style/Theme.MyMentoApp">
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".activity.SplashScreen"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,14 +32,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".activity.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +55,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,7 +63,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ViewProfileActivity">
+        <activity android:name=".activity.ViewProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,7 +71,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DownloadActivity">
+        <activity android:name=".activity.EditProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,7 +79,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EditProfileActivity">
+        <activity android:name=".activity.ChooseStatusActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -87,7 +87,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ChooseStatusActivity">
+        <activity android:name=".activity.ProfileStudentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -95,7 +95,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProfileStudentActivity">
+        <activity android:name=".activity.ProfileTutorActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.ViewNotificationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -103,14 +110,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProfileTutorActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ViewNotificationActivity">
+        <activity android:name=".activity.RecommendActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -118,7 +118,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RecommendActivity">
+        <activity android:name=".activity.BecomeTutorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -126,7 +126,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BecomeTutorActivity">
+        <activity android:name=".activity.ViewAvailableCoursesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -134,15 +134,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ViewAvailableCoursesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".TutorContactActivity">
+        <activity android:name=".activity.TutorContactActivity">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"
@@ -152,7 +144,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ManageStudentsActivity">
+        <activity android:name=".activity.ManageStudentsActivity">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"
@@ -162,7 +154,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".StudentListingActivity">
+        <activity android:name=".activity.StudentListingActivity">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"

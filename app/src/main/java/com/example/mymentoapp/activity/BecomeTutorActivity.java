@@ -1,4 +1,4 @@
-package com.example.mymentoapp;
+package com.example.mymentoapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mymentoapp.R;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.SpecificCourse;
@@ -33,6 +34,7 @@ public class BecomeTutorActivity extends AppCompatActivity {
     private ArrayList<SpecificCourse> specificCourseList =  new ArrayList<>();
     private final ArrayList<CourseToTeach> courseToTeachArrayList = new ArrayList<>();
     private Student student;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +60,7 @@ public class BecomeTutorActivity extends AppCompatActivity {
                     checkBox.setVisibility(View.VISIBLE);
                     linearLayoutCourseToTeach.addView(checkBox);
                 }
-
             });
-
-
         }).start();
 
         btnAddCourses.setOnClickListener(v -> {
@@ -69,7 +68,6 @@ public class BecomeTutorActivity extends AppCompatActivity {
             for (int i = 0; i < specificCourseList.size(); i++) {
                 CheckBox checkBox = (CheckBox) linearLayoutCourseToTeach.getChildAt(i);
                 if (checkBox.isChecked()) {
-                    System.out.println("is checked" + i);
                     CourseToTeach courseToTeach = new CourseToTeach(specificCourseList.get(i).getCourseName(), specificCourseList.get(i).getDescription());
                     courseToTeachArrayList.add(courseToTeach);
                 }
@@ -99,7 +97,6 @@ public class BecomeTutorActivity extends AppCompatActivity {
             intent.putExtra("studentName", studentName);
             startActivity(intent);
         });
-
     }
 
 }

@@ -7,11 +7,21 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "notifications")
-public class Notification {
+@Entity(tableName = "student_notifications")
+public class StudentNotification {
 
     @PrimaryKey(autoGenerate = true)
     private int idNotification;
+
+    @ForeignKey
+            (entity = Student.class,
+                    parentColumns = "username",
+                    childColumns = "usernameStudent",
+                    onDelete = CASCADE,
+                    onUpdate = CASCADE
+
+            )
+    private String usernameStudent;
 
     @ForeignKey
             (entity = Tutor.class,
@@ -25,16 +35,9 @@ public class Notification {
 
     @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "status")
+    private String status;
 
-    @ForeignKey
-            (entity = Student.class,
-                    parentColumns = "idStudent",
-                    childColumns = "id_FkStudent",
-                    onDelete = CASCADE,
-                    onUpdate = CASCADE
-
-            )
-    private long id_FkStudent;
 
     @ForeignKey
             (entity = CourseToTeach.class,
@@ -48,16 +51,10 @@ public class Notification {
     private long id_FkCourseToTeach;
 
 
-    public Notification() {
-        this.description = "You have a new notification from ";
+    public StudentNotification() {
+        this.description = "Your request from ";
     }
 
-    public Notification(long id_FkTutor, String description, long id_FkStudent, long id_FkCourseToTeach) {
-        this.id_FkTutor = id_FkTutor;
-        this.description = description;
-        this.id_FkStudent = id_FkStudent;
-        this.id_FkCourseToTeach = id_FkCourseToTeach;
-    }
 
     public int getIdNotification() {
         return idNotification;
@@ -83,12 +80,12 @@ public class Notification {
         this.description = description;
     }
 
-    public long getId_FkStudent() {
-        return id_FkStudent;
+    public String getUsernameStudent() {
+        return usernameStudent;
     }
 
-    public void setId_FkStudent(long id_FkStudent) {
-        this.id_FkStudent = id_FkStudent;
+    public void setUsernameStudent(String usernameStudent) {
+        this.usernameStudent = usernameStudent;
     }
 
     public long getId_FkCourseToTeach() {
@@ -98,4 +95,21 @@ public class Notification {
     public void setId_FkCourseToTeach(long id_FkCourseToTeach) {
         this.id_FkCourseToTeach = id_FkCourseToTeach;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+//    @Override
+//    public int compare(StudentNotification a, StudentNotification b) {
+//        return a.getStatus().equals("New") && b.getStatus().equals("Old") ? -1
+//                : a.getStatus().equals("Old") && b.getStatus().equals("New") ? 1
+//                :0;
+//    }
+
+
 }

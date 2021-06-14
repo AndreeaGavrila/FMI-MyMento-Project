@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#C4C9D0">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -220,9 +219,7 @@
                 android:id="@+id/btn_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
-                app:backgroundTint="#2850a1"
-                />
+                android:text="Submit" />
 
         </LinearLayout>
     </ScrollView>

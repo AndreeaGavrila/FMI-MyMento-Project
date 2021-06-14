@@ -4,7 +4,6 @@ package com.example.mymentoapp.model;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -12,8 +11,6 @@ import static androidx.room.ForeignKey.CASCADE;
         unique = true)})
 public class TaughtCourse extends CourseToTeach {
 
-    @PrimaryKey(autoGenerate = true)
-    private int idTaughtCourse;
 
     @ForeignKey
             (entity = Student.class,
@@ -21,16 +18,10 @@ public class TaughtCourse extends CourseToTeach {
                     childColumns = "id_FkStudent",
                     onDelete = CASCADE,
                     onUpdate = CASCADE
+
             )
     private long id_FkStudent;
 
-    public int getIdTaughtCourse() {
-        return idTaughtCourse;
-    }
-
-    public void setIdTaughtCourse(int idTaughtCourse) {
-        this.idTaughtCourse = idTaughtCourse;
-    }
 
     public TaughtCourse(String courseName, String description) {
         super(courseName, description);

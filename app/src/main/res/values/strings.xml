@@ -38,6 +38,5 @@
 
     <string name="activity">Activity</string>
     <string name="courses_i_teach">Courses I teach</string>
-    <string name="become_a_tutor">BECOME A TUTOR!</string>
-
+    <string name="available_course">Available courses</string>
 </resources>

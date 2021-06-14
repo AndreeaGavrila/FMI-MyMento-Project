@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#C4C9D0"
     android:elevation="4dp"
     tools:targetApi="lollipop">
-
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
@@ -18,5 +13,4 @@
         android:text="@string/log_out"
         app:backgroundTint="#2850a1"
         android:layout_marginRight="5dp" />
-
 </androidx.appcompat.widget.Toolbar>

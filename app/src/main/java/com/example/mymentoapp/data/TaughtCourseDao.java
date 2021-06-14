@@ -10,6 +10,7 @@ import androidx.room.Update;
 import com.example.mymentoapp.model.TaughtCourse;
 
 import java.util.List;
+
 @Dao
 public interface TaughtCourseDao {
     @Transaction
@@ -30,6 +31,7 @@ public interface TaughtCourseDao {
 
     @Query("DELETE FROM taught_course WHERE id_FkStudent = :id")
     void deleteTaughtCourses(int id);
+
 
     @Query("SELECT lastName || ' ' || firstName || ',' || c.courseName from " +
             "student_table s join taught_course t on s.idStudent=t.id_FkStudent " +

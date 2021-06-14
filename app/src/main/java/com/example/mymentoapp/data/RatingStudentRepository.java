@@ -21,8 +21,6 @@ public class RatingStudentRepository {
     }
 
     public void insertStudentForTutor(RatingStudent ratingStudent){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            ratingStudentDao.insertStudentForTutor(ratingStudent);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> ratingStudentDao.insertStudentForTutor(ratingStudent));
     }
 }

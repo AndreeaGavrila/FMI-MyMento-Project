@@ -1,10 +1,12 @@
-package com.example.mymentoapp;
+package com.example.mymentoapp.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mymentoapp.R;
 import com.example.mymentoapp.model.CourseToTeach;
 import com.example.mymentoapp.model.CourseToTeachViewModel;
 import com.example.mymentoapp.model.Notification;
@@ -36,7 +39,6 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     private List<CourseToTeach> courseToTeachList2;
     private List<TaughtCourse> taughtCoursesList;
     private List<Notification> notificationList;
-    private final List<CourseToTeach> unavailableCourseList = new ArrayList<>();
     private final ArrayList<Map<Integer, String>> tutorAndCourses = new ArrayList<>();
 
     private CourseToTeachViewModel courseToTeachViewModel;
@@ -49,9 +51,11 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     private TutorWithNotifications tutorWithNotifications;
     private Tutor tutor;
 
-    private LinearLayout layout, linearLayout;
-    private Button btn, backHome;
+    LinearLayout layout, linearLayout;
+    Button btn, backHome;
     Toolbar toolbar;
+    TextView textViewCourses;
+
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -59,12 +63,13 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_available_courses);
+
         toolbar = findViewById(R.id.toolbar_home);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
         layout = findViewById(R.id.layout_available_courses);
         backHome = findViewById(R.id.back_home);
+        textViewCourses = findViewById(R.id.available_courses);
 
         Bundle bundle = getIntent().getExtras();
         String courseName = bundle.getString("courseName");
@@ -77,11 +82,11 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             taughtCourseViewModel = new TaughtCourseViewModel(this.getApplication());
             notificationViewModel = new NotificationViewModel(this.getApplication());
 
-
             student = studentViewModel.getStudentByUsername(studentName);
             courseToTeachList = courseToTeachViewModel.getAllCoursesWithout(student.getIdStudent());
             taughtCoursesList = taughtCourseViewModel.getAllTaughtCourses();
             notificationList = notificationViewModel.getAllNotificationsSentByStudent(student.getIdStudent());
+            int length = taughtCoursesList.size();
 
             courseToTeachList2 = new ArrayList<>();
 
@@ -118,62 +123,96 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             }
 
             if(courseToTeachList2.size() > 0) {
-                new Thread(() -> tutorAndCourses.forEach(item ->
-                        item.forEach((k, v) -> this.runOnUiThread(() -> {
+                new Thread(() -> {
 
-                            TextView textView = new TextView(this.getApplicationContext());
+                    tutorAndCourses.forEach(item ->
+                            item.forEach((k, v) -> {
+                                this.runOnUiThread(() -> {
+                                    textViewCourses.setVisibility(View.VISIBLE);
 
-                            textView.setText(v);
-                            textView.setBackgroundColor(Color.rgb(214, 215, 215));
-                            linearLayout = new LinearLayout(this.getApplicationContext());
-                            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                            linearLayout.setBackgroundColor(Color.rgb(25, 55, 106));
-                            linearLayout.setPadding(10, 10, 10, 10);
-                            linearLayout.removeAllViews();
-                            linearLayout.addView(textView);
+                                    TextView textView = new TextView(this.getApplicationContext());
+                                    textView.setText(v);
 
-                            new Thread(() -> tutor = tutorViewModel.getTutorById(k)).start();
+                                    textView.setPadding(10, 10, 5, 5);
+                                    textView.setTextColor(Color.rgb(255, 255, 255));
+                                    textView.setGravity(Gravity.CENTER);
+                                    textView.setTextSize(18);;
 
-                            btn = new Button(this.getApplicationContext());
-                            btn.setText("SEND REQUEST");
+                                    TextView textView1 =  new TextView(this.getApplicationContext());
+                                    textView1.setBackgroundColor(Color.rgb(196, 201, 208));
+                                    TextView textView3 = new TextView(this.getApplicationContext());
+                                    textView3.setBackgroundColor(Color.rgb(1,24,71));
 
-                            btn.setOnClickListener(t -> {
-                                Toast.makeText(getApplicationContext(), "REQUEST SENT", Toast.LENGTH_SHORT).show();
+                                    linearLayout = new LinearLayout(this.getApplicationContext());
+                                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                                    linearLayout.setBackgroundColor(Color.rgb(25, 55, 106));
 
-                                Notification notification = new Notification();
-                                notification.setId_FkStudent(student.getIdStudent());
-                                for(CourseToTeach c : courseToTeachList2){
-                                    if(c.getId_FkTutor() == tutor.getIdStudent()){
-                                        notification.setId_FkCourseToTeach(c.getIdCourseToTeach());
-                                    }
-                                }
+                                    btn = new Button(this.getApplicationContext());
 
-                                List<Notification> notificationList = new ArrayList<>();
-                                notificationList.add(notification);
+                                    btn.setText("SEND REQUEST");
+                                    btn.setTextColor(Color.rgb(0,0,0));
+                                    btn.setTextSize(18);
 
-                                if (tutor != null) {
-                                    System.out.println("in if tutor" + tutor.getFirstName());
-                                    this.runOnUiThread(() -> {
-                                        tutorWithNotifications = new TutorWithNotifications(tutor, notificationList);
-                                        tutorViewModel.insertTutorWithNotifications(tutorWithNotifications);
-                                    });
-                                }
-                                btn.setBackgroundColor(Color.DKGRAY);
-                                btn.setClickable(false);
-                                finish();
-                                startActivity(getIntent());
+                                    new Thread(() -> {
+                                        tutor = tutorViewModel.getTutorById(k);
+                                    }).start();
 
-                            });
+                                    btn.setOnClickListener(t -> {
+                                            Toast.makeText(getApplicationContext(), "REQUEST SENT", Toast.LENGTH_SHORT).show();
 
-                            linearLayout.addView(btn);
-                            layout.addView(linearLayout);
+                                            Notification notification = new Notification();
+                                            notification.setId_FkStudent(student.getIdStudent());
+                                            for(CourseToTeach c : courseToTeachList2){
+                                                if(c.getId_FkTutor() == tutor.getIdStudent()){
+                                                    notification.setId_FkCourseToTeach(c.getIdCourseToTeach());
+                                                }
+                                            }
 
-                        })))).start();
+                                            List<Notification> notificationList = new ArrayList<>();
+                                            notificationList.add(notification);
+
+                                            if (tutor != null) {
+                                                this.runOnUiThread(() -> {
+                                                    tutorWithNotifications = new TutorWithNotifications(tutor, notificationList);
+                                                    tutorViewModel.insertTutorWithNotifications(tutorWithNotifications);
+                                                });
+                                            }
+                                            btn.setBackgroundColor(Color.DKGRAY);
+                                            btn.setClickable(false);
+                                        finish();
+                                        startActivity(getIntent());
+
+                                        });
+
+                                    linearLayout.addView(textView3);
+                                    linearLayout.addView(textView);
+                                    linearLayout.addView(btn);
+                                    linearLayout.addView(textView1);
+                                    layout.addView(linearLayout);
+
+                                });
+                            }));
+                }).start();
+
             }
             else {
-                System.out.println("No courses!");
+                this.runOnUiThread(() ->{
+                    TextView txt = findViewById(R.id.available_courses);
+                    txt.setVisibility(View.INVISIBLE);
+                    TextView textView = new TextView(this.getApplicationContext());
+                    textView.setPadding(10, 10, 5, 5);
+                    textView.setTextColor(Color.rgb(0, 0, 0));
+                    textView.setGravity(Gravity.CENTER);
+                    textView.setTextSize(18);;
+                    textView.setBackgroundColor(Color.rgb(196, 201, 208));
+                    textView.setText("There are no courses here yet :(");
+
+                    layout.addView(textView);
+                });
+
 
             }
+
         }).start();
 
         backHome.setOnClickListener(v -> {
@@ -181,5 +220,6 @@ public class ViewAvailableCoursesActivity extends AppCompatActivity {
             intent.putExtra("studentName", studentName);
             startActivity(intent);
         });
+
     }
 }

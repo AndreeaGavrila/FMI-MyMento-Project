@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#C4C9D0">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/tutor_button"
@@ -12,7 +11,6 @@
         android:layout_height="63dp"
         android:onClick="@string/tutor_profile"
         android:text="@string/tutor"
-        app:backgroundTint="#2850a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -26,7 +24,6 @@
         android:layout_height="62dp"
         android:onClick="@string/student_profile"
         android:text="@string/student"
-        app:backgroundTint="#2850a1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

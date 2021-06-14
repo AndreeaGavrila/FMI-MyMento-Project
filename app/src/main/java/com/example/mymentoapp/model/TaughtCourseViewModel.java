@@ -23,11 +23,6 @@ public class TaughtCourseViewModel extends AndroidViewModel {
     public  List<TaughtCourse> getAllTaughtCourses(){
         return allTaughtCourses;
     }
-
-    public  List<TaughtCourse> getAllTaughtCoursesForTutor(int idInput){
-        return repository.getAllTaughtCoursesForTutor(idInput);
-    }
-
     public static void insert(TaughtCourse taughtCourse){
         repository.insert(taughtCourse);
     }
@@ -35,6 +30,9 @@ public class TaughtCourseViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
+    public List<TaughtCourse> getAllTaughtCoursesForTutor(int idStudent) {
+        return repository.getAllTaughtCoursesForTutor(idStudent);
+    }
     public List<String> getStudentAndCourseByTutorId(Integer idTutore){
         return  repository.getStudentAndCourseByTutorId(idTutore);
     }

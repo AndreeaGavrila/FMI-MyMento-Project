@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileActivity"
-    android:background="#C4C9D0">
+    tools:context=".activity.EditProfileActivity">
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -174,7 +173,7 @@
                 android:id="@+id/became_tutor_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/become_a_tutor"
+                android:text="BECOME A TUTOR"
                 android:visibility="visible"
                 app:backgroundTint="#2850a1" />
 

@@ -4,10 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.example.mymentoapp.data.StudentRepository;
-
+import com.example.mymentoapp.util.MyRoomDatabase;
 
 import java.util.List;
 
@@ -26,6 +25,10 @@ public class StudentViewModel extends AndroidViewModel {
     public void insertStudentWithCourses(StudentWithCourse studentWithCourse){
         repository.insertStudentWithCourses(studentWithCourse);
     }
+    public void insertStudentWithNotifications(StudentWithNotifications studentWithNotifications){
+        repository.insertStudentWithNotifications(studentWithNotifications);
+    }
+
     public void insertStudentWithTaughtCourses(StudentWithTaughtCourses studentWithTaughtCourses){
         System.out.println("aici a ajuns");
         System.out.println(studentWithTaughtCourses.getStudent());
@@ -44,26 +47,18 @@ public class StudentViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public void updateStudent(Student student){repository.updateStudent(student);};
+    public void updateStudent(Student student){repository.updateStudent(student);}
 
     public Student getStudent(int id){return  repository.getStudent(id);}
     public Student getStudentByUsername(String name){
         return repository.getStudentByUsername(name);
     }
-    //public static void deleteSpecificCourse(int idFkInput){repository.deleteSpecificCourse(idFkInput);}
 
-//    public static void updateStudentWithCourse(StudentWithCourse studentWithCourse){
-//        repository.updateStudentWithCourse(studentWithCourse);
-//    }
-//    public Student getStudent(int studentIdInput){
-//        return repository.getStudent(studentIdInput);
-//    }
+    public void registerStudent(Student student){
+       repository.registerStudent(student);
+    }
 
     public Student getStudentByUsernameAndPassword(String usernameInput, String passwordInput){
         return repository.getStudentByUsernameAndPassword(usernameInput, passwordInput);
-    }
-
-    public void registerStudent (Student student){
-        repository.registerStudent(student);
     }
 }

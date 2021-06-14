@@ -23,19 +23,15 @@ public class NotificationRepository {
     }
 
     public void insert(Notification notification){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            notificationDao.insertNotification(notification);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> notificationDao.insertNotification(notification));
     }
+
 
     public void deleteAll(){
         MyRoomDatabase.databaseWriteExecutor.execute(notificationDao::deleteAll);
     }
-
     public void deleteNotification(int id){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            notificationDao.deleteNotification(id);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> notificationDao.deleteNotification(id));
     }
 
     public List<Notification> getAllNotificationsForTutor(int id){
@@ -46,9 +42,7 @@ public class NotificationRepository {
         return notificationDao.getAllNotificationsSentByStudent(id);
     }
     public void deleteNotificationForTutor(int id){
-        MyRoomDatabase.databaseWriteExecutor.execute(()->{
-            notificationDao.deleteNotificationForTutor(id);
-        });
+        MyRoomDatabase.databaseWriteExecutor.execute(()-> notificationDao.deleteNotificationForTutor(id));
     }
 
 }

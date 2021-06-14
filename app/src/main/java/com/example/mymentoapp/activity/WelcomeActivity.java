@@ -1,19 +1,17 @@
-package com.example.mymentoapp;
+package com.example.mymentoapp.activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mymentoapp.RecommendActivity;
-import com.example.mymentoapp.ViewProfileActivity;
-import com.example.mymentoapp.model.Login;
-import com.example.mymentoapp.data.TutorDao;
-import com.example.mymentoapp.model.Student;
+import com.example.mymentoapp.R;
 import com.example.mymentoapp.model.Tutor;
-import com.example.mymentoapp.util.MyRoomDatabase;
+import com.example.mymentoapp.model.TutorViewModel;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -21,9 +19,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button manageButton;
 
-    MyRoomDatabase roomDatabase;
-    Tutor tutor;
-    TutorDao tutorDao;
+    private TutorViewModel tutorViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +30,13 @@ public class WelcomeActivity extends AppCompatActivity {
         viewProfile = findViewById(R.id.btn_viewProfile);
         showRecommend = findViewById(R.id.btn_recommend);
         notification = findViewById(R.id.notification_btn);
-
         manageButton = findViewById(R.id.btn_manage_students);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        roomDatabase = MyRoomDatabase.getDatabase(getApplicationContext());
-
         Bundle bundle = getIntent().getExtras();
         String studentName = bundle.getString("studentName");
-
-        tutorDao = roomDatabase.tutorDao();
 
         manageButton.setVisibility(View.INVISIBLE);
 
@@ -81,17 +72,19 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         new Thread(() -> {
-            tutor = tutorDao.getTutorByUserName(studentName);
+            tutorViewModel = new TutorViewModel(this.getApplication());
+            Tutor tutor = tutorViewModel.getTutorByUsername(studentName);
             if(tutor!=null){
-                manageButton.setVisibility(View.VISIBLE);
-                manageButton.setOnClickListener(v->{
-                    Intent intent = new Intent(WelcomeActivity.this, ManageStudentsActivity.class);
-                    intent.putExtra("studentName", studentName);
-                    startActivity(intent);
+                this.runOnUiThread(() ->{
+                    manageButton.setVisibility(View.VISIBLE);
+                    manageButton.setOnClickListener(v->{
+                        Intent intent = new Intent(WelcomeActivity.this, ManageStudentsActivity.class);
+                        intent.putExtra("studentName", studentName);
+                        startActivity(intent);
+                    });
                 });
             }
         }).start();
-
     }
 }
 
